@@ -1,0 +1,4 @@
+1;m;m;m;m;Musko;m;m;m;Musterija;m
+2;m1;m;m;m;Musko;m;m;m;Musterija;m
+3;a;a;a;a;Musko;a;a;a;Musterija;a
+4;a1;a;a;a;Musko;a;a;a;Musterija;a

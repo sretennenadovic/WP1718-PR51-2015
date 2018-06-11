@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#RegistrujSe").click(function (data) {
+                let Korisnik = {
+                    KorisnickoIme: `${$('#KorisnickoIme').val()}`,
+                    Lozinka: `${$('#Lozinka').val()}`,
+                    Ime: `${$('#Lozinka').val()}`,
+                    Prezime: `${$('#Prezime').val()}`,
+                    Pol: `${$('#Pol').val()}`,
+                    JMBG: `${$('#JMBG').val()}`,
+                    KontaktTelefon: `${$('#KontaktTelefon').val()}`,
+                    Email: `${$('#Email').val()}`,
+                    Uloga: 'Musterija',
+                    Voznje: `${$('#Voznje').val()}`
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Registration',
+                    data: JSON.stringify(Korisnik),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            $('#divic').text("Korisnicko ime vec postoji!");
+                        } else {
+                            $('#divic').text("");
+                        }
+                    }
+                    })
+            })
+
+            $('#LogujSe').click(function () {
+                let Korisnik = {
+                    KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}`,
+                    Lozinka: `${$('#LozinkaLogIn').val()}`
+                }
+            })
+        });
+
+    </script>
+</head>
+<body>
+   <table>
+        <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoImeLogIn" id="KorisnickoImeLogIn"/></td></tr>
+        <tr><th>Lozinka:</th><td><input type="password" name="LozinkaLogIn" id="LozinkaLogIn"/></td></tr>
+        <tr><td colspan="2" align="center"><input type="button" name="LogujSe" id="LogujSe" value="Loguj se" /></td></tr>
+   </table>
+   <table>
+       <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" /></td></tr>
+       <tr><th>Lozinka</th><td><input type="password" name="Lozinka" id="Lozinka" /></td></tr>
+       <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" /></td></tr>
+       <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" /></td></tr>
+       <tr><th>Pol:</th><td><label>Muski:</label><input type="radio" name="Pol" value="Muski" id="Pol" /><label>Zenski:</label><input type="radio" value="Zenski" name="Pol" id="Pol" /></td></tr>
+       <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" /></td></tr>
+       <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" /></td></tr>
+       <tr><th>Email:</th><td><input type="email" name="Email" id="Email" /></td></tr>
+       <tr><th>Voznje:</th><td><input type="text" name="Voznje" id="Voznje" /></td></tr>
+       <tr><td colspan="2" align="center"><input type="button" value="Registruj se" id="RegistrujSe" /></td></tr>
+   </table>
+    <div id="divic"></div>
+</body>
+</html>
