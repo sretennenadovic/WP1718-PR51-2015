@@ -17,8 +17,20 @@ namespace WebAPI.Controllers
         {
             bool nasao = false;
             Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
+            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
 
-           foreach (Korisnik item in korisnici.list)
+            //provera postojanja usernamea u korisnicima
+            foreach (Korisnik item in korisnici.list.Values)
+            {
+                    if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                    {
+                        nasao = true;
+                        break;
+                    }
+            }
+
+            //provera postojanja usernamea u dispecerima
+            foreach (Dispecer item in dispeceri.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -29,7 +41,7 @@ namespace WebAPI.Controllers
 
             if (!nasao)
             {
-                korisnici.list.Add(korisnik);
+                korisnici.list.Add(korisnik.Id,korisnik);
                 string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Korisnici.txt";
                 StringBuilder sb = new StringBuilder();
                 korisnik.Id = korisnici.list.Count;

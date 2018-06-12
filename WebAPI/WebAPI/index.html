@@ -2,10 +2,101 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .nova{
+            background-color: #ffd700;
+        }
+
+        img {
+            transform: rotate(-20deg);
+            height:500px;
+            width:auto;
+        }
+
+        .carousel-inner img {
+            width: 100%; /* Set width to 100% */
+            min-height: 200px;
+        }
+
+        #wrapper {
+            overflow: auto;
+        }
+
+        .c1 {
+            position:absolute;
+            top:120px;
+            right:80px;
+        }
+
+        #d1 {
+            position: absolute;
+            right: 45%;
+            top: 6px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #soloPic{
+            position:absolute;
+            right:57%;
+            top:10%;
+            opacity:0.7;
+        }
+
+        .pic1{
+            position:absolute;
+            right:40%;
+            top:15%;
+        }
+        .pic2 {
+            position: absolute;
+            right: 40%;
+            bottom: 10%;
+        }
+        .pic3 {
+            position: absolute;
+            left: 3%;
+            top: 15%;
+        }
+        .pic4 {
+            position: absolute;
+            left: 3%;
+            bottom: 10%;
+        }
+
+        body{
+            font-size:20px;
+        }
+
+        nav{
+            font-size:20px;
+        }
+
+
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+    </style>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#div1').hide();
+
             $("#RegistrujSe").click(function (data) {
                 let Korisnik = {
                     KorisnickoIme: `${$('#KorisnickoIme').val()}`,
@@ -28,42 +119,95 @@
                     dataType: 'json',
                     success: function (data) {
                         if (!data) {
-                            $('#divic').text("Korisnicko ime vec postoji!");
+                            alert("Korisnicko ime vec postoji!");
                         } else {
-                            $('#divic').text("");
+                            alert("Uspesno ste se registrovali!")
                         }
                     }
-                    })
+                })
+            })
+
+            $('#act1').click(function () {
+                $('#div2').hide();
+                $('#div1').show();
+            })
+
+            $('#act2').click(function () {
+                $('#div1').hide();
+                $('#div2').show();
             })
 
             $('#LogujSe').click(function () {
-                let Korisnik = {
+                let KorisnikLog = {
                     KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}`,
                     Lozinka: `${$('#LozinkaLogIn').val()}`
                 }
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/LogIn',
+                    data: JSON.stringify(KorisnikLog),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            alert("Korisnicko ime ili lozinka je nevalidna!");
+                        } else {
+                            //redirektuj na glavnu
+                            localStorage.setItem("Ulogovan", KorisnikLog.KorisnickoIme);
+                            $(location).attr('href', 'main.html');
+                        }
+                    }
+                })
             })
         });
 
     </script>
 </head>
 <body>
-   <table>
-        <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoImeLogIn" id="KorisnickoImeLogIn"/></td></tr>
-        <tr><th>Lozinka:</th><td><input type="password" name="LozinkaLogIn" id="LozinkaLogIn"/></td></tr>
-        <tr><td colspan="2" align="center"><input type="button" name="LogujSe" id="LogujSe" value="Loguj se" /></td></tr>
-   </table>
-   <table>
-       <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" /></td></tr>
-       <tr><th>Lozinka</th><td><input type="password" name="Lozinka" id="Lozinka" /></td></tr>
-       <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" /></td></tr>
-       <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" /></td></tr>
-       <tr><th>Pol:</th><td><label>Muski:</label><input type="radio" name="Pol" value="Muski" id="Pol" /><label>Zenski:</label><input type="radio" value="Zenski" name="Pol" id="Pol" /></td></tr>
-       <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" /></td></tr>
-       <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" /></td></tr>
-       <tr><th>Email:</th><td><input type="email" name="Email" id="Email" /></td></tr>
-       <tr><th>Voznje:</th><td><input type="text" name="Voznje" id="Voznje" /></td></tr>
-       <tr><td colspan="2" align="center"><input type="button" value="Registruj se" id="RegistrujSe" /></td></tr>
-   </table>
-    <div id="divic"></div>
+    
+    <nav class="nova">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <div id="d1">
+                        Gold TAXI
+                    </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#" id="act1"><span class="glyphicon glyphicon-log-in"></span> Loguj se</a></li>
+                            <li><a href="#" id="act2"><span class="glyphicon glyphicon-log-in"></span> Registruj se</a></li>
+                        </ul>
+                </div>
+            </div>
+    </nav>
+    <div id="wraper">
+        <div>
+            <img src="35240528_10210948662984084_1324220601556008960_n.png" id="soloPic"/>
+        </div>
+        <div class="c1">
+            <div id="div1">
+                <table>
+                    <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoImeLogIn" id="KorisnickoImeLogIn" style="margin:5px"/></td></tr>
+                    <tr><th>Lozinka:</th><td><input type="password" name="LozinkaLogIn" id="LozinkaLogIn" style="margin:5px"/></td></tr>
+                    <tr><td colspan="2"><hr style="border:solid" /></td></tr>
+                    <tr><td colspan="2" align="right"><b><input type="button" name="LogujSe" id="LogujSe" value="Loguj se" /></b></td></tr>
+                </table>
+            </div>
+            <div id="div2">
+                <table>
+                    <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px"/></td></tr>
+                    <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px"/></td></tr>
+                    <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px"/></td></tr>
+                    <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px"/></td></tr>
+                    <tr><th>Pol:</th><td><label>Muski:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1"/><label>&nbsp&nbspZenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>
+                    <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px"/></td></tr>
+                    <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px"/></td></tr>
+                    <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px"/></td></tr>
+                    <tr><td colspan="2"><hr style="border:solid"/></td></tr>
+                    <tr><td colspan="2" align="right"><b><input type="button" value="Registruj se" id="RegistrujSe" /></b></td></tr>
+                </table>
+            </div>
+        </div>
+        </div>
 </body>
 </html>

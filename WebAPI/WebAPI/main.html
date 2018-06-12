@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top:55px;
+        }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: cornflowerblue;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .nova {
+            background-color: #ffd700;
+            height:55px;
+        }
+
+        img {
+            transform: rotate(-20deg);
+            height: 500px;
+            width: auto;
+        }
+
+        .carousel-inner img {
+            width: 100%; /* Set width to 100% */
+            min-height: 200px;
+        }
+
+        #wrapper {
+            overflow: auto;
+        }
+
+        .c1 {
+            position: absolute;
+            top: 120px;
+            right: 80px;
+        }
+
+        #d1 {
+            position: absolute;
+            right: 45%;
+            top: 6px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #soloPic {
+            position: absolute;
+            right: 35%;
+            top: 15%;
+            opacity: 0.7;
+        }
+
+        #zaprofil{
+            position:absolute;
+            top:80px;
+            left:80px;
+        }
+
+        #zaizmenu {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+        }
+
+        body {
+            font-size: 20px;
+        }
+
+        nav {
+            font-size: 20px;
+        }
+
+
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+    </style>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let korisnik;
+            let korisnickoIme = localStorage.getItem("Ulogovan");
+
+            $('#zaprofil').hide();
+            $('#zaizmenu').hide();
+            
+            $('#p1').text('Ulogovan je : ' + korisnickoIme);
+
+            let Korisnik = {
+                KorisnickoIme: `${korisnickoIme}`
+            };
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/User',
+                data: JSON.stringify(Korisnik),
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    korisnik = data;
+                    //prikaz za odredjenog 
+                    if (korisnik.Uloga == 0) {
+                        $('#dispecer').hide();
+                        $('#korisnik').show();
+                    } else if (korisnik.Uloga == 1) {
+                        $('#korisnik').hide();
+                        $('#dispecer').show();
+                    }
+                }
+            })
+
+            
+            
+
+            $('#profil').click(function () {
+                $('#zaizmenu').hide();
+                $('#1').text(korisnik.KorisnickoIme);
+                $('#2').text(korisnik.Lozinka);
+                $('#3').text(korisnik.Ime);
+                $('#4').text(korisnik.Prezime);
+                $('#5').text(korisnik.JMBG);
+                if (korisnik.Pol == 0) {
+                    $('#6').text("Muski");
+                } else {
+                    $('#6').text("Zenski");
+                }
+                $('#7').text(korisnik.KontaktTelefon);
+                $('#8').text(korisnik.Email);
+                $('#zaprofil').toggle(500);
+            })
+
+            $('#izmeni').click(function () {
+                $('#zaprofil').hide();
+                $('#zaizmenu').toggle(500);
+            })
+        })
+    </script>
+</head>
+<body>
+    <div id="korisnik">
+       <nav class="nova">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <div id="d1">
+                    Gold TAXI
+                </div>
+                <div class="dropdown">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button style="background-color:#ffd700;border:none;height:55px;width:auto"><i class="material-icons" style="font-size:xx-large;margin-top:8px">person</i> </button>
+                    </li>
+                </ul>
+                <div class="dropdown-content">
+                    <a href="#" id="profil">Profil</a>
+                    <a href="#" id="izmeni">Izmeni</a>
+                    <a href="#" id="odjavi">Odjavi se</a>
+                </div>
+                    </div>
+            </div>
+        </div>
+    </nav>
+    
+            <img src="35240528_10210948662984084_1324220601556008960_n.png" id="soloPic"/>
+            <div id="zaprofil">
+                <h2>Korisnicki profil</h2>
+                <hr />
+                <table>
+                    <tr><th>Korisnicko ime:</th><td id="1"></td></tr>
+                    <tr><th>Lozinka:</th><td id="2"></td></tr>
+                    <tr><th>Ime:</th><td id="3"></td></tr>
+                    <tr><th>Prezime:</th><td id="4"></td></tr>
+                    <tr><th>JMBG:</th><td id="5"></td></tr>
+                    <tr><th>Pol:</th><td id="6"></td></tr>
+                    <tr><th>Kontakt Telefon:</th><td id="7"></td></tr>
+                    <tr><th>Email:</th><td id="8"></td></tr>
+                </table>
+            </div>
+            <div id="zaizmenu">
+                <table>
+                    <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px"/></td></tr>
+                    <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px"/></td></tr>
+                    <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px"/></td></tr>
+                    <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px"/></td></tr>
+                    <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px"/></td></tr>
+                    <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px"/></td></tr>
+                    <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px"/></td></tr>
+                    <tr><td colspan="2"><hr /></td></tr>
+                    <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="Izmeni" /></b></td></tr>
+                </table>
+            </div>
+    </div>
+    <div id="dispecer">
+        <nav class="nova">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <div id="d1">
+                        Gold TAXI
+                    </div>
+                    <div class="dropdown">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <button style="background-color:#ffd700;border:none;height:55px;width:auto"><i class="material-icons" style="font-size:xx-large;margin-top:8px">person</i> </button>
+                            </li>
+                        </ul>
+                        <div class="dropdown-content">
+                            <a href="#" id="profil">Profil</a>
+                            <a href="#" id="izmeni">Izmeni</a>
+                            <a href="#" id="odjavi">Odjavi se</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
