@@ -21,11 +21,11 @@ namespace WebAPI.Models
             this.Prezime = Prezime;
             if (Pol.Equals("Muski"))
             {
-                this.Pol = Enumi.Pol.Musko;
+                this.Pol = Enumi.Pol.Muski;
             }
             else
             {
-                this.Pol = Enumi.Pol.Zensko;
+                this.Pol = Enumi.Pol.Zenski;
             }
             this.JMBG = JMBG;
             this.KontaktTelefon = KontaktTelefon;

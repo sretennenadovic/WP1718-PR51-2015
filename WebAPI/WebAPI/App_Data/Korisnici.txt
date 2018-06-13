@@ -1,8 +1,9 @@
-1;m;m;m;m;Musko;m;m;m;Musterija;m
-2;m1;m;m;m;Musko;m;m;m;Musterija;m
-3;a;a;a;a;Musko;a;a;a;Musterija;a
-4;a1;a;a;a;Musko;a;a;a;Musterija;a
-5;m3;m;m;m;Musko;m;m;m;Musterija;m
-6;asd;dd;dd;d;Musko;d;d;d;Musterija;undefined
-7;aca;aca;aca;aca;Musko;111111111;2222;dasda@aaa;Musterija;undefined
-8;ssss;ssss;ssss;sss;Musko;sssss;ss;sss;Musterija;undefined
+1;ljubo;ljubo;ljubo;ljubo;Muski;1231231231231;123123;ljubo@gmail.com;Musterija;nema
+2;sreten;sreten;sreten;nenadovic;Muski;2805996773642;0009998;sreten@gmail.com;Musterija;nema
+3;neko;neko;neko;neko;Muski;234122222;22222;asdasd@fdasd;Musterija;nema
+4;neko2;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined
+5;neko3;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined
+6;neko4;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined
+7;neko5;neko;neko;neko;Muski;neko;neko;neko@gmail.com;Musterija;nema
+8;zena;zena;zena;zena;Zenski;zena;zena;zena@;Musterija;nema
+9;zz;z;z;z;Zenski;z;z;zggg;Musterija;nema

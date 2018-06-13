@@ -12,6 +12,6 @@ namespace WebAPI.Models
 
         }
         public Lokacija Lokacija { get; set; }
-        public string Automobil { get; set; }
+        public Automobil Automobil { get; set; }
     }
 }

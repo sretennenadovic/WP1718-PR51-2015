@@ -15,6 +15,6 @@ namespace WebAPI.Models
         public string GodisteAutomobila { get; set; }
         public string BrojRegistarskeOznake { get; set; }
         public string BrojTaksiVozila { get; set; }
-        public Automobil TipAutomobila { get; set; }
+        public Enumi.Automobil TipAutomobila { get; set; }
     }
 }

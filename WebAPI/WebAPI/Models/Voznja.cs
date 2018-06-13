@@ -14,7 +14,7 @@ namespace WebAPI.Models
         }
         public DateTime DatumVreme { get; set; }
         public Lokacija Lokacija { get; set; }
-        public Automobil Automobil { get; set; }
+        public Enumi.Automobil Automobil { get; set; }
         public Korisnik Musterija { get; set; }
         public Lokacija Odrediste { get; set; }
         public Dispecer Dispecer { get; set; }

@@ -98,12 +98,19 @@
             $('#div1').hide();
 
             $("#RegistrujSe").click(function (data) {
+                let pol;
+                if ($('#Pol1').prop('checked')) {
+                    pol = 'Muski';
+                } else if ($('#Pol2').prop('checked')){
+                    pol = 'Zenski';
+                }
+
                 let Korisnik = {
                     KorisnickoIme: `${$('#KorisnickoIme').val()}`,
                     Lozinka: `${$('#Lozinka').val()}`,
                     Ime: `${$('#Lozinka').val()}`,
                     Prezime: `${$('#Prezime').val()}`,
-                    Pol: `${$('#Pol').val()}`,
+                    Pol: pol,
                     JMBG: `${$('#JMBG').val()}`,
                     KontaktTelefon: `${$('#KontaktTelefon').val()}`,
                     Email: `${$('#Email').val()}`,
@@ -121,12 +128,24 @@
                         if (!data) {
                             alert("Korisnicko ime vec postoji!");
                         } else {
-                            alert("Uspesno ste se registrovali!")
+                            alert("Uspesno ste se registrovali!");
+                            $('#div2').find(':input').each(function () {
+                                switch (this.type) {
+                                    case 'text':
+                                    case 'password':
+                                    case 'email':
+                                        $(this).val('');
+                                        break;
+                                    case 'radio':
+                                        this.checked = false;
+                                        break;
+                                }
+                            });
                         }
                     }
                 })
             })
-
+    
             $('#act1').click(function () {
                 $('#div2').hide();
                 $('#div1').show();
@@ -142,7 +161,6 @@
                     KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}`,
                     Lozinka: `${$('#LozinkaLogIn').val()}`
                 }
-
 
                 $.ajax({
                     type: 'POST',
@@ -166,7 +184,6 @@
     </script>
 </head>
 <body>
-    
     <nav class="nova">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="myNavbar">
@@ -187,15 +204,15 @@
         <div class="c1">
             <div id="div1">
                 <table>
-                    <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoImeLogIn" id="KorisnickoImeLogIn" style="margin:5px"/></td></tr>
+                    <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoImeLogIn" id="KorisnickoImeLogIn" style="margin:5px"/></td></tr>
                     <tr><th>Lozinka:</th><td><input type="password" name="LozinkaLogIn" id="LozinkaLogIn" style="margin:5px"/></td></tr>
                     <tr><td colspan="2"><hr style="border:solid" /></td></tr>
                     <tr><td colspan="2" align="right"><b><input type="button" name="LogujSe" id="LogujSe" value="Loguj se" /></b></td></tr>
                 </table>
             </div>
             <div id="div2">
-                <table>
-                    <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px"/></td></tr>
+                <table id="table2">
+                    <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px"/></td></tr>
                     <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px"/></td></tr>
                     <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px"/></td></tr>
                     <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px"/></td></tr>

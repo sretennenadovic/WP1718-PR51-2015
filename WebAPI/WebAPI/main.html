@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
+
+        /**********************************************************************************************************************/
+        /*Padajuci meni kopirao sam sa w3*/
         .dropbtn {
             background-color: #4CAF50;
             color: white;
@@ -58,38 +61,35 @@
         .dropdown:hover .dropbtn {
             background-color: #3e8e41;
         }
-        /* Add a gray background color and some padding to the footer */
+        
+        /*kraj padajuci meni*/
+        /**********************************************************************************************************************/
+
+
         footer {
             background-color: #f2f2f2;
             padding: 25px;
         }
 
+        /*samo klasa za nav bar visina i boja*/
         .nova {
             background-color: #ffd700;
             height:55px;
         }
 
+        /*za sliku (logo) taksija*/
         img {
             transform: rotate(-20deg);
             height: 500px;
             width: auto;
         }
 
-        .carousel-inner img {
-            width: 100%; /* Set width to 100% */
-            min-height: 200px;
-        }
-
+        /*div*/
         #wrapper {
             overflow: auto;
         }
 
-        .c1 {
-            position: absolute;
-            top: 120px;
-            right: 80px;
-        }
-
+        /*div takodje za naslov koji pise u nav baru*/
         #d1 {
             position: absolute;
             right: 45%;
@@ -98,53 +98,52 @@
             font-weight: bold;
         }
 
-        #soloPic {
+        /*logo na sredini sto se nalazi*/
+        #soloPic,#soloPicd {
             position: absolute;
             right: 35%;
             top: 15%;
             opacity: 0.7;
         }
 
-        #zaprofil{
+        /*div*/
+        #zaprofil,#zaprofild{
             position:absolute;
             top:80px;
             left:80px;
         }
 
-        #zaizmenu {
+        /*div*/
+        #zaizmenu,#zaizmenud{
             position: absolute;
             top: 80px;
             left: 80px;
         }
 
+        /*font u bodyiu*/
         body {
             font-size: 20px;
         }
 
+        /*font u nav tagu*/
         nav {
             font-size: 20px;
         }
 
-
-
-        /* Hide the carousel text when the screen is less than 600 pixels wide */
-        @media (max-width: 600px) {
-            .carousel-caption {
-                display: none;
-            }
-        }
     </style>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            //pomocne promenljive
             let korisnik;
             let korisnickoIme = localStorage.getItem("Ulogovan");
+            if (korisnickoIme == "null") {
+                $(location).attr('href', 'index.html');
+            }
+            let korisnickiId;
 
-            $('#zaprofil').hide();
-            $('#zaizmenu').hide();
-            
-            $('#p1').text('Ulogovan je : ' + korisnickoIme);
 
+            //pomocu korisnickog imena yahtevam preko post metode od servera da mi vrati celog korisnika (dole u ajaxu nastavak)
             let Korisnik = {
                 KorisnickoIme: `${korisnickoIme}`
             };
@@ -158,102 +157,375 @@
                 dataType: 'json',
                 success: function (data) {
                     korisnik = data;
-                    //prikaz za odredjenog 
+                    korisnickiId = data.Id;
+                    //prikaz odredjenog diva za odredjenu ulogu korisnika
                     if (korisnik.Uloga == 0) {
+                        $('#vozac').hide();
                         $('#dispecer').hide();
                         $('#korisnik').show();
+                        $('#zaprofil').hide();
+                        $('#zaizmenu').hide();
                     } else if (korisnik.Uloga == 1) {
+                        $('#vozac').hide();
                         $('#korisnik').hide();
                         $('#dispecer').show();
+                        $('#zaprofild').hide();
+                        $('#zaizmenud').hide();
+                    } else {
+                        $('#korisnik').hide();
+                        $('#dispecer').hide();
+                        $('#vozac').show();
                     }
                 }
             })
 
-            
-            
 
+
+            /*pri kliku na link profil*/
             $('#profil').click(function () {
-                $('#zaizmenu').hide();
-                $('#1').text(korisnik.KorisnickoIme);
-                $('#2').text(korisnik.Lozinka);
-                $('#3').text(korisnik.Ime);
-                $('#4').text(korisnik.Prezime);
-                $('#5').text(korisnik.JMBG);
-                if (korisnik.Pol == 0) {
-                    $('#6').text("Muski");
-                } else {
-                    $('#6').text("Zenski");
-                }
-                $('#7').text(korisnik.KontaktTelefon);
-                $('#8').text(korisnik.Email);
-                $('#zaprofil').toggle(500);
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/User',
+                    data: JSON.stringify(Korisnik),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        korisnik = data;
+                        korisnickiId = data.Id;
+                        //prikaz odredjenog diva za odredjenu ulogu korisnika
+                        if (korisnik.Uloga == 0) {
+                            $('#vozac').hide();
+                            $('#dispecer').hide();
+                            $('#korisnik').show();
+                            $('#zaprofil').hide();
+                            $('#zaizmenu').hide();
+                        } else if (korisnik.Uloga == 1) {
+                            $('#vozac').hide();
+                            $('#korisnik').hide();
+                            $('#dispecer').show();
+                            $('#zaprofild').hide();
+                            $('#zaizmenud').hide();
+                        } else {
+                            $('#korisnik').hide();
+                            $('#dispecer').hide();
+                            $('#vozac').show();
+                        }
+                        $('#zaizmenu').hide();
+                        $('#1').text(korisnik.KorisnickoIme);
+                        $('#2').text(korisnik.Lozinka);
+                        $('#3').text(korisnik.Ime);
+                        $('#4').text(korisnik.Prezime);
+                        $('#5').text(korisnik.JMBG);
+                        if (korisnik.Pol == 0) {
+                            $('#6').text("Muški");
+                        } else {
+                            $('#6').text("Ženski");
+                        }
+                        $('#7').text(korisnik.KontaktTelefon);
+                        $('#8').text(korisnik.Email);
+                        $('#zaprofil').fadeIn(500);
+                    }
+                })
+            })
+        
+        
+
+            $('#profild').click(function () {
+                //------------------------------------------------------------------------------------------------------------
+                //moram da ponavljam je r kada uradim izmenu, mora opet novo da mi povuce 
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/User',
+                    data: JSON.stringify(Korisnik),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        korisnik = data;
+                        korisnickiId = data.Id;
+                        //prikaz odredjenog diva za odredjenu ulogu korisnika
+                        if (korisnik.Uloga == 0) {
+                            $('#vozac').hide();
+                            $('#dispecer').hide();
+                            $('#korisnik').show();
+                            $('#zaprofil').hide();
+                            $('#zaizmenu').hide();
+                        } else if (korisnik.Uloga == 1) {
+                            $('#vozac').hide();
+                            $('#korisnik').hide();
+                            $('#dispecer').show();
+                            $('#zaprofild').hide();
+                            $('#zaizmenud').hide();
+                        } else {
+                            $('#korisnik').hide();
+                            $('#dispecer').hide();
+                            $('#vozac').show();
+                        }
+                        $('#zaizmenud').hide();
+                        $('#1d').text(korisnik.KorisnickoIme);
+                        $('#2d').text(korisnik.Lozinka);
+                        $('#3d').text(korisnik.Ime);
+                        $('#4d').text(korisnik.Prezime);
+                        $('#5d').text(korisnik.JMBG);
+                        if (korisnik.Pol == 0) {
+                            $('#6d').text("Muški");
+                        } else {
+                            $('#6d').text("Ženski");
+                        }
+                        $('#7d').text(korisnik.KontaktTelefon);
+                        $('#8d').text(korisnik.Email);
+                        $('#zaprofild').fadeIn(500);
+                    }
+                })
+            })
+
+            /*pri kliku na link izmeni*/
+            $('#izmenid').click(function () {
+                $('#zaprofild').hide();
+                $('#KorisnickoImed').val(korisnik.KorisnickoIme);
+                $('#Lozinkad').val(korisnik.Lozinka);
+                $('#Imed').val(korisnik.Ime);
+                $('#Prezimed').val(korisnik.Prezime);
+                $('#JMBGd').val(korisnik.JMBG);
+                /*   if (korisnik.Pol == 0) {
+                        $('#Pol').text("Muški");
+                    } else {
+                        $('#6').text("Ženski");
+                    }*/
+                $('#KontaktTelefond').val(korisnik.KontaktTelefon);
+                $('#Emaild').val(korisnik.Email);
+                $('#zaizmenud').fadeIn(500);
             })
 
             $('#izmeni').click(function () {
                 $('#zaprofil').hide();
-                $('#zaizmenu').toggle(500);
+                $('#KorisnickoIme').val(korisnik.KorisnickoIme);
+                $('#Lozinka').val(korisnik.Lozinka);
+                $('#Ime').val(korisnik.Ime);
+                $('#Prezime').val(korisnik.Prezime);
+                $('#JMBG').val(korisnik.JMBG);
+                if (korisnik.Pol == 0) {
+                    $('#Pol1').prop('checked', true);
+                    } else {
+                    $('#Pol2').prop('checked', true);
+                    }
+                $('#KontaktTelefon').val(korisnik.KontaktTelefon);
+                $('#Email').val(korisnik.Email);
+                $('#zaizmenu').fadeIn(500);
+                
+
+            })
+            //kraj linka izmeni
+
+            //dugme izmeniii
+            $('#izmena').click(function (data) {
+                 let pol;
+                 if ($('#Pol1').prop('checked')) {
+                     pol = 'Muski';
+                 } else if ($('#Pol2').prop('checked')){
+                     pol = 'Zenski';
+                 }
+                let KorisnikIzmena = {
+                    Id: korisnickiId,
+                    KorisnickoIme: `${$('#KorisnickoIme').val()}`,
+                    Lozinka: `${$('#Lozinka').val()}`,
+                    Ime: `${$('#Ime').val()}`,
+                    Prezime: `${$('#Prezime').val()}`,
+                    Pol: pol,
+                    JMBG: `${$('#JMBG').val()}`,
+                    KontaktTelefon: `${$('#KontaktTelefon').val()}`,
+                    Email: `${$('#Email').val()}`,
+                    Uloga: 'Musterija',
+                    Voznje: 'nema'
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/ChangingM',
+                    data: JSON.stringify(KorisnikIzmena),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            alert("korisnik nije uspesno izmenio");
+                        } else {
+                            alert("Uspesno ste se promenili!");
+                            localStorage.setItem("Ulogovan", KorisnikIzmena.KorisnickoIme);
+                            Korisnik.KorisnickoIme = KorisnikIzmena.KorisnickoIme;
+                        }
+                    }
+                })
+            })
+
+            $('#izmenad').click(function (data) {
+                let pol;
+                if ($('#Pol1').prop('checked')) {
+                    pol = 'Muski';
+                } else if ($('#Pol2').prop('checked')) {
+                    pol = 'Zenski';
+                }
+                let KorisnikIzmena = {
+                    Id: korisnickiId,
+                    KorisnickoIme: `${$('#KorisnickoImed').val()}`,
+                    Lozinka: `${$('#Lozinkad').val()}`,
+                    Ime: `${$('#Imed').val()}`,
+                    Prezime: `${$('#Prezimed').val()}`,
+                    Pol: 'Muski',
+                    JMBG: `${$('#JMBGd').val()}`,
+                    KontaktTelefon: `${$('#KontaktTelefond').val()}`,
+                    Email: `${$('#Emaild').val()}`,
+                    Uloga: 'Dispecer',
+                    Voznje: 'nema'
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/ChangingD',
+                    data: JSON.stringify(KorisnikIzmena),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            alert("korisnik nije uspesno izmenio");
+                        } else {
+                            alert("Uspesno ste se promenili!");
+                            localStorage.setItem("Ulogovan", KorisnikIzmena.KorisnickoIme);
+                            Korisnik.KorisnickoIme = KorisnikIzmena.KorisnickoIme;
+                        }
+                    }
+                })
+            })
+             //kraj izmenii
+
+            $('#odjavi,#odjavid').click(function () {
+                localStorage.setItem("Ulogovan",null);
+                $(location).attr('href', 'index.html');
             })
         })
+
+
+
+
+
+
+     
+
+
+
+
+
     </script>
 </head>
 <body>
     <div id="korisnik">
-       <nav class="nova">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <div id="d1">
-                    Gold TAXI
-                </div>
-                <div class="dropdown">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <button style="background-color:#ffd700;border:none;height:55px;width:auto"><i class="material-icons" style="font-size:xx-large;margin-top:8px">person</i> </button>
-                    </li>
-                </ul>
-                <div class="dropdown-content">
-                    <a href="#" id="profil">Profil</a>
-                    <a href="#" id="izmeni">Izmeni</a>
-                    <a href="#" id="odjavi">Odjavi se</a>
-                </div>
+        <nav class="nova">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <div id="d1">
+                        Gold TAXI
                     </div>
+                    <div class="dropdown">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <button style="background-color:#ffd700;border:none;height:55px;width:auto"><i class="material-icons" style="font-size:xx-large;margin-top:8px">person</i> </button>
+                            </li>
+                        </ul>
+                        <div class="dropdown-content">
+                            <a href="#" id="profil">Profil</a>
+                            <a href="#" id="izmeni">Izmeni</a>
+                            <a href="#" id="odjavi">Odjavi se</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </nav>
+
+        <img src="35240528_10210948662984084_1324220601556008960_n.png" id="soloPic" />
+        <div id="zaprofil">
+            <h2>Korisnički profil</h2>
+            <hr />
+            <table>
+                <tr><th>Korisničko ime:</th><td id="1"></td></tr>
+                <tr><th>Lozinka:</th><td id="2"></td></tr>
+                <tr><th>Ime:</th><td id="3"></td></tr>
+                <tr><th>Prezime:</th><td id="4"></td></tr>
+                <tr><th>JMBG:</th><td id="5"></td></tr>
+                <tr><th>Pol:</th><td id="6"></td></tr>
+                <tr><th>Kontakt Telefon:</th><td id="7"></td></tr>
+                <tr><th>Email:</th><td id="8"></td></tr>
+            </table>
         </div>
-    </nav>
-    
-            <img src="35240528_10210948662984084_1324220601556008960_n.png" id="soloPic"/>
-            <div id="zaprofil">
-                <h2>Korisnicki profil</h2>
-                <hr />
-                <table>
-                    <tr><th>Korisnicko ime:</th><td id="1"></td></tr>
-                    <tr><th>Lozinka:</th><td id="2"></td></tr>
-                    <tr><th>Ime:</th><td id="3"></td></tr>
-                    <tr><th>Prezime:</th><td id="4"></td></tr>
-                    <tr><th>JMBG:</th><td id="5"></td></tr>
-                    <tr><th>Pol:</th><td id="6"></td></tr>
-                    <tr><th>Kontakt Telefon:</th><td id="7"></td></tr>
-                    <tr><th>Email:</th><td id="8"></td></tr>
-                </table>
-            </div>
-            <div id="zaizmenu">
-                <table>
-                    <tr><th>Korisnicko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px"/></td></tr>
-                    <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px"/></td></tr>
-                    <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px"/></td></tr>
-                    <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px"/></td></tr>
-                    <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px"/></td></tr>
-                    <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px"/></td></tr>
-                    <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px"/></td></tr>
-                    <tr><td colspan="2"><hr /></td></tr>
-                    <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="Izmeni" /></b></td></tr>
-                </table>
-            </div>
+        <div id="zaizmenu">
+            <table>
+                <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px" /></td></tr>
+                <tr><th>Lozinka:</th><td><input type="text" name="Lozinka" id="Lozinka" style="margin:5px" /></td></tr>
+                <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px" /></td></tr>
+                <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px" /></td></tr>
+                <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px" /></td></tr>
+                <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>
+                <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px" /></td></tr>
+                <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px" /></td></tr>
+                <tr><td colspan="2"><hr /></td></tr>
+                <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmena" /></b></td></tr>
+            </table>
+        </div>
     </div>
     <div id="dispecer">
         <nav class="nova">
             <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="collapse navbar-collapse">
                     <div id="d1">
+                        Gold TAXI
+                    </div>
+                    <div class="dropdown">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <button style="background-color:#ffd700;border:none;height:55px;width:auto"><i class="material-icons" style="font-size:xx-large;margin-top:8px">person</i> </button>
+                            </li>
+                        </ul>
+                        <div class="dropdown-content">
+                            <a href="#" id="profild">Profil</a>
+                            <a href="#" id="izmenid">Izmeni</a>
+                            <a href="#" id="odjavid">Odjavi se</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <img src="35240528_10210948662984084_1324220601556008960_n.png" id="soloPicd" />
+        <div id="zaprofild">
+            <h2>Korisnički profil</h2>
+            <hr />
+            <table>
+                <tr><th>Korisničko ime:</th><td id="1d"></td></tr>
+                <tr><th>Lozinka:</th><td id="2d"></td></tr>
+                <tr><th>Ime:</th><td id="3d"></td></tr>
+                <tr><th>Prezime:</th><td id="4d"></td></tr>
+                <tr><th>JMBG:</th><td id="5d"></td></tr>
+                <tr><th>Pol:</th><td id="6d"></td></tr>
+                <tr><th>Kontakt Telefon:</th><td id="7d"></td></tr>
+                <tr><th>Email:</th><td id="8d"></td></tr>
+            </table>
+        </div>
+        <div id="zaizmenud">
+            <table>
+                <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoImed" id="KorisnickoImed" style="margin:5px" /></td></tr>
+                <tr><th>Lozinka:</th><td><input type="text" name="Lozinkad" id="Lozinkad" style="margin:5px" /></td></tr>
+                <tr><th>Ime:</th><td><input type="text" name="Imed" id="Imed" style="margin:5px" /></td></tr>
+                <tr><th>Prezime:</th><td><input type="text" name="Prezimed" id="Prezimed" style="margin:5px" /></td></tr>
+                <tr><th>JMBG:</th><td><input type="text" name="JMBGd" id="JMBGd" style="margin:5px" /></td></tr>
+                <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pold" value="Muski" id="Pol1d" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pold" id="Pol2d" /></td></tr>
+                <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefond" id="KontaktTelefond" style="margin:5px" /></td></tr>
+                <tr><th>Email:</th><td><input type="email" name="Emaild" id="Emaild" style="margin:5px" /></td></tr>
+                <tr><td colspan="2"><hr /></td></tr>
+                <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmenad" /></b></td></tr>
+            </table>
+        </div>
+    </div>
+    <div id="vozac">
+        <nav class="nova">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <div id="d1v">
                         Gold TAXI
                     </div>
                     <div class="dropdown">
