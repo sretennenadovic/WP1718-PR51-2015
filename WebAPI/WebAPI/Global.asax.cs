@@ -25,6 +25,9 @@ namespace WebAPI
 
             Dispeceri dispeceri = new Dispeceri("~/App_Data/Dispeceri.txt");
             HttpContext.Current.Application["dispeceri"] = dispeceri;
+
+            Vozaci vozaci = new Vozaci("~/App_Data/Vozaci.txt");
+            HttpContext.Current.Application["vozaci"] = vozaci;
         }
     }
 }

@@ -126,9 +126,9 @@
                     dataType: 'json',
                     success: function (data) {
                         if (!data) {
-                            alert("Korisnicko ime vec postoji!");
+                            alert("Korisničko ime već postoji!");
                         } else {
-                            alert("Uspesno ste se registrovali!");
+                            alert("Uspešno ste se registrovali!");
                             $('#div2').find(':input').each(function () {
                                 switch (this.type) {
                                     case 'text':
@@ -170,7 +170,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (!data) {
-                            alert("Korisnicko ime ili lozinka je nevalidna!");
+                            alert("Korisničko ime ili lozinka je nevalidna!");
                         } else {
                             //redirektuj na glavnu
                             localStorage.setItem("Ulogovan", KorisnikLog.KorisnickoIme);
@@ -212,16 +212,16 @@
             </div>
             <div id="div2">
                 <table id="table2">
-                    <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px"/></td></tr>
-                    <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px"/></td></tr>
-                    <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px"/></td></tr>
-                    <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px"/></td></tr>
+                    <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px" required/></td></tr>
+                    <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px" required/></td></tr>
+                    <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px" required/></td></tr>
+                    <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px" required/></td></tr>
                     <tr><th>Pol:</th><td><label>Muski:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1"/><label>&nbsp&nbspZenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>
-                    <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px"/></td></tr>
-                    <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px"/></td></tr>
-                    <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px"/></td></tr>
+                    <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px" required pattern="d{13}"/></td></tr>
+                    <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px" required/></td></tr>
+                    <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px" required/></td></tr>
                     <tr><td colspan="2"><hr style="border:solid"/></td></tr>
-                    <tr><td colspan="2" align="right"><b><input type="button" value="Registruj se" id="RegistrujSe" /></b></td></tr>
+                    <tr><td colspan="2" align="right"><b><input type="button" value="Registruj se" id="RegistrujSe"/></b></td></tr>
                 </table>
             </div>
         </div>

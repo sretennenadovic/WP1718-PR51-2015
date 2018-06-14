@@ -12,14 +12,14 @@ using static WebAPI.Models.Enumi;
 
 namespace WebAPI.Controllers
 {
-    public class ChangingDController : ApiController
+    public class DispecerController : ApiController
     {
 
-        public bool Post([FromBody]Korisnik korisnik)
+        public bool Put(int Id,[FromBody]Korisnik korisnik)
         {
             Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
 
-            int idKorisnika = korisnik.Id;
+            int idKorisnika = Id;
             string pol;
             string uloga;
             bool nadjen = false;
