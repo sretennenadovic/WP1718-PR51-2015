@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
             string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Voznje.txt";
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(voznja.IdVoznje+";"+voznja.DatumVreme + ";"+voznja.Lokacija.X+";"+voznja.Lokacija.Y+";"+voznja.Lokacija.Adresa.UlicaBroj+";"+voznja.Lokacija.Adresa.NaseljenoMesto+";"+voznja.Lokacija.Adresa.PozivniBroj+";"+voznja.Automobil+";"+voznja.Musterija+";"+voznja.Odrediste.X + ";" + voznja.Odrediste.Y + ";" + voznja.Odrediste.Adresa.UlicaBroj + ";" + voznja.Odrediste.Adresa.NaseljenoMesto + ";" + voznja.Odrediste.Adresa.PozivniBroj + ";" + voznja.Dispecer + ";" + voznja.Vozac + ";" + voznja.Iznos + ";"  + ";" + ";" +  ";" +  ";" +  ";" + voznja.StatusVoznje+"\n");
+            sb.Append(voznja.IdVoznje+";"+voznja.DatumVreme + ";"+voznja.Lokacija.X+";"+voznja.Lokacija.Y+";"+voznja.Lokacija.Adresa.UlicaBroj+";"+voznja.Lokacija.Adresa.NaseljenoMesto+";"+voznja.Lokacija.Adresa.PozivniBroj+";"+voznja.Automobil+";"+voznja.Musterija+";"+voznja.Odrediste.X + ";" + voznja.Odrediste.Y + ";" + voznja.Odrediste.Adresa.UlicaBroj + ";" + voznja.Odrediste.Adresa.NaseljenoMesto + ";" + voznja.Odrediste.Adresa.PozivniBroj + ";" + voznja.Dispecer + ";" + voznja.Vozac + ";" + voznja.Iznos + ";" +voznja.Komentar.Opis + ";" +voznja.Komentar.DatumObjave+ ";" + voznja.Komentar.KorisnickoIme+  ";" +voznja.Komentar.IdVoznje +  ";" +voznja.Komentar.Ocena+  ";" + voznja.StatusVoznje+"\n");
 
             if (!File.Exists(path))
                 File.WriteAllText(path, sb.ToString());

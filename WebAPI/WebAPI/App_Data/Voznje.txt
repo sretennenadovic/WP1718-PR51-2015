@@ -3,3 +3,5 @@
 3;20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Putnicki;1;55;55;Pasiceva 9;Loznica;15300;1;1;1111;Super voznja;20/5/2018 15:55;ljubo;3;5;Uspesna
 4;20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Putnicki;2;55;55;Pasiceva 9;Loznica;15300;1;1;1111;Super voznja;20/5/2018 15:55;ljubo;4;5;Uspesna
 5;20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Putnicki;1;55;55;Pasiceva 9;Loznica;15300;1;1;1111;Super voznja;20/5/2018 15:55;ljubo;5;5;Uspesna
+6;16.6.2018. 21.02.13;1;1;Ulica 13;Naselje;111111;Putnicki;1;;;;;;0;0;0;;16.6.2018. 21.02.13;;6;0;Formirana
+7;16.6.2018. 21.02.56;55;5;Ulica 11;Naselje 2;111222;Putnicki;1;;;;;;0;0;0;;16.6.2018. 21.02.56;;7;0;Formirana
