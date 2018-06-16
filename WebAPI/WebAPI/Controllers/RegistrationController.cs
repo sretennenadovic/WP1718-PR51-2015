@@ -14,11 +14,28 @@ namespace WebAPI.Controllers
 {
     public class RegistrationController : ApiController
     {
+        public List<Voznja> Get(int id)
+        {
+            List<Voznja> ret = new List<Voznja>();
+            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+
+
+            foreach (Voznja item in voznje.list.Values)
+            {
+                if(id == item.Musterija)
+                {
+                    ret.Add(item);
+                }
+            }
+
+            return ret;
+        }
         public bool Post([FromBody]Korisnik korisnik)
         {
             bool nasao = false;
             Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
             Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
+            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             //provera postojanja usernamea u korisnicima
             foreach (Korisnik item in korisnici.list.Values)
@@ -32,6 +49,15 @@ namespace WebAPI.Controllers
 
             //provera postojanja usernamea u dispecerima
             foreach (Dispecer item in dispeceri.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                {
+                    nasao = true;
+                    break;
+                }
+            }
+
+            foreach (Vozac item in vozaci.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -68,6 +94,8 @@ namespace WebAPI.Controllers
         public bool Put(int Id,[FromBody]Korisnik korisnik)
         {
             Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
+            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
+            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             int idKorisnika = Id;
             string pol;
@@ -95,19 +123,41 @@ namespace WebAPI.Controllers
             {
                 uloga = "Vozac";
             }
-
-            Korisnik izmenjen = new Korisnik(idKorisnika, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, uloga, korisnik.Voznje);
-
+            //provera postojanja usernamea u korisnicima
             foreach (Korisnik item in korisnici.list.Values)
             {
-                if (idKorisnika == item.Id)
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Id!=korisnik.Id)
                 {
                     nadjen = true;
                     break;
                 }
             }
 
-            if (nadjen)
+            //provera postojanja usernamea u dispecerima
+            foreach (Dispecer item in dispeceri.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                {
+                    nadjen = true;
+                    break;
+                }
+            }
+
+            foreach (Vozac item in vozaci.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                {
+                    nadjen = true;
+                    break;
+                }
+            }
+
+            Korisnik izmenjen = new Korisnik(idKorisnika, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, uloga, korisnik.Voznje);
+
+         
+
+            //ako nisam pronasao nekog sa istim usernameom, a ako se username nije menjao i to sam pokrio znaci ostaje isti 
+            if (!nadjen)
             {
                 bool prviPut = true;
                 korisnici.list[idKorisnika] = izmenjen;

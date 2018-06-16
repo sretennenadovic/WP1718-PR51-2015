@@ -14,10 +14,27 @@ namespace WebAPI.Controllers
 {
     public class DispecerController : ApiController
     {
+        public List<Voznja> Get(int id)
+        {
+            List<Voznja> ret = new List<Voznja>();
+            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
+
+            foreach (Voznja item in voznje.list.Values)
+            {
+                if (id == item.Dispecer)
+                {
+                    ret.Add(item);
+                }
+            }
+
+            return ret;
+        }
         public bool Put(int Id,[FromBody]Korisnik korisnik)
         {
+            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
             Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
+            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             int idKorisnika = Id;
             string pol;
@@ -48,16 +65,36 @@ namespace WebAPI.Controllers
 
                 Dispecer izmenjen = new Dispecer(idKorisnika, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, uloga, korisnik.Voznje);
 
-                foreach (Dispecer item in dispeceri.list.Values)
+            //provera postojanja usernamea u korisnicima
+            foreach (Korisnik item in korisnici.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
-                    if(idKorisnika == item.Id)
-                    {
-                        nadjen = true;
-                        break;
-                    }
+                    nadjen = true;
+                    break;
                 }
+            }
 
-                if (nadjen)
+            //provera postojanja usernamea u dispecerima
+            foreach (Dispecer item in dispeceri.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Id != korisnik.Id)
+                {
+                    nadjen = true;
+                    break;
+                }
+            }
+
+            foreach (Vozac item in vozaci.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                {
+                    nadjen = true;
+                    break;
+                }
+            }
+
+            if (!nadjen)
                 {
                     bool prviPut = true;
                     dispeceri.list[idKorisnika] = izmenjen;

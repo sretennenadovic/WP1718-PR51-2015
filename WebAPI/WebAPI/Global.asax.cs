@@ -28,6 +28,9 @@ namespace WebAPI
 
             Vozaci vozaci = new Vozaci("~/App_Data/Vozaci.txt");
             HttpContext.Current.Application["vozaci"] = vozaci;
+
+            Voznje voznje = new Voznje("~/App_Data/Voznje.txt");
+            HttpContext.Current.Application["voznje"] = voznje;
         }
     }
 }

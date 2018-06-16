@@ -1,0 +1,4 @@
+﻿20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Kombi;1;55;55;Pasiceva 9;Loznica;15300;1;1;500;Super voznja;20/5/2018 15:55;ljubo;1;5;Uspesna
+20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Putnicki;1;55;55;Pasiceva 9;Loznica;15300;1;1;100;Super voznja;20/5/2018 15:55;ljubo;2;5;Uspesna
+20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Putnicki;1;55;55;Pasiceva 9;Loznica;15300;1;1;1111;Super voznja;20/5/2018 15:55;ljubo;3;5;Uspesna
+20/5/2018 15:44;44;33;Ive Andrica 77;Loznica;15309;Putnicki;2;55;55;Pasiceva 9;Loznica;15300;1;1;1111;Super voznja;20/5/2018 15:55;ljubo;4;5;Uspesna
