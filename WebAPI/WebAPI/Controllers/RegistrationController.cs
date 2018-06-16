@@ -30,7 +30,40 @@ namespace WebAPI.Controllers
 
             return ret;
         }
-        public bool Post([FromBody]Korisnik korisnik)
+
+
+        [Route("api/Registration/Post")]
+        public bool Post([FromBody]Voznja voznja)
+        {
+            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+
+            voznja.IdVoznje = voznje.list.Count + 1;
+            voznja.DatumVreme = DateTime.Now;
+
+            voznja.StatusVoznje = StatusVoznje.Formirana;
+
+            voznja.Odrediste = new Lokacija("","","","","");
+            voznja.Komentar = new Komentar("", DateTime.Now.ToString(),"",voznja.IdVoznje.ToString(),"0");
+
+            voznje.list.Add(voznja.IdVoznje, voznja);
+            string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Voznje.txt";
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(voznja.IdVoznje+";"+voznja.DatumVreme + ";"+voznja.Lokacija.X+";"+voznja.Lokacija.Y+";"+voznja.Lokacija.Adresa.UlicaBroj+";"+voznja.Lokacija.Adresa.NaseljenoMesto+";"+voznja.Lokacija.Adresa.PozivniBroj+";"+voznja.Automobil+";"+voznja.Musterija+";"+voznja.Odrediste.X + ";" + voznja.Odrediste.Y + ";" + voznja.Odrediste.Adresa.UlicaBroj + ";" + voznja.Odrediste.Adresa.NaseljenoMesto + ";" + voznja.Odrediste.Adresa.PozivniBroj + ";" + voznja.Dispecer + ";" + voznja.Vozac + ";" + voznja.Iznos + ";"  + ";" + ";" +  ";" +  ";" +  ";" + voznja.StatusVoznje+"\n");
+
+            if (!File.Exists(path))
+                File.WriteAllText(path, sb.ToString());
+            else
+                File.AppendAllText(path, sb.ToString());
+
+            voznje = new Voznje("~/App_Data/Voznje.txt");
+            HttpContext.Current.Application["voznje"] = voznje;
+
+            return true;
+        }
+
+
+            public bool Post([FromBody]Korisnik korisnik)
         {
             bool nasao = false;
             Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];

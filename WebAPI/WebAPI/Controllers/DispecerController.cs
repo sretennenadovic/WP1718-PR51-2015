@@ -14,6 +14,18 @@ namespace WebAPI.Controllers
 {
     public class DispecerController : ApiController
     {
+        public List<Voznja> GetAll()
+        {
+            List<Voznja> ret = new List<Voznja>();
+            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+
+            foreach (Voznja item in voznje.list.Values)
+            {
+                ret.Add(item);
+            }
+
+            return ret;
+        }
         public List<Voznja> Get(int id)
         {
             List<Voznja> ret = new List<Voznja>();

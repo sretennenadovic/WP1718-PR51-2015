@@ -12,9 +12,9 @@ namespace WebAPI.Models
         {
 
         }
-        public Voznja(string DatumVreme,string X, string Y, string UlicaBroj, string NaseljenoMesto, string PozivniBroj, string TipAutomobila, string IdMusterije, string XOdrediste, string YOdrediste, string UlicaBrojOdrediste,string NaseljenoMestoOdrediste, string PozivniBrojOdrediste, string IdDispecera, string IdVozaca, string Iznos, string OpsiKomentara, string DatumKomentara, string KorisnickoImeOnogKoPraviKomentar, string IdVoznje, string Ocena, string StatusVoznje)
+        public Voznja(string Id,string DatumVreme,string X, string Y, string UlicaBroj, string NaseljenoMesto, string PozivniBroj, string TipAutomobila, string IdMusterije, string XOdrediste, string YOdrediste, string UlicaBrojOdrediste,string NaseljenoMestoOdrediste, string PozivniBrojOdrediste, string IdDispecera, string IdVozaca, string Iznos, string OpsiKomentara, string DatumKomentara, string KorisnickoImeOnogKoPraviKomentar, string IdVoznje, string Ocena, string StatusVoznje)
         {
-            this.IdVoznje = Int32.Parse(IdVoznje);
+            this.IdVoznje = Int32.Parse(Id);
             this.DatumVreme = DateTime.Parse(DatumVreme);
             Lokacija = new Lokacija(X, Y, UlicaBroj, NaseljenoMesto, PozivniBroj);
             if (TipAutomobila.Equals("Putnicki"))
