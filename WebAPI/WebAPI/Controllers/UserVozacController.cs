@@ -12,20 +12,20 @@ namespace WebAPI.Controllers
     public class UserVozacController : ApiController
     {
 
-        public Vozac Post([FromBody]Korisnik korisnik)
+            public Vozac Post([FromBody]Korisnik korisnik)
             {
-                Vozac k = new Vozac();
+                Vozac k = null;
                 Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
-            foreach (Vozac item in vozaci.list.Values)
-            {
-                if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                foreach (Vozac item in vozaci.list.Values)
                 {
-                    k = item;
+                    if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
+                    {
+                        k = item;
+                    }
                 }
-            }
 
-            return k;
-        }
+                return k;
+            }
     }
 }

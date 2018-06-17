@@ -13,13 +13,13 @@ namespace WebAPI.Models
             this.Opis = Opis;
             this.DatumObjave = DatumObjave;
             this.KorisnickoIme = KorisnickoIme;
-            this.IdVoznje = Int32.Parse(IdVoznje);
-            this.Ocena = Int32.Parse(Ocena);
+            this.IdVoznje = IdVoznje;
+            this.Ocena = Ocena;
         }
         public string Opis { get; set; }
         public string DatumObjave { get; set; }
         public string KorisnickoIme { get; set; }
-        public int IdVoznje { get; set; }
-        public int Ocena { get; set; } 
+        public string IdVoznje { get; set; }
+        public string Ocena { get; set; } 
     }
 }

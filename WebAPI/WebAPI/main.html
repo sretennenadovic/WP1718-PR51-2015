@@ -69,7 +69,7 @@
 
                 /* Change color of dropdown links on hover */
                 .dropdown-content a:hover {
-                    background-color: cornflowerblue;
+                    background-color: #eeff84;
                 }
 
         /* Show the dropdown menu on hover */
@@ -85,6 +85,11 @@
         /*kraj padajuci meni*/
         /**********************************************************************************************************************/
 
+        th{
+            text-align:center;
+        }
+
+        
 
         footer {
             background-color: #f2f2f2;
@@ -158,18 +163,50 @@
         }
 
 
+        .voznje {
+            width:70%;
+            margin-top:5%;
+            margin-left:15%;
+            position:absolute;
+            font-size:13px;
+            text-align:center;
+        }
+        tr:hover {
+            background-color: #eeff84;
+        }
 
     </style>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
+
+
+        function vratiStatusVoznje(id) {
+            switch (id) {
+                case 0: return "Kreirana";
+                case 1: return "Formirana";
+                case 2: return "Obradjena";
+                case 3: return "Prihvaćena";
+                case 4: return "Otkazana";
+                case 5: return "Neuspešna";
+                case 6: return "Uspešna";
+                case 7: return "Utoku";
+            }
+        }
+
+        function proveriUlogovanog() {
+            let korisnickoIme = localStorage.getItem("Ulogovan");
+            if (korisnickoIme == "") {
+                $(location).attr('href', 'index.html');
+            }
+        }
+
+        proveriUlogovanog();
+
         $(document).ready(function () {
             //pomocne promenljive
             let korisnik;
-            //AKO NIJE ULOGOVAN NIKO REDIREKTUJEM GA
             let korisnickoIme = localStorage.getItem("Ulogovan");
-            if (korisnickoIme === null) {
-                $(location).attr('href', 'index.html');
-            }
+
             let korisnickiId;
 
 
@@ -185,7 +222,7 @@
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.KorisnickoIme != null) {
+                    if (data != null) {
                         korisnik = data;
                         korisnickiId = data.Id;
                         //prikaz odredjenog diva za odredjenu ulogu korisnika
@@ -207,11 +244,11 @@
 
                                             let s = '';
                                             s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                                            s += '<table border=1 style="width:70%;margin-top:5%;margin-left:14%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Pozivni broj</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Pozivni broj odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
+                                            s += '<table border=1 class="voznje"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto/odredište</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
                                             for (let i = 0; i < data.length; i++) {
 
-                                                s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                                s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>");
 
                                                     switch (data[i].Automobil) {
                                                         case 0:
@@ -219,14 +256,24 @@
                                                             break;
                                                         case 1:
                                                             s += "Kombi";
+                                                            break;
+                                                        case 2:
+                                                            s += "Svejedno";
                                                     }
 
-                                                s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Odrediste.Adresa.PozivniBroj + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + data[i].StatusVoznje + "</td></tr>");
+                                                s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td><td>");
+                                                if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
+                                                    s += (`<input type="button" value="Odustani" id="odustani" class="obtn" name=${data[i].IdVoznje} /><br />`);
+                                                    s += (`<input type="button" value="Izmeni voznju" id="izmeniVoznju" name=${data[i].IdVoznje} />`);
+                                                } else {
+                                                    s += ("Nedostupne");
+                                                }
+                                                s += (`</td></tr>`)
                                             }
 
                                             s += '</table>';
                                             $('#voznje').append(s);
-                                        }
+                                }
                             })
                         } else if (korisnik.Uloga == 1) {
                             $('#vozac').hide();
@@ -246,11 +293,11 @@
 
                                         let s = '';
                                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                                        s += '<table border=1 style="width:70%;margin-top:5%;margin-left:14%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Pozivni broj</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Pozivni broj odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
+                                        s += '<table border=1 style="width:70%;margin-top:5%;margin-left:15%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
 
                                         for (let i = 0; i < data.length; i++) {
 
-                                            s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                            s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>");
 
                                             switch (data[i].Automobil) {
                                                 case 0:
@@ -260,7 +307,7 @@
                                                     s += "Kombi";
                                             }
 
-                                            s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Odrediste.Adresa.PozivniBroj + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + data[i].StatusVoznje + "</td></tr>");
+                                        s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td></tr>");
                                         }
 
                                         s += '</table>';
@@ -286,7 +333,7 @@
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.KorisnickoIme != null) {
+                    if (data != null) {
                         korisnik = data;
                         korisnickiId = data.Id;
                         //prikaz odredjenog diva za odredjenu ulogu korisnika
@@ -484,6 +531,12 @@
                         } else {
                             $('#18v').text("Kombi");
                         }
+
+                        if (korisnik.Zauzet == "DA") {
+                            $('#20v').text("Zauzet");
+                        } else if (korisnik.Zauzet == "NE") {
+                            $('#20v').text("Slobodan");
+                        }
                         $('#zaprofilv').fadeIn(500);
                     }
                 })
@@ -542,11 +595,6 @@
                 }
                 $('#KontaktTelefonv').val(korisnik.KontaktTelefon);
                 $('#Emailv').val(korisnik.Email);
-                $('#LokacijaX').val(korisnik.Lokacija.X);
-                $('#LokacijaY').val(korisnik.Lokacija.Y);
-                $('#UlicaBroj').val(korisnik.Lokacija.Adresa.UlicaBroj);
-                $('#NaseljenoMesto').val(korisnik.Lokacija.Adresa.NaseljenoMesto);
-                $('#PozivniBroj').val(korisnik.Lokacija.Adresa.PozivniBroj);
                 $('#IdVozaca').val(korisnik.Automobil.IdVozaca);
                 $('#GodisteAutomobila').val(korisnik.Automobil.GodisteAutomobila);
                 $('#BrojRegistarskeOznake').val(korisnik.Automobil.BrojRegistarskeOznake);
@@ -654,14 +702,14 @@
                 }
 
                 let adresa = {
-                    UlicaBroj: `${$('#UlicaBroj').val()}`,
-                    NaseljenoMesto: `${$('#NaseljenoMesto').val()}`,
-                    PozivniBroj: `${$('#PozivniBroj').val()}`
+                    UlicaBroj: korisnik.Lokacija.Adresa.UlicaBroj,
+                    NaseljenoMesto: korisnik.Lokacija.Adresa.NaseljenoMesto,
+                    PozivniBroj: korisnik.Lokacija.Adresa.PozivniBroj
                 }
 
                 let lokacija = {
-                    X: `${$('#LokacijaX').val()}`,
-                    Y: `${$('#LokacijaY').val()}`,
+                    X: korisnik.Lokacija.X,
+                    Y: korisnik.Lokacija.Y,
                     Adresa:adresa
                 }
                 let automobil = {
@@ -684,7 +732,8 @@
                     Uloga: 'Vozac',
                     Voznje: 'nema',
                     Lokacija: lokacija,
-                    Automobil: automobil
+                    Automobil: automobil,
+                    Zauzet: korisnik.Zauzet
                 };
 
                 $.ajax({
@@ -707,7 +756,7 @@
              //kraj izmenii
 
             $('#odjavi,#odjavid,#odjaviv').click(function () {
-                localStorage.setItem("Ulogovan",null);
+                localStorage.setItem("Ulogovan","");
                 $(location).attr('href', 'index.html');
             })
 
@@ -728,11 +777,11 @@
 
                         let s = '';
                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                        s += '<table border=1 style="width:70%;margin-top:5%;margin-left:14%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Pozivni broj</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Pozivni broj odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
+                        s += '<table border=1 class="voznje"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto/odredište</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
                         for (let i = 0; i < data.length; i++) {
 
-                            s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                            s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>");
 
                             switch (data[i].Automobil) {
                                 case 0:
@@ -740,9 +789,19 @@
                                     break;
                                 case 1:
                                     s += "Kombi";
+                                    break;
+                                case 2:
+                                    s += "Svejedno";
                             }
 
-                            s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Odrediste.Adresa.PozivniBroj + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + data[i].StatusVoznje + "</td></tr>");
+                            s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td><td>");
+                            if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
+                                s += (`<input type="button" value="Odustani" id="odustani" class="obtn" name=${data[i].IdVoznje} /><br />`);
+                                s += (`<input type="button" value="Izmeni voznju" id="izmeniVoznju" name=${data[i].IdVoznje} />`);
+                            } else {
+                                s += ("Nedostupne");
+                            }
+                            s += (`</td></tr>`)
                         }
 
                         s += '</table>';
@@ -768,11 +827,11 @@
 
                         let s = '';
                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                        s += '<table border=1 style="width:70%;margin-top:5%;margin-left:14%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Pozivni broj</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Pozivni broj odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
+                        s += '<table border=1 style="width:70%;margin-top:5%;margin-left:15%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
 
                         for (let i = 0; i < data.length; i++) {
 
-                            s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                            s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" );
 
                             switch (data[i].Automobil) {
                                 case 0:
@@ -782,7 +841,7 @@
                                     s += "Kombi";
                             }
 
-                            s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Odrediste.Adresa.PozivniBroj + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + data[i].StatusVoznje + "</td></tr>");
+                            s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>"  + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td></tr>");
                         }
 
                         s += '</table>';
@@ -805,11 +864,11 @@
                         if (data.length > 0) {
                             let s = '';
                             s += '<h3 style="margin-left:44%;position:absolute;"><b>Sve vožnje</b></h3>';
-                            s += s += '<table border=1 style="width:70%;margin-top:5%;margin-left:14%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Pozivni broj</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Pozivni broj odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
+                            s += s += '<table border=1 style="width:70%;margin-top:5%;margin-left:15%;position:absolute;font-size:13px;text-align:center;"><tr><th>Datum</th><th>Ulica i broj</th><th>Naseljeno mesto</th><th>Tip auta</th><th>Ulica i broj odredišta</th><th>Naseljeno mesto odredišta</th><th>Iznos</th><th>Opis</th><th>Id vožnje</th><th>Ocena</th><th>Status vožnje</th></tr>';
 
                             for (let i = 0; i < data.length; i++) {
 
-                                s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                s += ("<tr><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + "</td><td>" + data[i].Lokacija.Adresa.NaseljenoMesto + "</td><td>" );
 
                                 switch (data[i].Automobil) {
                                     case 0:
@@ -819,7 +878,7 @@
                                         s += "Kombi";
                                 }
 
-                                s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Odrediste.Adresa.PozivniBroj + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + data[i].StatusVoznje + "</td></tr>");
+                                s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + "</td><td>" + data[i].Odrediste.Adresa.NaseljenoMesto + "</td><td>" + data[i].Iznos + "</td><td>" + data[i].Komentar.Opis + "</td><td>" + data[i].IdVoznje + "</td><td>" + data[i].Komentar.Ocena + "</td><td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td></tr>");
                             }
 
                             s += '</table>';
@@ -920,12 +979,14 @@
 
             $('#DodajVoznju').click(function () {
                 let tipAutomobila;
-/*
-                if ($('#Pol1v').prop('checked')) {
-                    tipAutomobila = 'Muski';
-                } else if ($('#Pol2v').prop('checked')) {
-                    tipAutomobila = 'Zenski';
-                }*/
+
+                if ($('#korisnikTipAuta1').prop('checked')) {
+                    tipAutomobila = 'Putnicki';
+                } else if ($('#korisnikTipAuta2').prop('checked')) {
+                    tipAutomobila = 'Kombi';
+                } else {
+                    tipAutomobila = 'Svejedno';
+                }
 
                 let AdresaKorisnikDodajeVoznju = {
                     UlicaBroj: `${$('#korisnikUlicaBroj').val()}`,
@@ -941,7 +1002,7 @@
 
                 let NovaVoznjaKorisnika = {
                     Lokacija: LokacijaKorisnikDodajeVoznju,
-                    Automobil: `${$('#korisnikTipAuta').val()}`,
+                    Automobil: tipAutomobila,
                     Musterija: korisnik.Id,
                 }
 
@@ -962,6 +1023,31 @@
             })
 
             //KRAJ KORISNIK DODAJE VOZNJU   
+
+
+            //DUGMAD U TABELI
+            //KLIK NA DUGME ODUSTANI U TABELI
+
+            $(document).on('click', '.obtn', function () {
+                let idVoznje = $(this).prop('name');
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/Registration/PutOdustani',
+                        data: JSON.stringify(idVoznje),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function () {
+                            alert("Uspešno ste otkazali vožnju!");
+                            $(location).attr('href', 'main.html');
+                        }
+
+                })
+            })
+
+            //KRAJ KLIK NA DUGME ODUSTANI U TABELI
+
+            //KRAJ DUGMADI U TABELI
 
 
         })
@@ -1061,7 +1147,7 @@
                 <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>
                 <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px" /></td></tr>
                 <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px" /></td></tr>
-                <tr><td colspan="2"><hr /></td></tr>
+                <tr ><td colspan="2"><hr /></td></tr>
                 <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmena" /></b></td></tr>
             </table>
         </div>
@@ -1224,6 +1310,7 @@
                 <tr><th>Registarske oznake:</th><td id="16v"></td></tr>
                 <tr><th>Taxi broj:</th><td id="17v"></td></tr>
                 <tr><th>Vrsta vozila:</th><td id="18v"></td></tr>
+                <tr><th>Zauzetost:</th><td id="20v"></td></tr>
             </table>
         </div>
         <div id="zaizmenuv">
@@ -1236,12 +1323,6 @@
                 <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Polv" value="Muski" id="Pol1v" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Polv" id="Pol2v" /></td></tr>
                 <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefonv" id="KontaktTelefonv" style="margin:5px" /></td></tr>
                 <tr><th>Email:</th><td><input type="email" name="Emailv" id="Emailv" style="margin:5px" /></td></tr>
-                <tr><th>Lokacija X:</th><td><input type="text" name="LokacijaX" id="LokacijaX" style="margin:5px" /></td></tr>
-                <tr><th>Lokacija Y:</th><td><input type="text" name="LokacijaY" id="LokacijaY" style="margin:5px" /></td></tr>
-                <tr><th>Ulica i broj:</th><td><input type="text" name="UlicaBroj" id="UlicaBroj" style="margin:5px" /></td></tr>
-                <tr><th>Naseljeno mesto:</th><td><input type="text" name="NaseljenoMesto" id="NaseljenoMesto" style="margin:5px" /></td></tr>
-                <tr><th>Pozivni broj:</th><td><input type="text" name="PozivniBroj" id="PozivniBroj" style="margin:5px" /></td></tr>
-                <tr><th>Id vozača:</th><td><input type="text" name="IdVozaca" id="IdVozaca" style="margin:5px" readonly/></td></tr>
                 <tr><th>Godište automobila:</th><td><input type="text" name="GodisteAutomobila" id="GodisteAutomobila" style="margin:5px" /></td></tr>
                 <tr><th>Registarske oznake:</th><td><input type="text" name="BrojRegistarskeOznake" id="BrojRegistarskeOznake" style="margin:5px" /></td></tr>
                 <tr><th>Taxi broj:</th><td><input type="text" name="BrojTaksiVozila" id="BrojTaksiVozila" style="margin:5px" /></td></tr>

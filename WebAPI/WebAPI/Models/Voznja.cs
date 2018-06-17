@@ -24,6 +24,10 @@ namespace WebAPI.Models
             {
                 Automobil = Enumi.Automobil.Kombi;
             }
+            else
+            {
+                Automobil = Enumi.Automobil.Svejedno;
+            }
             Musterija = Int32.Parse(IdMusterije);
             Odrediste = new Lokacija(XOdrediste, YOdrediste, UlicaBrojOdrediste, NaseljenoMestoOdrediste, PozivniBrojOdrediste);
             Dispecer = Int32.Parse(IdDispecera);
