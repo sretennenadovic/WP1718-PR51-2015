@@ -10,6 +10,6 @@ namespace WebAPI.Models
         public enum Uloga { Musterija, Dispecer, Vozac };
         public enum Pol { Muski, Zenski };
         public enum Automobil { Putnicki, Kombi, Svejedno };
-        public enum StatusVoznje { Kreirana,Formirana,Obradjena,Prihvacena,Otkazana,Neuspesna,Uspesna, Utoku };
+        public enum StatusVoznje { Kreirana=0,Formirana,Obradjena,Prihvacena,Otkazana=4,Neuspesna,Uspesna, Utoku };
     }
 }

@@ -61,6 +61,7 @@ namespace WebAPI.Models
             }
 
         }
+
         public int IdVoznje { get; set; }
         public DateTime DatumVreme { get; set; }
         public Lokacija Lokacija { get; set; }
