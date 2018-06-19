@@ -14,17 +14,33 @@ namespace WebAPI.Controllers
 {
     public class VozacController : ApiController
     {
-        public List<Voznja> GetAll()
+        public List<Vozac> Get()
         {
-            List<Voznja> ret = new List<Voznja>();
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+            List<Vozac> ret = new List<Vozac>();
+            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
-            foreach (Voznja item in voznje.list.Values)
+            foreach (Vozac item in vozaci.list.Values)
             {
                 ret.Add(item);
             }
 
             return ret;
+        }
+
+        public Vozac GetId (string KorisnickoIme)
+        {
+            Vozac v = null;
+            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
+            foreach (Vozac item in vozaci.list.Values)
+            {
+                if (item.KorisnickoIme.Equals(KorisnickoIme))
+                {
+                    v = item;
+                    break;
+                }
+            }
+
+            return v;
         }
         public bool Post([FromBody]Vozac vozac)
         {
@@ -175,14 +191,14 @@ namespace WebAPI.Controllers
                 {
                     if (prviPut)
                     {
-                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";"+item.Lokacija.X+";"+item.Lokacija.Y+";"+item.Lokacija.Adresa.UlicaBroj+";"+item.Lokacija.Adresa.NaseljenoMesto+";"+item.Lokacija.Adresa.PozivniBroj+";"+item.Automobil.IdVozaca+";"+item.Automobil.GodisteAutomobila+";"+item.Automobil.BrojRegistarskeOznake+";"+item.Automobil.BrojTaksiVozila+";"+item.Automobil.TipAutomobila+";"+korisnik.Zauzet+"\n");
+                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";"+item.Lokacija.X+";"+item.Lokacija.Y+";"+item.Lokacija.Adresa.UlicaBroj+";"+item.Lokacija.Adresa.NaseljenoMesto+";"+item.Lokacija.Adresa.PozivniBroj+";"+item.Automobil.IdVozaca+";"+item.Automobil.GodisteAutomobila+";"+item.Automobil.BrojRegistarskeOznake+";"+item.Automobil.BrojTaksiVozila+";"+item.Automobil.TipAutomobila+";"+item.Zauzet+"\n");
                         File.WriteAllText(path, sb.ToString());
                         prviPut = false;
                         sb.Length = 0;
                     }
                     else
                     {
-                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";" + item.Lokacija.X + ";" + item.Lokacija.Y + ";" + item.Lokacija.Adresa.UlicaBroj + ";" + item.Lokacija.Adresa.NaseljenoMesto + ";" + item.Lokacija.Adresa.PozivniBroj + ";" + item.Automobil.IdVozaca + ";" + item.Automobil.GodisteAutomobila + ";" + item.Automobil.BrojRegistarskeOznake + ";" + item.Automobil.BrojTaksiVozila + ";" + item.Automobil.TipAutomobila + ";" + korisnik.Zauzet + "\n");
+                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";" + item.Lokacija.X + ";" + item.Lokacija.Y + ";" + item.Lokacija.Adresa.UlicaBroj + ";" + item.Lokacija.Adresa.NaseljenoMesto + ";" + item.Lokacija.Adresa.PozivniBroj + ";" + item.Automobil.IdVozaca + ";" + item.Automobil.GodisteAutomobila + ";" + item.Automobil.BrojRegistarskeOznake + ";" + item.Automobil.BrojTaksiVozila + ";" + item.Automobil.TipAutomobila + ";" + item.Zauzet + "\n");
                         File.AppendAllText(path, sb.ToString());
                         sb.Length = 0;
                     }

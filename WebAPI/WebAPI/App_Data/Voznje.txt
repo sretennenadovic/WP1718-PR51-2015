@@ -1,6 +1,13 @@
-1;18.6.2018. 14.04.54;21;21;Ulica i 21;;11011;Putnicki;1;;;;;;0;0;0;;19.6.2018. 17.55.09;ljubo;1;;Otkazana
+1;18.6.2018. 14.04.54;21;21;Ulica i 21;;11011;Putnicki;1;;;;;;0;0;0;sssssssssss;19.6.2018. 19.46.44;ljubo;1;1;Otkazana
 2;18.6.2018. 14.05.08;13;13;Ulica 13;Naseljeno Mesto;11013;Kombi;2;;;;;;0;0;0;oooooo oooooooooo;;ljubo;2;;Kreirana
-3;18.6.2018. 14.05.22;1;1;Ulica 1;Naseljeno;111111;Svejedno;1;;;;;;0;0;0;;;ljubo;3;;Kreirana
-4;18.6.2018. 14.05.22;141;141;Ulica 141;Naseljeno Mesto;11114;Putnicki;1;;;;;;0;0;0;niste losi dobar 3;;ljubo;4;3;Kreirana
+3;18.6.2018. 14.05.22;1;1;Ulica 1;Naseljeno;111111;Svejedno;1;;;;;;0;0;0;ovo radim radi probe dal ce se dobro upisati 5;19.6.2018. 19.37.23;ljubo;3;5;Otkazana
+4;18.6.2018. 14.05.22;141;141;Ulica 141;Naseljeno Mesto;11114;Putnicki;1;;;;;;0;0;0;iiiiiiiiiiii44i4i4i4i4i4i44i4i;19.6.2018. 19.43.21;ljubo;4;4;Otkazana
 5;18.6.2018. 15.13.57;3;3;Ulica 3;Mesto;22233;Svejedno;2;10;11;Svetog Save 5;Loznica;15300;1;0;1000;dddd d d d d d d dd ddddddddddddd dd d dddddddddd d d d otorinonarigologija;18.6.2018. 19.22.30;ljubo;5;3;Kreirana
 6;18.6.2018. 18.42.17;33;42;Strazilovska 43;Backa Palanka;21400;Svejedno;1;;;;;;0;0;0;bbbbbb;19.6.2018. 14.40.53;ljubo;6;5;Otkazana
+7;19.6.2018. 19.48.19;5;5;Ulica Zeleznicka;Loznica;15300;Kombi;1;;;;;;0;0;0;;;;;;Kreirana
+8;19.6.2018. 20.24.00;9;9;Ulica 9;NM;99999;Kombi;1;;;;;;1;1;0;;;;;;Formirana
+14;19.6.2018. 20.43.53;8;8;Ulica 8;NM8;88888;Putnicki;1;;;;;;1;1;0;;;;;;Formirana
+10;19.6.2018. 20.49.21;1;1;111;111;1111111;Putnicki;1;;;;;;1;1;0;;;;;;Formirana
+11;19.6.2018. 20.50.04;2;2;2;2;2;Kombi;1;;;;;;1;1;0;;;;;;Formirana
+12;19.6.2018. 20.51.45;44;44;44;44;44;Svejedno;1;;;;;;1;1;0;;;;;;Formirana
+13;19.6.2018. 21.02.19;22;22;22;22;22;Svejedno;1;;;;;;1;1;0;;;;;;Formirana

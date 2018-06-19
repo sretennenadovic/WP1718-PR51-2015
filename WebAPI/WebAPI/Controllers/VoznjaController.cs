@@ -34,10 +34,10 @@ namespace WebAPI.Controllers
             voznja.IdVoznje = voznje.list.Count + 1;
             voznja.DatumVreme = DateTime.Now;
 
-            voznja.StatusVoznje = StatusVoznje.Kreirana;
+           /* voznja.StatusVoznje = StatusVoznje.Kreirana;
 
             voznja.Odrediste = new Lokacija("", "", "", "", "");
-            voznja.Komentar = new Komentar("", "", "", voznja.IdVoznje.ToString(), "");
+            voznja.Komentar = new Komentar("", "", "", voznja.IdVoznje.ToString(), "");*/
 
             voznje.list.Add(voznja.IdVoznje, voznja);
             string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Voznje.txt";
@@ -82,11 +82,11 @@ namespace WebAPI.Controllers
             v.Komentar.Opis = vo.Komentar.Opis;
             v.Komentar.IdVoznje = vo.Komentar.IdVoznje;
             v.Komentar.KorisnickoIme = vo.Komentar.KorisnickoIme;
-            if (vo.StatusVoznje == 0)
+            if (vo.StatusVoznje == StatusVoznje.Kreirana)
             {
                 v.Komentar.DatumObjave = "";
             }
-            else
+            else if(vo.StatusVoznje == StatusVoznje.Otkazana)
             {
                 v.Komentar.DatumObjave = DateTime.Now.ToString();
             }
