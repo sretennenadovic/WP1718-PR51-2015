@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
 {
     public class DispecerController : ApiController
     {
-        //vraca sve voznje u sistemu
+   /*     //vraca sve voznje u sistemu
         public List<Voznja> GetAll()
         {
             List<Voznja> ret = new List<Voznja>();
@@ -26,9 +26,9 @@ namespace WebAPI.Controllers
             }
 
             return ret;
-        }
+        }*/
 
-        //vraca mi sve voznje od odredjenog dispecera
+ /*       //vraca mi sve voznje od odredjenog dispecera
         public List<Voznja> Get(int id)
         {
             List<Voznja> ret = new List<Voznja>();
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             }
 
             return ret;
-        }
+        }*/
 
         //pri update (izmeni) dispecera
         public bool Put(int Id,[FromBody]Korisnik korisnik)
