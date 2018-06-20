@@ -27,6 +27,16 @@ namespace WebAPI.Controllers
             return ret;
         }
 
+        public Voznja GetId(int Id)
+        {
+            Voznja v = new Voznja();
+            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+
+            v = voznje.list[Id];
+
+            return v;
+        }
+
         public bool Post([FromBody]Voznja voznja)
         {
             Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
@@ -89,16 +99,12 @@ namespace WebAPI.Controllers
             else if(vo.StatusVoznje == StatusVoznje.Otkazana)
             {
                 v.Komentar.DatumObjave = DateTime.Now.ToString();
+            }else if(vo.StatusVoznje == StatusVoznje.Formirana)
+            {
+                v.Komentar.DatumObjave = "";
             }
             v.Komentar.Ocena = vo.Komentar.Ocena;
-            if (vo.StatusVoznje == 0)
-            {
-                v.StatusVoznje = StatusVoznje.Kreirana;
-            }
-            else
-            {
-                v.StatusVoznje = StatusVoznje.Otkazana;
-            }
+            v.StatusVoznje = vo.StatusVoznje;
 
             voznje.list[vo.IdVoznje] = v;
 

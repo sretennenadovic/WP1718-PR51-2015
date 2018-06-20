@@ -1851,6 +1851,161 @@
             })
 
             //KRAJ KLIK NA DUGME IZMENI U TABELI
+            //KLIK NA DUGME OBRADI U TABELI
+            $(document).on('click', '.obradibtn', function () {
+                let idVoznje = $(this).prop('name');
+                idVoznja = idVoznje;
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Vozac',
+                    // data: JSON.stringify(KomentarOtkazaneVoznja),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (dataV) {
+                        if (dataV.length != 0) {
+                            for (var i = 0; i < dataV.length; i++) {
+                                if (dataV[i].Zauzet == "NE") {
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '/api/Voznja/' + idVoznja ,
+                                        // data: JSON.stringify(KomentarOtkazaneVoznja),
+                                        contentType: 'application/json;charset=utf-8',
+                                        dataType: 'json',
+                                        success: function (data) {
+
+                                            let addr = {
+                                                UlicaBroj: `${data.Lokacija.Adresa.UlicaBroj}`,
+                                                NaseljenoMesto: `${data.Lokacija.Adresa.NaseljenoMesto}`,
+                                                PozivniBroj: `${data.Lokacija.Adresa.PozivniBroj}`
+                                            }
+
+                                            let lok = {
+                                                X: `${data.Lokacija.X}`,
+                                                Y: `${data.Lokacija.Y}`,
+                                                Adresa: addr
+                                            }
+
+                                            let addr2 = {
+                                                UlicaBroj: `${data.Odrediste.Adresa.UlicaBroj}`,
+                                                NaseljenoMesto: `${data.Odrediste.Adresa.NaseljenoMesto}`,
+                                                PozivniBroj: `${data.Odrediste.Adresa.PozivniBroj}`
+                                            }
+
+                                            let lok2 = {
+                                                X: `${data.Odrediste.X}`,
+                                                Y: `${data.Odrediste.Y}`,
+                                                Adresa: addr2
+                                            }
+
+                                            let kom = {
+                                                Opis: `${data.Komentar.Opis}`,
+                                                DatumObjave: `${data.Komentar.DatumObjave}`,
+                                                IdVoznje: `${data.Komentar.IdVoznje}`,
+                                                KorisnickoIme: `${data.Komentar.KorisnickoIme}`,
+                                                Ocena: `${data.Komentar.Ocena}`
+                                            }
+
+                                            let VoznjaNakonObrade = {
+                                                IdVoznje: idVoznja,
+                                                DatumVreme: `${data.DatumVreme}`,
+                                                Lokacija: lok,
+                                                Automobil: `${data.TipAutomobila}`,
+                                                Musterija: `${data.Musterija}`,
+                                                Odrediste: lok2,
+                                                Dispecer: korisnik.Id,
+                                                Vozac: `${dataV[i].Id}`,
+                                                Iznos: `${data.Iznos}`,
+                                                Komentar: kom,
+                                                StatusVoznje: 2//jer pri obradi voznja postaje obradjena
+                                            }
+
+                                            //update voznje
+                                            $.ajax({
+                                                type: 'PUT',
+                                                url: '/api/Voznja/' + idVoznja,//idVoznja je lokalna koja mi cuva samo id voznje izmedju klika na otkazi i klika na dodaj komentar
+                                                data: JSON.stringify(VoznjaNakonObrade),
+                                                contentType: 'application/json;charset=utf-8',
+                                                dataType: 'json',
+                                                success: function () {
+                                                    //sledi update vozaca na zauzet
+                                                    let VozacAdresaMenjamStanje = {
+                                                        UlicaBroj: `${dataV[i].Lokacija.Adresa.UlicaBroj}`,
+                                                        NaseljenoMesto: `${dataV[i].Lokacija.Adresa.NaseljenoMesto}`,
+                                                        PozivniBroj: `${dataV[i].Lokacija.Adresa.PozivniBroj}`
+                                                    }
+
+                                                    let VozacLokacijaMenjamStanje = {
+                                                        X: `${dataV[i].Lokacija.X}`,
+                                                        Y: `${dataV[i].Lokacija.Y}`,
+                                                        Adresa: VozacAdresaMenjamStanje
+                                                    }
+
+                                                    let Auto = {
+                                                        IdVozaca: `${dataV[i].Automobil.IdVozaca}`,
+                                                        GodisteAutomobila: `${dataV[i].Automobil.GodisteAutomobila}`,
+                                                        BrojRegistarskeOznake: `${dataV[i].Automobil.BrojRegistarskeOznake}`,
+                                                        BrojTaksiVozila: `${dataV[i].Automobil.BrojTaksiVozila}`,
+                                                        TipAutomobila: `${dataV[i].Automobil.TipAutomobila}`
+                                                    }
+
+                                                    let NovoStanjeVozac = {
+                                                        Id: `${dataV[i].Id}`,
+                                                        KorisnickoIme: `${dataV[i].KorisnickoIme}`,
+                                                        Lozinka: `${dataV[i].Lozinka}`,
+                                                        Ime: `${dataV[i].Ime}`,
+                                                        Prezime: `${dataV[i].Prezime}`,
+                                                        Pol: `${dataV[i].Pol}`,
+                                                        JMBG: `${dataV[i].JMBG}`,
+                                                        KontaktTelefon: `${dataV[i].KontaktTelefon}`,
+                                                        Email: `${dataV[i].Email}`,
+                                                        Uloga: `${dataV[i].Uloga}`,
+                                                        Voznje: `${dataV[i].Voznje}`,
+                                                        Lokacija: VozacLokacijaMenjamStanje,
+                                                        Automobil: Auto,
+                                                        Zauzet: "DA"
+                                                    }
+
+
+                                                    $.ajax({
+                                                        type: 'PUT',
+                                                        url: '/api/Vozac/' + dataV[i].Id,
+                                                        data: JSON.stringify(NovoStanjeVozac),
+                                                        contentType: 'application/json;charset=utf-8',
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            if (data) {
+                                                                alert("Uspešno ste obradili vožnju!");
+                                                                $(location).attr('href', 'main.html');
+                                                            }
+                                                        }
+                                                    })
+                                                }
+                                            })
+
+                                            
+                                        }
+                                    })
+                                    break;
+                                } else if (i == (dataV.length - 1)) {
+                                    alert("Vožnja ne može biti obradjena, jer ne postoji slobodan vozač!");
+                                    $(location).attr('href', 'main.html');
+                                }
+
+                            }
+                        } else {
+                            alert("Vožnja ne može biti obradjena, jer ne postoji vozač u sistemu!");
+                            $(location).attr('href', 'main.html');
+                        }
+
+                    }
+                })
+            })
+
+
+            //KRAJ KLIK NA DUGME OBRADI U TABELI
+
+
 
             //KRAJ DUGMADI U TABELI
 
@@ -2121,65 +2276,66 @@
                                         if (!data) {
                                             alert("Vožnja nije dodata!");
                                         } else {
+                                            //cim sam dodao voznju moram update vozaca da je zauzet
+
+                                            let VozacAdresaMenjamStanje = {
+                                                UlicaBroj: `${data[i].Lokacija.Adresa.UlicaBroj}`,
+                                                NaseljenoMesto: `${data[i].Lokacija.Adresa.NaseljenoMesto}`,
+                                                PozivniBroj: `${data[i].Lokacija.Adresa.PozivniBroj}`
+                                            }
+
+                                            let VozacLokacijaMenjamStanje = {
+                                                X: `${data[i].Lokacija.X}`,
+                                                Y: `${data[i].Lokacija.Y}`,
+                                                Adresa: VozacAdresaMenjamStanje
+                                            }
+
+                                            let Auto = {
+                                                IdVozaca: `${data[i].Automobil.IdVozaca}`,
+                                                GodisteAutomobila: `${data[i].Automobil.GodisteAutomobila}`,
+                                                BrojRegistarskeOznake: `${data[i].Automobil.BrojRegistarskeOznake}`,
+                                                BrojTaksiVozila: `${data[i].Automobil.BrojTaksiVozila}`,
+                                                TipAutomobila: `${data[i].Automobil.TipAutomobila}`
+                                            }
+
+                                            let NovoStanjeVozac = {
+                                                Id: `${data[i].Id}`,
+                                                KorisnickoIme: `${data[i].KorisnickoIme}`,
+                                                Lozinka: `${data[i].Lozinka}`,
+                                                Ime: `${data[i].Ime}`,
+                                                Prezime: `${data[i].Prezime}`,
+                                                Pol: `${data[i].Pol}`,
+                                                JMBG: `${data[i].JMBG}`,
+                                                KontaktTelefon: `${data[i].KontaktTelefon}`,
+                                                Email: `${data[i].Email}`,
+                                                Uloga: `${data[i].Uloga}`,
+                                                Voznje: `${data[i].Voznje}`,
+                                                Lokacija: VozacLokacijaMenjamStanje,
+                                                Automobil: Auto,
+                                                Zauzet: "DA"
+                                            }
+
+
+
+
+                                            $.ajax({
+                                                type: 'PUT',
+                                                url: '/api/Vozac/' + data[i].Id,
+                                                data: JSON.stringify(NovoStanjeVozac),
+                                                contentType: 'application/json;charset=utf-8',
+                                                dataType: 'json',
+                                                success: function (data) {
+                                                    if (data) {
+                                                        alert("Vožnja uspešno kreirana!");
+                                                    }
+                                                }
+                                            })
                                             alert("Uspešno ste dodali novu vožnju!");
                                         }
                                     }
                                 })
 
-                                //cim sam dodao voznju moram update vozaca da je zauzet
-
-                                let VozacAdresaMenjamStanje = {
-                                    UlicaBroj: `${data[i].Lokacija.Adresa.UlicaBroj}`,
-                                    NaseljenoMesto: `${data[i].Lokacija.Adresa.NaseljenoMesto}`,
-                                    PozivniBroj: `${data[i].Lokacija.Adresa.PozivniBroj}`
-                                }
-
-                                let VozacLokacijaMenjamStanje = {
-                                    X: `${data[i].Lokacija.X}`,
-                                    Y: `${data[i].Lokacija.Y}`,
-                                    Adresa: VozacAdresaMenjamStanje
-                                }
-
-                                let Auto = {
-                                    IdVozaca: `${data[i].Automobil.IdVozaca}`,
-                                    GodisteAutomobila: `${data[i].Automobil.GodisteAutomobila}`,
-                                    BrojRegistarskeOznake: `${data[i].Automobil.BrojRegistarskeOznake}`,
-                                    BrojTaksiVozila: `${data[i].Automobil.BrojTaksiVozila}`,
-                                    TipAutomobila: `${data[i].Automobil.TipAutomobila}`
-                                }
-
-                                let NovoStanjeVozac = {
-                                    Id: `${data[i].Id}`,
-                                    KorisnickoIme: `${data[i].KorisnickoIme}`,
-                                    Lozinka: `${data[i].Lozinka}`,
-                                    Ime: `${data[i].Ime}`,
-                                    Prezime: `${data[i].Prezime}`,
-                                    Pol: `${data[i].Pol}`,
-                                    JMBG: `${data[i].JMBG}`,
-                                    KontaktTelefon: `${data[i].KontaktTelefon}`,
-                                    Email: `${data[i].Email}`,
-                                    Uloga: `${data[i].Uloga}`,
-                                    Voznje: `${data[i].Voznje}`,
-                                    Lokacija: VozacLokacijaMenjamStanje,
-                                    Automobil: Auto,
-                                    Zauzet: "DA"
-                                }
-
-
-
-
-                                $.ajax({
-                                    type: 'PUT',
-                                    url: '/api/Vozac/' + data[i].Id,
-                                    data: JSON.stringify(NovoStanjeVozac),
-                                    contentType: 'application/json;charset=utf-8',
-                                    dataType: 'json',
-                                    success: function (data) {
-                                        if (data) {
-                                            alert("Vožnja uspešno kreirana!");
-                                        } 
-                                    }
-                                })
+                                
 
                                 break;//cim nadje prvog iskacee
                             } else if (i == (data.length - 1)) {
