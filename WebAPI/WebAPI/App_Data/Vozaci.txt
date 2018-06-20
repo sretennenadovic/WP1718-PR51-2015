@@ -2,5 +2,5 @@
 2;vozac2;vozac2;vozac2;vozac2;Muski;vozac2;123;vozac2@gmail.com;Vozac;nema;44;2;Stefana Despota 7;Liman;21000;2;2010;ns-123-tx;1234;Putnicki;DA
 3;miki;miki;Milan;Mikic;Muski;221122333990;2999222;miki@gmail.com;Vozac;nema;44;11;Despot Stefan 7;Liman;21000;3;2001;ns/123/tx;1232;Putnicki;DA
 4;ljusa;ljusa;ljusa;ljusa;Muski;12341234;1234;ljusa@gmail.com;Vozac;nema;55;55;nema 5;ima;15000;4;2011;lo-222-tx;1234;Putnicki;DA
-5;ttt;ttt;ttt;ttt;Zenski;111;111;ttt;Vozac;nema;11;11;ttt 1;tttt;111;5;111;111;111;Kombi;DA
+5;ttt;ttt;ttt;ttt;Zenski;111;111;ttt;Vozac;nema;11;11;ttt 1;tttt;111;5;111;111;111;Kombi;NE
 6;vozac3;vozac;vozac;vozac;Muski;vozac;3;vozac;Vozac;nema;3;3;asdad;vozac;33;6;3;asfd;3;Putnicki;NE

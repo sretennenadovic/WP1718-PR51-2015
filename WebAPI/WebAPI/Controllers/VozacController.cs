@@ -27,7 +27,8 @@ namespace WebAPI.Controllers
             return ret;
         }
 
-        public Vozac GetId (string KorisnickoIme)
+        [HttpGet]
+        public Vozac Get (string KorisnickoIme)
         {
             Vozac v = null;
             Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
