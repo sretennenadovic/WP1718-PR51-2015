@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using WebAPI.Models;
 using static WebAPI.Models.Enumi;
@@ -50,7 +51,8 @@ namespace WebAPI.Controllers
             voznja.Komentar = new Komentar("", "", "", voznja.IdVoznje.ToString(), "");*/
 
             voznje.list.Add(voznja.IdVoznje, voznja);
-            string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Voznje.txt";
+            string path = HostingEnvironment.MapPath("~/App_Data/Voznje.txt");
+
             StringBuilder sb = new StringBuilder();
 
             sb.Append(voznja.IdVoznje + ";" + voznja.DatumVreme + ";" + voznja.Lokacija.X + ";" + voznja.Lokacija.Y + ";" + voznja.Lokacija.Adresa.UlicaBroj + ";" + voznja.Lokacija.Adresa.NaseljenoMesto + ";" + voznja.Lokacija.Adresa.PozivniBroj + ";" + voznja.Automobil + ";" + voznja.Musterija + ";" + voznja.Odrediste.X + ";" + voznja.Odrediste.Y + ";" + voznja.Odrediste.Adresa.UlicaBroj + ";" + voznja.Odrediste.Adresa.NaseljenoMesto + ";" + voznja.Odrediste.Adresa.PozivniBroj + ";" + voznja.Dispecer + ";" + voznja.Vozac + ";" + voznja.Iznos + ";" + voznja.Komentar.Opis + ";" + voznja.Komentar.DatumObjave + ";" + voznja.Komentar.KorisnickoIme + ";" + voznja.Komentar.IdVoznje + ";" + voznja.Komentar.Ocena + ";" + voznja.StatusVoznje + "\n");
@@ -110,7 +112,7 @@ namespace WebAPI.Controllers
 
             bool prviPut = true;
 
-            string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Voznje.txt";
+            string path = HostingEnvironment.MapPath("~/App_Data/Voznje.txt");
             StringBuilder sb = new StringBuilder();
 
             foreach (Voznja voznja in voznje.list.Values)

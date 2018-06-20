@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using WebAPI.Models;
 using static WebAPI.Models.Enumi;
@@ -81,7 +82,9 @@ namespace WebAPI.Controllers
             if (!nasao)
             {
                 korisnici.list.Add(korisnik.Id, korisnik);
-                string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Korisnici.txt";
+
+                string path = HostingEnvironment.MapPath("~/App_Data/Korisnici.txt");
+                
                 StringBuilder sb = new StringBuilder();
                 korisnik.Id = korisnici.list.Count;
                 sb.Append(korisnik.Id + ";" + korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";" + korisnik.Pol + ";" + korisnik.JMBG + ";" + korisnik.KontaktTelefon + ";" + korisnik.Email + ";" + korisnik.Uloga + ";" + korisnik.Voznje + "\n");
@@ -176,7 +179,8 @@ namespace WebAPI.Controllers
                 bool prviPut = true;
                 korisnici.list[idKorisnika] = izmenjen;
 
-                string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Korisnici.txt";
+                string path = HostingEnvironment.MapPath("~/App_Data/Korisnici.txt");
+
                 StringBuilder sb = new StringBuilder();
 
                 foreach (Korisnik item in korisnici.list.Values)

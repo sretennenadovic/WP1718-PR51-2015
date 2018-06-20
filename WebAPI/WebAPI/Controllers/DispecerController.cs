@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using WebAPI.Models;
 using static WebAPI.Models.Enumi;
@@ -116,7 +117,7 @@ namespace WebAPI.Controllers
                     bool prviPut = true;
                     dispeceri.list[idKorisnika] = izmenjen;
 
-                    string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Dispeceri.txt";
+                    string path = HostingEnvironment.MapPath("~/App_Data/Dispeceri.txt");
                     StringBuilder sb = new StringBuilder();
 
                     foreach (Dispecer item in dispeceri.list.Values)
