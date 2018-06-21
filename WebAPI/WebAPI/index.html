@@ -130,7 +130,8 @@
                     KontaktTelefon: `${$('#KontaktTelefon').val()}`,
                     Email: `${$('#Email').val()}`,
                     Uloga: 'Musterija',
-                    Voznje: `${$('#Voznje').val()}`
+                    Voznje: `${$('#Voznje').val()}`,
+                    Banovan:`${"NE"}`
                 };
 
                 $.ajax({
@@ -177,22 +178,38 @@
                     Lozinka: `${$('#LozinkaLogIn').val()}`
                 }
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/LogIn',
-                    data: JSON.stringify(KorisnikLog),
-                    contentType: 'application/json;charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (!data) {
-                            alert("Korisničko ime ili lozinka je nevalidna!");
-                        } else {
-                            //redirektuj na glavnu
-                            localStorage.setItem("Ulogovan", KorisnikLog.KorisnickoIme);
-                            $(location).attr('href', 'main.html');
-                        }
-                    }
-                })
+                
+                
+                            $.ajax({
+                                type: 'POST',
+                                url: '/api/LogIn',
+                                data: JSON.stringify(KorisnikLog),
+                                contentType: 'application/json;charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (!data) {
+                                        alert("Korisničko ime ili lozinka je nevalidna!");
+                                    } else {
+                                        //redirektuj na glavnu
+
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/api/LogIn',
+                                            data: { KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}` },
+                                            contentType: 'application/json;charset=utf-8',
+                                            dataType: 'json',
+                                            success: function (data) {
+                                                if (data.Banovan == "NE") {
+                                                    localStorage.setItem("Ulogovan", KorisnikLog.KorisnickoIme);
+                                                    $(location).attr('href', 'main.html');
+                                                } else {
+                                                    alert("Žao nam je, banovani ste na ovom sajtu!");
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
+                            })
             })
         });
 

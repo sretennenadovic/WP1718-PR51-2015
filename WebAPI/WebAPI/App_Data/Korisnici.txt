@@ -1,8 +1,8 @@
-1;ljubo;ljubo;ljubo;ljubo;Muski;123123123;123123;ljubo@gmail.com;Musterija;nema
-2;sreten;sreten;sreten;nenadovic;Muski;2805996773642;0009998;sreten@gmail.com;Musterija;nema
-3;neko;neko;neko;neko;Muski;234122222;22222;asdasd@fdasd;Musterija;nema
-4;neko2;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined
-5;neko3;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined
-6;neko4;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined
-7;neko5;neko;neko;neko;Muski;neko;neko;neko@gmail.com;Musterija;nema
-8;zena;zena;zena;zena;Zenski;zena;zena;zena@;Musterija;nema
+1;ljubo;ljubo;ljubo;ljubo;Muski;123123123;123123;ljubo@gmail.com;Musterija;nema;NE
+2;sreten;sreten;sreten;nenadovic;Muski;2805996773642;0009998;sreten@gmail.com;Musterija;nema;NE
+3;neko;neko;neko;neko;Muski;234122222;22222;asdasd@fdasd;Musterija;nema;NE
+4;neko2;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined;NE
+5;neko3;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined;NE
+6;neko4;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined;NE
+7;neko5;neko;neko;neko;Muski;neko;neko;neko@gmail.com;Musterija;nema;NE
+8;zena;zena;zena;zena;Zenski;zena;zena;zena@;Musterija;nema;NE

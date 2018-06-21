@@ -178,7 +178,7 @@ namespace WebAPI.Controllers
             }
 
 
-            Vozac izmenjen = new Vozac(idKorisnika, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, uloga, korisnik.Voznje,korisnik.Lokacija.X,korisnik.Lokacija.Y,korisnik.Lokacija.Adresa.UlicaBroj,korisnik.Lokacija.Adresa.NaseljenoMesto,korisnik.Lokacija.Adresa.PozivniBroj,korisnik.Automobil.IdVozaca.ToString(),korisnik.Automobil.GodisteAutomobila,korisnik.Automobil.BrojRegistarskeOznake,korisnik.Automobil.BrojTaksiVozila,tipAutomobila,korisnik.Zauzet);
+            Vozac izmenjen = new Vozac(idKorisnika, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, uloga, korisnik.Voznje,korisnik.Lokacija.X,korisnik.Lokacija.Y,korisnik.Lokacija.Adresa.UlicaBroj,korisnik.Lokacija.Adresa.NaseljenoMesto,korisnik.Lokacija.Adresa.PozivniBroj,korisnik.Automobil.IdVozaca.ToString(),korisnik.Automobil.GodisteAutomobila,korisnik.Automobil.BrojRegistarskeOznake,korisnik.Automobil.BrojTaksiVozila,tipAutomobila,korisnik.Zauzet,korisnik.Banovan);
 
 
             if (!nadjen)
@@ -193,14 +193,14 @@ namespace WebAPI.Controllers
                 {
                     if (prviPut)
                     {
-                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";"+item.Lokacija.X+";"+item.Lokacija.Y+";"+item.Lokacija.Adresa.UlicaBroj+";"+item.Lokacija.Adresa.NaseljenoMesto+";"+item.Lokacija.Adresa.PozivniBroj+";"+item.Automobil.IdVozaca+";"+item.Automobil.GodisteAutomobila+";"+item.Automobil.BrojRegistarskeOznake+";"+item.Automobil.BrojTaksiVozila+";"+item.Automobil.TipAutomobila+";"+item.Zauzet+"\n");
+                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";"+item.Lokacija.X+";"+item.Lokacija.Y+";"+item.Lokacija.Adresa.UlicaBroj+";"+item.Lokacija.Adresa.NaseljenoMesto+";"+item.Lokacija.Adresa.PozivniBroj+";"+item.Automobil.IdVozaca+";"+item.Automobil.GodisteAutomobila+";"+item.Automobil.BrojRegistarskeOznake+";"+item.Automobil.BrojTaksiVozila+";"+item.Automobil.TipAutomobila+";"+item.Zauzet + ";" + item.Banovan + "\n");
                         File.WriteAllText(path, sb.ToString());
                         prviPut = false;
                         sb.Length = 0;
                     }
                     else
                     {
-                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";" + item.Lokacija.X + ";" + item.Lokacija.Y + ";" + item.Lokacija.Adresa.UlicaBroj + ";" + item.Lokacija.Adresa.NaseljenoMesto + ";" + item.Lokacija.Adresa.PozivniBroj + ";" + item.Automobil.IdVozaca + ";" + item.Automobil.GodisteAutomobila + ";" + item.Automobil.BrojRegistarskeOznake + ";" + item.Automobil.BrojTaksiVozila + ";" + item.Automobil.TipAutomobila + ";" + item.Zauzet + "\n");
+                        sb.Append(item.Id + ";" + item.KorisnickoIme + ";" + item.Lozinka + ";" + item.Ime + ";" + item.Prezime + ";" + item.Pol + ";" + item.JMBG + ";" + item.KontaktTelefon + ";" + item.Email + ";" + item.Uloga + ";" + item.Voznje + ";" + item.Lokacija.X + ";" + item.Lokacija.Y + ";" + item.Lokacija.Adresa.UlicaBroj + ";" + item.Lokacija.Adresa.NaseljenoMesto + ";" + item.Lokacija.Adresa.PozivniBroj + ";" + item.Automobil.IdVozaca + ";" + item.Automobil.GodisteAutomobila + ";" + item.Automobil.BrojRegistarskeOznake + ";" + item.Automobil.BrojTaksiVozila + ";" + item.Automobil.TipAutomobila + ";" + item.Zauzet + ";" + item.Banovan + "\n");
                         File.AppendAllText(path, sb.ToString());
                         sb.Length = 0;
                     }

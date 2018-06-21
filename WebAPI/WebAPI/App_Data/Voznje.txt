@@ -4,10 +4,14 @@
 4;21.6.2018. 12.28.00;77;77;Ulica 77;NM77;77777;Putnicki;neko;88;88;Ulica 88;NM88;88888;dispecer3;ttt;1800;;;;;;Uspesna
 5;21.6.2018. 12.35.14;44;44;Ulica 44;NM44;44444;Putnicki;zena;123;321;Nikola Pasic 12;Nemam pojma;12345;dispecer3;ttt;1250;;;;;;Uspesna
 6;21.6.2018. 12.36.00;11;11;Ulica 1;NM1;112212;Svejedno;sreten;;;;;;;;0;Cekao sam predugo, nema odgovora i zovem sada neki drugi. Poy;21.6.2018. 12.46.05;sreten;6;1;Otkazana
-7;21.6.2018. 13.07.51;2;2;Ulica 2;NM2;221133;Putnicki;sreten;11;22;Ulica 33;NEMA;789987;;ttt;2000;;;;;;Uspesna
-8;21.6.2018. 13.31.32;11.2;22.1;Ulica MR Braun 5;BBNN;123321;Putnicki;ljubo;44;44;WW44;QQQ;3344444;;ttt;4000;;;;;;Uspesna
+7;21.6.2018. 13.07.51;2;2;Ulica 2;NM2;221133;Putnicki;sreten;11;22;Ulica 33;NEMA;789987;;ttt;2000;dobar 3;22.6.2018. 00.39.56;sreten;7;3;Otkazana
+8;21.6.2018. 13.31.32;11.2;22.1;Ulica MR Braun 5;BBNN;123321;Putnicki;ljubo;44;44;WW44;QQQ;3344444;;ttt;4000;extra steeeeee;22.6.2018. 00.16.45;ljubo;8;5;Otkazana
 9;21.6.2018. 13.46.59;31;13;dddd 12;www;333333;Svejedno;;;;;;;dispecer2;prinudni;0;Musterija se nije pojavil;21.6.2018. 15.36.05;prinudni;9;;Neuspesna
 10;21.6.2018. 16.26.20;0;0;Ulica 0;NM0;000000;Svejedno;;;;;;;dispecer1;prinudni;0;;;;;;Formirana
 11;21.6.2018. 17.06.39;55.55;55.5;Knjeginje Milice;Ne znam;14334;Putnicki;ljubo;;;;;;4;5;0;;;;;;Obradjena
 12;21.6.2018. 17.25.40;12;12;Ulica 4 AVenija;New York;13000;Putnicki;ljubo;;;;;;4;8;0;;;;;;Obradjena
 13;21.6.2018. 17.28.24;3;3;Nzm vise 4;Nemam pojma;22222;Putnicki;ljubo;;;;;;dispecer4;p;0;Ne znam gde se to nalazi nema cak ni na mapi!;21.6.2018. 17.29.44;p;13;0;Neuspesna
+14;22.6.2018. 00.18.53;1;1;RR1;ee;22222;Putnicki;ljubo;;;;;;0;8;0;;;;;;Prihvacena
+15;22.6.2018. 00.40.28;4;4;Ulica 4;NNNN;333444;Putnicki;sreten;;;;;;0;8;0;;;;;;Prihvacena
+16;22.6.2018. 00.42.59;11;11;ee11;1;11111;Putnicki;sreten;;;;;;0;8;0;;;;;;Prihvacena
+17;22.6.2018. 00.54.01;22;22;cvvv222;dfffff;22222;Putnicki;sreten;5;5;5;5;5;;p;5555;nemam reci;22.6.2018. 01.00.06;sreten;17;5;Uspesna

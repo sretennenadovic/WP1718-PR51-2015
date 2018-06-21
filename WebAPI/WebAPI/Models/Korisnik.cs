@@ -12,7 +12,7 @@ namespace WebAPI.Models
         {
 
         }
-        public Korisnik(int Id,string KorisnickoIme,string Lozinka,string Ime,string Prezime,string Pol, string JMBG,string KontaktTelefon,string Email,string Uloga,string Voznje)
+        public Korisnik(int Id,string KorisnickoIme,string Lozinka,string Ime,string Prezime,string Pol, string JMBG,string KontaktTelefon,string Email,string Uloga,string Voznje,string ban)
         {
             this.Id = Id;
             this.KorisnickoIme = KorisnickoIme;
@@ -41,7 +41,8 @@ namespace WebAPI.Models
             {
                 this.Uloga = Enumi.Uloga.Dispecer;
             }
-            this.Voznje = Voznje;            
+            this.Voznje = Voznje;
+            Banovan = ban;
         }
         public int Id { get; set; }
         public string KorisnickoIme { get; set; }
@@ -54,5 +55,6 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public Uloga  Uloga { get; set; }
         public string Voznje { get; set; }
+        public string Banovan { get; set; }
     }
 }

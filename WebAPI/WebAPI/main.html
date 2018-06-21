@@ -1024,8 +1024,9 @@
                     JMBG: `${$('#JMBG').val()}`,
                     KontaktTelefon: `${$('#KontaktTelefon').val()}`,
                     Email: `${$('#Email').val()}`,
-                    Uloga: 'Musterija',
-                    Voznje: 'nema'
+                    Uloga: `${'Musterija'}`,
+                    Voznje: `${'nema'}`,
+                    Banovan: `${"NE"}`
                 };
 
                 $.ajax({
@@ -1063,8 +1064,9 @@
                     JMBG: `${$('#JMBGd').val()}`,
                     KontaktTelefon: `${$('#KontaktTelefond').val()}`,
                     Email: `${$('#Emaild').val()}`,
-                    Uloga: 'Dispecer',
-                    Voznje: 'nema'
+                    Uloga: `${'Dispecer'}`,
+                    Voznje: `${'nema'}`,
+                    Banovan: `${"NE"}`
                 };
 
                 $.ajax({
@@ -1129,6 +1131,7 @@
                     Email: `${$('#Emailv').val()}`,
                     Uloga: 'Vozac',
                     Voznje: 'nema',
+                    Banovan: `${"NE"}`,
                     Lokacija: lokacija,
                     Automobil: automobil,
                     Zauzet: korisnik.Zauzet
@@ -1728,6 +1731,7 @@
                                 Email: `${dataV.Email}`,
                                 Uloga: `${dataV.Uloga}`,
                                 Voznje: `${dataV.Voznje}`,
+                                Banovan: `${"NE"}`,
                                 Lokacija: VozacLokacijaMenjamStanje,
                                 Automobil: Auto,
                                 Zauzet: "DA"
@@ -1749,50 +1753,50 @@
                                             // data: JSON.stringify(KomentarOtkazaneVoznja),
                                             contentType: 'application/json;charset=utf-8',
                                             dataType: 'json',
-                                            success: function (data) {
+                                            success: function (dataVZ) {
 
                                                 let addr = {
-                                                    UlicaBroj: `${data.Lokacija.Adresa.UlicaBroj}`,
-                                                    NaseljenoMesto: `${data.Lokacija.Adresa.NaseljenoMesto}`,
-                                                    PozivniBroj: `${data.Lokacija.Adresa.PozivniBroj}`
+                                                    UlicaBroj: `${dataVZ.Lokacija.Adresa.UlicaBroj}`,
+                                                    NaseljenoMesto: `${dataVZ.Lokacija.Adresa.NaseljenoMesto}`,
+                                                    PozivniBroj: `${dataVZ.Lokacija.Adresa.PozivniBroj}`
                                                 }
 
                                                 let lok = {
-                                                    X: `${data.Lokacija.X}`,
-                                                    Y: `${data.Lokacija.Y}`,
+                                                    X: `${dataVZ.Lokacija.X}`,
+                                                    Y: `${dataVZ.Lokacija.Y}`,
                                                     Adresa: addr
                                                 }
 
                                                 let addr2 = {
-                                                    UlicaBroj: `${data.Odrediste.Adresa.UlicaBroj}`,
-                                                    NaseljenoMesto: `${data.Odrediste.Adresa.NaseljenoMesto}`,
-                                                    PozivniBroj: `${data.Odrediste.Adresa.PozivniBroj}`
+                                                    UlicaBroj: `${dataVZ.Odrediste.Adresa.UlicaBroj}`,
+                                                    NaseljenoMesto: `${dataVZ.Odrediste.Adresa.NaseljenoMesto}`,
+                                                    PozivniBroj: `${dataVZ.Odrediste.Adresa.PozivniBroj}`
                                                 }
 
                                                 let lok2 = {
-                                                    X: `${data.Odrediste.X}`,
-                                                    Y: `${data.Odrediste.Y}`,
+                                                    X: `${dataVZ.Odrediste.X}`,
+                                                    Y: `${dataVZ.Odrediste.Y}`,
                                                     Adresa: addr2
                                                 }
 
                                                 let kom = {
-                                                    Opis: `${data.Komentar.Opis}`,
-                                                    DatumObjave: `${data.Komentar.DatumObjave}`,
-                                                    IdVoznje: `${data.Komentar.IdVoznje}`,
-                                                    KorisnickoIme: `${data.Komentar.KorisnickoIme}`,
-                                                    Ocena: `${data.Komentar.Ocena}`
+                                                    Opis: `${dataVZ.Komentar.Opis}`,
+                                                    DatumObjave: `${dataVZ.Komentar.DatumObjave}`,
+                                                    IdVoznje: `${dataVZ.Komentar.IdVoznje}`,
+                                                    KorisnickoIme: `${dataVZ.Komentar.KorisnickoIme}`,
+                                                    Ocena: `${dataVZ.Komentar.Ocena}`
                                                 }
 
                                                 let VoznjaNakonObrade = {
                                                     IdVoznje: idVoznje,
-                                                    DatumVreme: `${data.DatumVreme}`,
+                                                    DatumVreme: `${dataVZ.DatumVreme}`,
                                                     Lokacija: lok,
-                                                    Automobil: `${data.TipAutomobila}`,
-                                                    Musterija: `${data.Musterija}`,
+                                                    Automobil: `${dataVZ.TipAutomobila}`,
+                                                    Musterija: `${dataVZ.Musterija}`,
                                                     Odrediste: lok2,
-                                                    Dispecer: 0,
-                                                    Vozac: `${dataV.Id}`,
-                                                    Iznos: `${data.Iznos}`,
+                                                    Dispecer: "",
+                                                    Vozac: `${dataV.KorisnickoIme}`,
+                                                    Iznos: `${dataVZ.Iznos}`,
                                                     Komentar: kom,
                                                     StatusVoznje: 3//jer je prihvata vozac ide u stanje ptihvacena
                                                 }
@@ -1904,8 +1908,9 @@
                     JMBG: `${$('#JMBGVDodaj').val()}`,
                     KontaktTelefon: `${$('#KontaktTelefonVDodaj').val()}`,
                     Email: `${$('#EmailVDodaj').val()}`,
-                    Uloga: 'Vozac',
-                    Voznje: 'nema',
+                    Uloga: `${'Vozac'}`,
+                    Voznje: `${'nema'}`,
+                    Banovan: `${"NE"}`,
                     Lokacija: lokacija,
                     Automobil: automobil
                 };
@@ -2082,20 +2087,21 @@
                             }
 
                             let NovaLokacijaVozac = {
-                                Id: dataV.Id,
-                                KorisnickoIme: dataV.KorisnickoIme,
-                                Lozinka: dataV.Lozinka,
-                                Ime: dataV.Ime,
-                                Prezime: dataV.Prezime,
-                                Pol: dataV.Pol,
-                                JMBG: dataV.JMBG,
-                                KontaktTelefon: dataV.KontaktTelefon,
-                                Email: dataV.Email,
-                                Uloga: dataV.Uloga,
-                                Voznje: dataV.Voznje,
+                                Id: `${dataV.Id}`,
+                                KorisnickoIme: `${dataV.KorisnickoIme}`,
+                                Lozinka: `${dataV.Lozinka}`,
+                                Ime: `${dataV.Ime}`,
+                                Prezime: `${dataV.Prezime}`,
+                                Pol: `${dataV.Pol}`,
+                                JMBG: `${dataV.JMBG}`,
+                                KontaktTelefon: `${dataV.KontaktTelefon}`,
+                                Email: `${dataV.Email}`,
+                                Uloga: `${dataV.Uloga}`,
+                                Voznje: `${dataV.Voznje}`,
+                                Banovan: `${"NE"}`,
                                 Lokacija: LokacijaVozacMenjaLokaciju,
                                 Automobil: Auto,
-                                Zauzet: dataV.Zauzet
+                                Zauzet: `${dataV.Zauzet}`
                             }
 
                             $.ajax({
@@ -2298,6 +2304,7 @@
                             Email: `${dataV.Email}`,
                             Uloga: `${dataV.Uloga}`,
                             Voznje: `${dataV.Voznje}`,
+                            Banovan: `${"NE"}`,
                             Lokacija: VozacLokacijaMenjamStanje,
                             Automobil: Auto,
                             Zauzet: "DA"
@@ -2822,6 +2829,7 @@
                             Email: `${dataV.Email}`,
                             Uloga: `${dataV.Uloga}`,
                             Voznje: `${dataV.Voznje}`,
+                            Banovan: `${"NE"}`,
                             Lokacija: VozacLokacijaMenjamStanje,
                             Automobil: Auto,
                             Zauzet: "DA"//jer mu je upravo voznja dodeljena od strane dispecera
@@ -3029,6 +3037,7 @@
                                                 Email: `${dataV.Email}`,
                                                 Uloga: `${dataV.Uloga}`,
                                                 Voznje: `${dataV.Voznje}`,
+                                                Banovan: `${"NE"}`,
                                                 Lokacija: VozacLokacijaMenjamStanje,
                                                 Automobil: Auto,
                                                 Zauzet: "NE"
@@ -3180,6 +3189,7 @@
                                                     Email: `${dataV.Email}`,
                                                     Uloga: `${dataV.Uloga}`,
                                                     Voznje: `${dataV.Voznje}`,
+                                                    Banovan: `${"NE"}`,
                                                     Lokacija: VozacLokacijaMenjamStanje,
                                                     Automobil: Auto,
                                                     Zauzet: "NE"
@@ -3285,7 +3295,7 @@
                                     Vozac: `${data[i].Vozac}`,
                                     Iznos: `${data[i].Iznos}`,
                                     Komentar: kom,
-                                    StatusVoznje: 4
+                                    StatusVoznje: `${data[i].StatusVoznje}`
                                 }
 
                                 $.ajax({

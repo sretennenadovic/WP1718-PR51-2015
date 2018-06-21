@@ -12,7 +12,7 @@ namespace WebAPI.Models
 
         }
 
-        public Vozac(int Id, string KorisnickoIme, string Lozinka, string Ime, string Prezime, string Pol, string JMBG, string KontaktTelefon, string Email, string Uloga, string Voznje,string lokacijaX,string lokacijaY,string UlicaBroj,string NaseljenoMesto,string PozivniBroj, string idVozaca,string GodisteAutomobila, string BrojRegistarskeOznake, string BrojTaksiVozila,string TipAutomobila,string Zauzet) : base(Id, KorisnickoIme, Lozinka, Ime, Prezime, Pol, JMBG, KontaktTelefon, Email, Uloga, Voznje)
+        public Vozac(int Id, string KorisnickoIme, string Lozinka, string Ime, string Prezime, string Pol, string JMBG, string KontaktTelefon, string Email, string Uloga, string Voznje,string lokacijaX,string lokacijaY,string UlicaBroj,string NaseljenoMesto,string PozivniBroj, string idVozaca,string GodisteAutomobila, string BrojRegistarskeOznake, string BrojTaksiVozila,string TipAutomobila,string Zauzet,string ban) : base(Id, KorisnickoIme, Lozinka, Ime, Prezime, Pol, JMBG, KontaktTelefon, Email, Uloga, Voznje,ban)
         {
             Lokacija = new Lokacija(lokacijaX,lokacijaY,UlicaBroj,NaseljenoMesto,PozivniBroj);
             Automobil = new Automobil(Id,GodisteAutomobila,BrojRegistarskeOznake,BrojTaksiVozila,TipAutomobila);
