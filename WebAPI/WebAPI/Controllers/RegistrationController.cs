@@ -15,6 +15,17 @@ namespace WebAPI.Controllers
 {
     public class RegistrationController : ApiController
     {
+        public List<Korisnik> Get()
+        {
+            List<Korisnik> ret = new List<Korisnik>();
+            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
+
+            foreach (Korisnik item in korisnici.list.Values)
+            {
+                ret.Add(item);
+            }
+            return ret;
+        }
         public Korisnik Get(string KorisnickoIme)
         {
             Korisnik k = null;
