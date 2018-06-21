@@ -202,9 +202,9 @@
 
 
         .voznje {
-            width: 80%;
+            width: 90%;
             margin-top: 5%;
-            margin-left: 10%;
+            margin-left: 5%;
             position: absolute;
             font-size: 13px;
             text-align: center;
@@ -321,12 +321,26 @@
                                     let s = '';
                                     s += '<div id="voznje" style="font-size:14px">';
                                     s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                                    s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                                    s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
 
                                     for (let i = 0; i < data.length; i++) {
-                                        if (data[i].Musterija == korisnik.Id) {
-                                            s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                        if (data[i].Musterija == localStorage.getItem("Ulogovan")) {
+                                            s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                            if (data[i].Dispecer == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + data[i].Dispecer + '</td>');
+                                            }
+
+                                            if (data[i].Vozac == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + data[i].Vozac + '</td>');
+                                            }
+
+                                            s+= ('<td>'+data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                             switch (data[i].Automobil) {
                                                 case 0:
@@ -340,10 +354,10 @@
                                             }
 
                                             if (data[i].Odrediste.Adresa.UlicaBroj == "") {
-                                                s += ("</td><td>/" + "</td>");
+                                                s += ("<td>/" + "</td>");
                                             }
                                             else {
-                                                s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                                s += ("<td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>");
                                             }
 
                                             if (data[i].Iznos != "0") {
@@ -393,12 +407,26 @@
                                     let s = '';
                                     s += '<div id="voznjeD" style="font-size:14px">';
                                     s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                                    s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                                    s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
 
                                     for (let i = 0; i < data.length; i++) {
-                                        if (data[i].Dispecer == korisnik.Id) {
-                                            s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                        if (data[i].Dispecer == localStorage.getItem("Ulogovan")) {
+                                            s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                            if (data[i].Musterija == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + data[i].Musterija + '</td>');
+                                            }
+
+                                            if (data[i].Vozac == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + data[i].Vozac + '</td>');
+                                            }
+
+                                            s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                             switch (data[i].Automobil) {
                                                 case 0:
@@ -463,11 +491,25 @@
                                     let s = '';
                                     s += ' <div id="voznjeV" style="font-size:14px">';
                                     s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                                    s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                                    s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Dispečer</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
                                     for (let i = 0; i < data.length; i++) {
-                                        if (data[i].Vozac == korisnik.Id) {
-                                            s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                        if (data[i].Vozac == localStorage.getItem("Ulogovan")) {
+                                            s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                            if (data[i].Musterija == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + data[i].Musterija + '</td>');
+                                            }
+
+                                            if (data[i].Dispecer == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + data[i].Dispecer + '</td>');
+                                            }
+
+                                            s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                             switch (data[i].Automobil) {
                                                 case 0:
@@ -1104,13 +1146,26 @@
                         let s = '';
                         s += '<div id="voznje" style="font-size:14px">';
                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
 
                         for (let i = 0; i < data.length; i++) {
-                            if (data[i].Musterija == korisnik.Id) {
-                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                            if (data[i].Musterija == localStorage.getItem("Ulogovan")) {
+                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
 
+                                if (data[i].Dispecer == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Dispecer + '</td>');
+                                }
+
+                                if (data[i].Vozac == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Vozac + '</td>');
+                                }
+
+                                s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
                                 switch (data[i].Automobil) {
                                     case 0:
                                         s += "Putnički";
@@ -1147,7 +1202,7 @@
 
                                 if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
                                     s += (`<input type="button" value="Odustani" id="odustani" class="obtn" name=${data[i].IdVoznje} /><br /><br />`);
-                                    s += (`<input type="button" value="  Izmeni " id="izmeniVoznju" class="ibtn" name=${data[i].IdVoznje} />`);
+                                    s += (`<input type="button" value="  Izmeni " id="izmeniVoznjuD" class="ibtn" name=${data[i].IdVoznje} />`);
                                 } else if (vratiStatusVoznje(data[i].StatusVoznje) == "Uspešna") {
                                     s += (`<input type="button" value=" Komentar " id="dodajKomentarUspesna" class="kombtn" name=${data[i].IdVoznje} />`);
                                 } else {
@@ -1179,12 +1234,26 @@
                         let s = '';
                         s += '<div id="voznjeD" style="font-size:14px">';
                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
 
                         for (let i = 0; i < data.length; i++) {
-                            if (data[i].Dispecer == korisnik.Id) {
-                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                            if (data[i].Dispecer == localStorage.getItem("Ulogovan")) {
+                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                if (data[i].Musterija == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Musterija + '</td>');
+                                }
+
+                                if (data[i].Vozac == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Vozac + '</td>');
+                                }
+
+                                s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                 switch (data[i].Automobil) {
                                     case 0:
@@ -1250,11 +1319,25 @@
                             let s = '';
                             s += '<div id="voznjeD" style="font-size:14px">';
                             s += '<h3 style="margin-left:44%;position:absolute;"><b>Sve vožnje</b></h3>';
-                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
 
                             for (let i = 0; i < data.length; i++) {
-                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                if (data[i].Musterija == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Musterija + '</td>');
+                                }
+
+                                if (data[i].Vozac == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Vozac + '</td>');
+                                }
+
+                                s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                 switch (data[i].Automobil) {
                                     case 0:
@@ -1320,12 +1403,27 @@
                         let s = '';
                         s += '<div id="voznjeD" style="font-size:14px">';
                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Vožnje na čekanju</b></h3>';
-                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
 
                         for (let i = 0; i < data.length; i++) {
                             if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
-                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                if (data[i].Musterija == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Musterija + '</td>');
+                                }
+
+                                if (data[i].Vozac == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Vozac + '</td>');
+                                }
+
+                                s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+
 
                                 switch (data[i].Automobil) {
                                     case 0:
@@ -1389,11 +1487,25 @@
                         let s = '';
                         s += ' <div id="voznjeV" style="font-size:14px">';
                         s += '<h3 style="margin-left:44%;position:absolute;"><b>Moje vožnje</b></h3>';
-                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                        s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Dispečer</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
                         for (let i = 0; i < data.length; i++) {
-                            if (data[i].Vozac == korisnik.Id) {
-                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                            if (data[i].Vozac == localStorage.getItem("Ulogovan")) {
+                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                if (data[i].Musterija == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Musterija + '</td>');
+                                }
+
+                                if (data[i].Dispecer == "") {
+                                    s += '<td>/</td>';
+                                } else {
+                                    s += ('<td>' + data[i].Dispecer + '</td>');
+                                }
+
+                                s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                 switch (data[i].Automobil) {
                                     case 0:
@@ -1469,11 +1581,25 @@
                                 let s = '';
                                 s += ' <div id="voznjeV" style="font-size:14px">';
                                 s += '<h3 style="margin-left:44%;position:absolute;"><b>Vožnje na čekanju</b></h3>';
-                                s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+                                s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Dispečer</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
                                 for (let i = 0; i < data.length; i++) {
                                     if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana" && (dataV.Automobil.TipAutomobila == data[i].Automobil || data[i].Automobil == 2)) {
-                                        s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td><td>" + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                        s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                        if (data[i].Musterija == "") {
+                                            s += '<td>/</td>';
+                                        } else {
+                                            s += ('<td>' + data[i].Musterija + '</td>');
+                                        }
+
+                                        if (data[i].Dispecer == "") {
+                                            s += '<td>/</td>';
+                                        } else {
+                                            s += ('<td>' + data[i].Dispecer + '</td>');
+                                        }
+
+                                        s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
 
                                         switch (data[i].Automobil) {
                                             case 0:
@@ -1845,7 +1971,7 @@
                     DatumVreme: "",
                     Lokacija: LokacijaKorisnikDodajeVoznju,
                     Automobil: tipAutomobila,
-                    Musterija: korisnik.Id,
+                    Musterija: `${localStorage.getItem("Ulogovan")}`,
                     Odrediste: LokacijaKorisnikDodajeVoznju2,
                     Dispecer: "",
                     Vozac: "",
@@ -1897,58 +2023,71 @@
             //klik na dugme Izmeni lokaciju
 
             $('#glavni3').on('click', '#izmeniLokaciju', function () {
-                let AdresaVozacMenjaLokaciju = {
-                    UlicaBroj: `${$('#vozacUlicaBroj').val()}`,
-                    NaseljenoMesto: `${$('#vozacNaseljenoMesto').val()}`,
-                    PozivniBroj: `${$('#vozacPozivniBroj').val()}`
-                }
-
-                let LokacijaVozacMenjaLokaciju = {
-                    X: `${$('#vozacLokacijaX').val()}`,
-                    Y: `${$('#vozacLokacijaY').val()}`,
-                    Adresa: AdresaVozacMenjaLokaciju
-                }
-
-                let Auto = {
-                    IdVozaca: korisnik.Id,
-                    GodisteAutomobila: korisnik.Automobil.GodisteAutomobila,
-                    BrojRegistarskeOznake: korisnik.Automobil.BrojRegistarskeOznake,
-                    BrojTaksiVozila: korisnik.Automobil.BrojTaksiVozila,
-                    TipAutomobila: korisnik.Automobil.TipAutomobila
-                }
-
-                let NovaLokacijaVozac = {
-                    Id: korisnik.Id,
-                    KorisnickoIme: korisnik.KorisnickoIme,
-                    Lozinka: korisnik.Lozinka,
-                    Ime: korisnik.Ime,
-                    Prezime: korisnik.Prezime,
-                    Pol: korisnik.Pol,
-                    JMBG: korisnik.JMBG,
-                    KontaktTelefon: korisnik.KontaktTelefon,
-                    Email: korisnik.Email,
-                    Uloga: korisnik.Uloga,
-                    Voznje: korisnik.Voznje,
-                    Lokacija: LokacijaVozacMenjaLokaciju,
-                    Automobil: Auto,
-                    Zauzet: korisnik.Zauzet
-                }
-
                 $.ajax({
-                    type: 'PUT',
-                    url: '/api/Vozac/'+korisnik.Id,
-                    data: JSON.stringify(NovaLokacijaVozac),
+                    type: 'GET',
+                    url: '/api/Vozac',
+                    data: { KorisnickoIme: `${korisnik.KorisnickoIme}` },
                     contentType: 'application/json;charset=utf-8',
                     dataType: 'json',
-                    success: function (data) {
-                        if (!data) {
-                            alert("Lokacija nije izmenjena!");
+                    success: function (dataV) {
+                        if (dataV.Zauzet == "NE") {
+                            let AdresaVozacMenjaLokaciju = {
+                                UlicaBroj: `${$('#vozacUlicaBroj').val()}`,
+                                NaseljenoMesto: `${$('#vozacNaseljenoMesto').val()}`,
+                                PozivniBroj: `${$('#vozacPozivniBroj').val()}`
+                            }
+
+                            let LokacijaVozacMenjaLokaciju = {
+                                X: `${$('#vozacLokacijaX').val()}`,
+                                Y: `${$('#vozacLokacijaY').val()}`,
+                                Adresa: AdresaVozacMenjaLokaciju
+                            }
+
+                            let Auto = {
+                                IdVozaca: dataV.Id,
+                                GodisteAutomobila: dataV.Automobil.GodisteAutomobila,
+                                BrojRegistarskeOznake: dataV.Automobil.BrojRegistarskeOznake,
+                                BrojTaksiVozila: dataV.Automobil.BrojTaksiVozila,
+                                TipAutomobila: dataV.Automobil.TipAutomobila
+                            }
+
+                            let NovaLokacijaVozac = {
+                                Id: dataV.Id,
+                                KorisnickoIme: dataV.KorisnickoIme,
+                                Lozinka: dataV.Lozinka,
+                                Ime: dataV.Ime,
+                                Prezime: dataV.Prezime,
+                                Pol: dataV.Pol,
+                                JMBG: dataV.JMBG,
+                                KontaktTelefon: dataV.KontaktTelefon,
+                                Email: dataV.Email,
+                                Uloga: dataV.Uloga,
+                                Voznje: dataV.Voznje,
+                                Lokacija: LokacijaVozacMenjaLokaciju,
+                                Automobil: Auto,
+                                Zauzet: dataV.Zauzet
+                            }
+
+                            $.ajax({
+                                type: 'PUT',
+                                url: '/api/Vozac/' + dataV.Id,
+                                data: JSON.stringify(NovaLokacijaVozac),
+                                contentType: 'application/json;charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (!data) {
+                                        alert("Lokacija nije izmenjena!");
+                                    } else {
+                                        alert("Uspešno ste izmenili lokaciju!");
+                                    }
+                                }
+                            })
                         } else {
-                            alert("Uspešno ste izmenili lokaciju!");
+                            alert("Vozač ne može promeniti lokaciju, jer je trenutno zauzet!");
+                            $(location).attr('href', 'main.html');
                         }
                     }
                 })
-
 
             })
 
@@ -2191,8 +2330,8 @@
                                                 Automobil: `${data.TipAutomobila}`,
                                                 Musterija: `${data.Musterija}`,
                                                 Odrediste: lok2,
-                                                Dispecer: korisnik.Id,
-                                                Vozac: `${dataV.Id}`,
+                                                Dispecer: `${localStorage.getItem("Ulogovan")}`,
+                                                Vozac: `${dataV.KorisnickoIme}`,
                                                 Iznos: `${data.Iznos}`,
                                                 Komentar: kom,
                                                 StatusVoznje: 2//jer pri obradi voznja postaje obradjena
@@ -2704,10 +2843,10 @@
                                         DatumVreme: "",
                                         Lokacija: LokacijaKorisnikDodajeVoznju,
                                         Automobil: tipAutomobila,
-                                        Musterija: 0,
+                                        Musterija: "",
                                         Odrediste: LokacijaKorisnikDodajeVoznju2,
-                                        Dispecer: korisnik.Id,
-                                        Vozac: dataV.Id,
+                                        Dispecer: `${localStorage.getItem("Ulogovan")}`,
+                                        Vozac: dataV.KorisnickoIme,
                                         Iznos: "",
                                         Komentar: komentar,
                                         StatusVoznje: 1 //status voznje je formirana
@@ -2888,8 +3027,162 @@
             })
 
            //KLIK NA DUGME U TABELI VOZACA USPESNA
-           
 
+
+            //KLIK NA DUGME NEUSPESNA U TABELI VOZACA
+            $(document).on('click', '.neuspesnabtn', function () {
+                let idVoznje = $(this).prop('name');
+                idVoznja = idVoznje;
+
+                $('#glavni3').hide();
+                let s = '';
+                s += '<div class="komentar">';
+                s += '<table style="position:absolute;"><tr><td colspan="2"><label>Obavezno unesite komentar:</label></td></tr>';
+                s += '<tr><td colspan="2"><textarea name="komentarNeuspesna" id="komentarNeuspesna" cols="30" rows="5" placeholder="Ovde unesite komentar" /></td></tr>';
+                s += '<tr><td>Odaberite ocenu:</td><td><select name="komentarNeuspesnaOcene" id="komentarNeuspesnaOcene"><option value="0" data-toggle="tooltip" title="Ne želim da ocenim">0</option><option value="1" data-toggle="tooltip" title="Jako loše">1</option><option value="2" data-toggle="tooltip" title="Loše">2</option><option value="3" data-toggle="tooltip" title="Dobro">3</option><option value="4" data-toggle="tooltip" title="Vrlo dobro">4</option><option value="5" data-toggle="tooltip" title="Odlično">5</option></select></td></tr>';
+                s += '<tr><td colspan="2"><input type="button" name="dodajKomNeuspesna" id="dodajKomNeuspesna" value="U redu"/></td></tr></table></div>';
+                $('#glavni3').html(s);
+                $('#glavni3').fadeIn(500);
+            })
+
+            $('#glavni3').on('click', '#dodajKomNeuspesna', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Voznja',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        for (let i = 0; i < data.length; i++) {
+
+                            if (data[i].IdVoznje == idVoznja) {
+
+                                let addr = {
+                                    UlicaBroj: `${data[i].Lokacija.Adresa.UlicaBroj}`,
+                                    NaseljenoMesto: `${data[i].Lokacija.Adresa.NaseljenoMesto}`,
+                                    PozivniBroj: `${data[i].Lokacija.Adresa.PozivniBroj}`
+                                }
+
+                                let lok = {
+                                    X: `${data[i].Lokacija.X}`,
+                                    Y: `${data[i].Lokacija.Y}`,
+                                            Adresa: addr
+                                }
+
+                                let addr2 = {
+                                    UlicaBroj: `${data[i].Odrediste.Adresa.UlicaBroj}`,
+                                    NaseljenoMesto: `${data[i].Odrediste.Adresa.NaseljenoMesto}`,
+                                    PozivniBroj: `${data[i].Odrediste.Adresa.PozivniBroj}`
+                                }
+
+                                let lok2 = {
+                                    X: `${data[i].Odrediste.X}`,
+                                    Y: `${data[i].Odrediste.Y}`,
+                                    Adresa: addr2
+                                }
+
+                                let kom = {
+                                    Opis: `${$('#komentarNeuspesna').val()}`,
+                                    IdVoznje: `${idVoznja}`,
+                                    KorisnickoIme: `${korisnik.KorisnickoIme}`,
+                                    Ocena: $('#komentarNeuspesnaOcene').val()
+                                }
+
+                                let KomentarOtkazaneVoznja = {
+                                    IdVoznje: `${idVoznja}`,
+                                    DatumVreme: `${data[i].DatumVreme}`,
+                                    Lokacija: lok,
+                                    Automobil: `${data[i].Automobil}`,
+                                    Musterija: `${data[i].Musterija}`,
+                                    Odrediste: lok2,
+                                    Dispecer: `${data[i].Dispecer}`,
+                                    Vozac: `${data[i].Vozac}`,
+                                    Iznos: `${data[i].Iznos}`,
+                                    Komentar: kom,
+                                    StatusVoznje: 5//voznja je neuspesna i to se update
+                                }
+
+                                $.ajax({
+                                    type: 'PUT',
+                                    url: '/api/Voznja/' + idVoznja,//idVoznja je lokalna koja mi cuva samo id voznje izmedju klika na otkazi i klika na dodaj komentar
+                                    data: JSON.stringify(KomentarOtkazaneVoznja),
+                                    contentType: 'application/json;charset=utf-8',
+                                    dataType: 'json',
+                                    success: function () {
+
+                                        //moram update vozaca da je slobodan
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/api/Vozac',
+                                            data: { KorisnickoIme: `${korisnik.KorisnickoIme}` },
+                                            contentType: 'application/json;charset=utf-8',
+                                            dataType: 'json',
+                                            success: function (dataV) {
+                                                let VozacAdresaMenjamStanje = {
+                                                    UlicaBroj: `${dataV.Lokacija.Adresa.UlicaBroj}`,
+                                                    NaseljenoMesto: `${dataV.Lokacija.Adresa.NaseljenoMesto}`,
+                                                    PozivniBroj: `${dataV.Lokacija.Adresa.PozivniBroj}`
+                                                }
+
+                                                let VozacLokacijaMenjamStanje = {
+                                                    X: `${dataV.Lokacija.X}`,
+                                                    Y: `${dataV.Lokacija.Y}`,
+                                                    Adresa: VozacAdresaMenjamStanje
+                                                }
+
+                                                let Auto = {
+                                                    IdVozaca: `${dataV.Automobil.IdVozaca}`,
+                                                    GodisteAutomobila: `${dataV.Automobil.GodisteAutomobila}`,
+                                                    BrojRegistarskeOznake: `${dataV.Automobil.BrojRegistarskeOznake}`,
+                                                    BrojTaksiVozila: `${dataV.Automobil.BrojTaksiVozila}`,
+                                                    TipAutomobila: `${dataV.Automobil.TipAutomobila}`
+                                                }
+
+                                                let NovoStanjeVozac = {
+                                                    Id: `${dataV.Id}`,
+                                                    KorisnickoIme: `${dataV.KorisnickoIme}`,
+                                                    Lozinka: `${dataV.Lozinka}`,
+                                                    Ime: `${dataV.Ime}`,
+                                                    Prezime: `${dataV.Prezime}`,
+                                                    Pol: `${dataV.Pol}`,
+                                                    JMBG: `${dataV.JMBG}`,
+                                                    KontaktTelefon: `${dataV.KontaktTelefon}`,
+                                                    Email: `${dataV.Email}`,
+                                                    Uloga: `${dataV.Uloga}`,
+                                                    Voznje: `${dataV.Voznje}`,
+                                                    Lokacija: VozacLokacijaMenjamStanje,
+                                                    Automobil: Auto,
+                                                    Zauzet: "NE"
+                                                }
+
+
+                                                $.ajax({
+                                                    type: 'PUT',
+                                                    url: '/api/Vozac/' + dataV.Id,
+                                                    data: JSON.stringify(NovoStanjeVozac),
+                                                    contentType: 'application/json;charset=utf-8',
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        alert("Uspešno ste postavili status vožnje na neuspešna!");
+                                                        $(location).attr('href', 'main.html');
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+
+                                })
+
+                                break;//samo jednom cim je nadje vise nema potrebe da prolazi forom
+                            }
+                            
+                        }
+                    }
+                })
+            })
+
+            //KRAJ KLIK NA DUGME NEUSPESNA U TABELI VOZACA
+                
         })
 
 

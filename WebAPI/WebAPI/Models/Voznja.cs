@@ -28,10 +28,10 @@ namespace WebAPI.Models
             {
                 Automobil = Enumi.Automobil.Svejedno;
             }
-            Musterija = Int32.Parse(IdMusterije);
+            Musterija = IdMusterije;
             Odrediste = new Lokacija(XOdrediste, YOdrediste, UlicaBrojOdrediste, NaseljenoMestoOdrediste, PozivniBrojOdrediste);
-            Dispecer = Int32.Parse(IdDispecera);
-            Vozac = Int32.Parse(IdVozaca);
+            Dispecer = IdDispecera;
+            Vozac = IdVozaca;
             this.Iznos = double.Parse(Iznos);
             Komentar = new Komentar(OpsiKomentara,DatumKomentara,KorisnickoImeOnogKoPraviKomentar,IdVoznje,Ocena);
             if (StatusVoznje.Equals("Kreirana"))
@@ -66,10 +66,10 @@ namespace WebAPI.Models
         public DateTime DatumVreme { get; set; }
         public Lokacija Lokacija { get; set; }
         public Enumi.Automobil Automobil { get; set; }
-        public int Musterija { get; set; }
+        public string Musterija { get; set; }
         public Lokacija Odrediste { get; set; }
-        public int Dispecer { get; set; }
-        public int Vozac { get; set; }
+        public string Dispecer { get; set; }
+        public string Vozac { get; set; }
         public double Iznos { get; set; }
         public Komentar Komentar { get; set; }
         public StatusVoznje StatusVoznje { get; set; }
