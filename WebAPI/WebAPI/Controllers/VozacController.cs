@@ -84,7 +84,7 @@ namespace WebAPI.Controllers
             if (!nadjen)
             {
                 vozaci.list.Add(vozac.Id, vozac);
-                string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Vozaci.txt";
+                string path = HostingEnvironment.MapPath("~/App_Data/Vozaci.txt");
                 StringBuilder sb = new StringBuilder();
                 vozac.Id = vozaci.list.Count;
                 sb.Append(vozac.Id + ";" + vozac.KorisnickoIme + ";" + vozac.Lozinka + ";" + vozac.Ime + ";" + vozac.Prezime + ";" + vozac.Pol + ";" + vozac.JMBG + ";" + vozac.KontaktTelefon + ";" + vozac.Email + ";" + vozac.Uloga + ";" + vozac.Voznje + ";"+ vozac.Lokacija.X+";"+ vozac.Lokacija.Y+";"+ vozac.Lokacija.Adresa.UlicaBroj + ";" + vozac.Lokacija.Adresa.NaseljenoMesto + ";" + vozac.Lokacija.Adresa.PozivniBroj + ";" + vozac.Id + ";" + vozac.Automobil.GodisteAutomobila + ";" + vozac.Automobil.BrojRegistarskeOznake + ";" + vozac.Automobil.BrojTaksiVozila + ";" + vozac.Automobil.TipAutomobila+";"+"NE"+"\n");

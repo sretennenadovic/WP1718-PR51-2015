@@ -104,6 +104,13 @@ namespace WebAPI.Controllers
             }else if(vo.StatusVoznje == StatusVoznje.Formirana)
             {
                 v.Komentar.DatumObjave = "";
+            }else if(vo.StatusVoznje == StatusVoznje.Uspesna && vo.Komentar.Opis != "")
+            {
+                v.Komentar.DatumObjave = DateTime.Now.ToString();
+            }
+            else
+            {
+                v.Komentar.DatumObjave = "";
             }
             v.Komentar.Ocena = vo.Komentar.Ocena;
             v.StatusVoznje = vo.StatusVoznje;

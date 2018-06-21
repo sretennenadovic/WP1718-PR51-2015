@@ -1,3 +1,3 @@
-1;20.6.2018. 15.32.22;5;5;Ulica 5;Naseljeno Mesto;15300;Putnicki;1;;;;;;2;2;0;;;;;;Obradjena
+1;20.6.2018. 15.32.22;5;5;Ulica 5;Naseljeno Mesto;15300;Putnicki;1;333;333;Ulica 333;NM333;111333;2;2;1000;;;;;;Uspesna
 2;20.6.2018. 18.13.23;33;33;Ulica 33;NM33;33333;Kombi;1;;;;;;1;0;0;;;;;;Formirana
 3;20.6.2018. 18.33.58;33;33;Ulica 33;NM33;33333;Svejedno;1;;;;;;1;6;0;;;;;;Formirana
