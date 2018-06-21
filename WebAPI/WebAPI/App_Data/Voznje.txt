@@ -1,3 +1,9 @@
 1;20.6.2018. 15.32.22;5;5;Ulica 5;Naseljeno Mesto;15300;Putnicki;1;333;333;Ulica 333;NM333;111333;2;2;1000;;;;;;Uspesna
-2;20.6.2018. 18.13.23;33;33;Ulica 33;NM33;33333;Kombi;1;;;;;;1;0;0;;;;;;Formirana
-3;20.6.2018. 18.33.58;33;33;Ulica 33;NM33;33333;Svejedno;1;;;;;;1;6;0;;;;;;Formirana
+2;20.6.2018. 18.13.23;33;33;Ulica 33;NM33;33333;Kombi;0;;;;;;1;0;0;;;;;;Formirana
+3;20.6.2018. 18.33.58;33;33;Ulica 33;NM33;33333;Svejedno;0;;;;;;1;6;0;;;;;;Formirana
+4;21.6.2018. 12.28.00;77;77;Ulica 77;NM77;77777;Putnicki;3;88;88;Ulica 88;NM88;88888;3;5;1800;;;;;;Uspesna
+5;21.6.2018. 12.35.14;44;44;Ulica 44;NM44;44444;Putnicki;8;123;321;Nikola Pasic 12;Nemam pojma;12345;3;5;1250;;;;;;Uspesna
+6;21.6.2018. 12.36.00;11;11;Ulica 1;NM1;112212;Svejedno;2;;;;;;0;0;0;Cekao sam predugo, nema odgovora i zovem sada neki drugi. Poy;21.6.2018. 12.46.05;sreten;6;1;Otkazana
+7;21.6.2018. 13.07.51;2;2;Ulica 2;NM2;221133;Putnicki;2;11;22;Ulica 33;NEMA;789987;0;5;2000;;;;;;Uspesna
+8;21.6.2018. 13.31.32;11.2;22.1;Ulica MR Braun 5;BBNN;123321;Putnicki;1;;;;;;0;5;0;;;;;;Prihvacena
+9;21.6.2018. 13.46.59;31;13;dddd 12;www;333333;Svejedno;0;;;;;;2;7;0;;;;;;Formirana
