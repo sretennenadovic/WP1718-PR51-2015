@@ -15,37 +15,22 @@ namespace WebAPI.Controllers
 {
     public class DispecerController : ApiController
     {
-   /*     //vraca sve voznje u sistemu
-        public List<Voznja> GetAll()
+
+        public Korisnik Get(string KorisnickoIme)
         {
-            List<Voznja> ret = new List<Voznja>();
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+            Dispecer k = null;
+            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
 
-            foreach (Voznja item in voznje.list.Values)
+            foreach (Dispecer item in dispeceri.list.Values)
             {
-                ret.Add(item);
-            }
-
-            return ret;
-        }*/
-
- /*       //vraca mi sve voznje od odredjenog dispecera
-        public List<Voznja> Get(int id)
-        {
-            List<Voznja> ret = new List<Voznja>();
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
-
-
-            foreach (Voznja item in voznje.list.Values)
-            {
-                if (id == item.Dispecer)
+                if (KorisnickoIme.Equals(item.KorisnickoIme))
                 {
-                    ret.Add(item);
+                    k = item;
+                    break;
                 }
             }
-
-            return ret;
-        }*/
+            return k;
+        }
 
         //pri update (izmeni) dispecera
         public bool Put(int Id,[FromBody]Korisnik korisnik)

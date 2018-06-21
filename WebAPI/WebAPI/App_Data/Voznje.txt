@@ -1,4 +1,4 @@
-1;20.6.2018. 15.32.22;5;5;Ulica 5;Naseljeno Mesto;15300;Putnicki;ljubo;333;333;Ulica 333;NM333;111333;dispecer2;vozac2;1000;;;;;;Uspesna
+1;20.6.2018. 15.32.22;5;5;Ulica 5;Naseljeno Mesto;15300;Putnicki;ljubo;333;333;Ulica 333;NM333;111333;dispecer2;vozac2;1000;voznja nije bila losa.;21.6.2018. 19.39.36;ljubo;1;3;Otkazana
 2;20.6.2018. 18.13.23;33;33;Ulica 33;NM33;33333;Kombi;;;;;;;dispecer1;;0;;;;;;Formirana
 3;20.6.2018. 18.33.58;33;33;Ulica 33;NM33;33333;Svejedno;;;;;;;dispecer1;vozac3;0;;;;;;Formirana
 4;21.6.2018. 12.28.00;77;77;Ulica 77;NM77;77777;Putnicki;neko;88;88;Ulica 88;NM88;88888;dispecer3;ttt;1800;;;;;;Uspesna

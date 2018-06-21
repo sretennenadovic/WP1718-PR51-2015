@@ -15,32 +15,21 @@ namespace WebAPI.Controllers
 {
     public class RegistrationController : ApiController
     {
-     /*   //vraca mi listu voznji 
-        public List<Voznja> Get()
+        public Korisnik Get(string KorisnickoIme)
         {
-            List<Voznja> ret = new List<Voznja>();
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
+            Korisnik k = null;
+            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
 
-
-            foreach (Voznja item in voznje.list.Values)
+            foreach (Korisnik item in korisnici.list.Values)
             {
-               
-                    ret.Add(item);
+                if (KorisnickoIme.Equals(item.KorisnickoIme))
+                {
+                    k = item;
+                    break;
+                }
             }
-
-            return ret;
-        }*/
-
-  /*      [HttpGet]
-        [Route("api/Registration/GetVoznju/{id}")]
-        public Voznja GetVoznju(int id)
-        {
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
-            Voznja v = voznje.list[id];
-
-            return v;
+            return k;
         }
-        */
 
 
         public bool Post([FromBody]Korisnik korisnik)
@@ -208,46 +197,5 @@ namespace WebAPI.Controllers
 
             return false;
         }
-
-/*
-        //za izmenu statusa voznje pri otkazu iste
-        [Route("api/Registration/PutOdustani")]
-        public void PutOdustani([FromBody]int Id)
-        {
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
-
-            Voznja v = voznje.list[Id];
-
-            v.StatusVoznje = StatusVoznje.Otkazana;
-
-            voznje.list[Id] = v;
-
-            bool prviPut = true;
-
-            string path = @"C:\Users\PC\Desktop\WEBproject\WP1718-PR51-2015\WebAPI\WebAPI\App_Data\Voznje.txt";
-            StringBuilder sb = new StringBuilder();
-
-            foreach (Voznja voznja in voznje.list.Values)
-            {
-                if (prviPut)
-                {
-                    sb.Append(voznja.IdVoznje + ";" + voznja.DatumVreme + ";" + voznja.Lokacija.X + ";" + voznja.Lokacija.Y + ";" + voznja.Lokacija.Adresa.UlicaBroj + ";" + voznja.Lokacija.Adresa.NaseljenoMesto + ";" + voznja.Lokacija.Adresa.PozivniBroj + ";" + voznja.Automobil + ";" + voznja.Musterija + ";" + voznja.Odrediste.X + ";" + voznja.Odrediste.Y + ";" + voznja.Odrediste.Adresa.UlicaBroj + ";" + voznja.Odrediste.Adresa.NaseljenoMesto + ";" + voznja.Odrediste.Adresa.PozivniBroj + ";" + voznja.Dispecer + ";" + voznja.Vozac + ";" + voznja.Iznos + ";" + voznja.Komentar.Opis + ";" + voznja.Komentar.DatumObjave + ";" + voznja.Komentar.KorisnickoIme + ";" + voznja.Komentar.IdVoznje + ";" + voznja.Komentar.Ocena + ";" + voznja.StatusVoznje + "\n");
-                    File.WriteAllText(path, sb.ToString());
-                    prviPut = false;
-                    sb.Length = 0;
-                }
-                else
-                {
-                    sb.Append(voznja.IdVoznje + ";" + voznja.DatumVreme + ";" + voznja.Lokacija.X + ";" + voznja.Lokacija.Y + ";" + voznja.Lokacija.Adresa.UlicaBroj + ";" + voznja.Lokacija.Adresa.NaseljenoMesto + ";" + voznja.Lokacija.Adresa.PozivniBroj + ";" + voznja.Automobil + ";" + voznja.Musterija + ";" + voznja.Odrediste.X + ";" + voznja.Odrediste.Y + ";" + voznja.Odrediste.Adresa.UlicaBroj + ";" + voznja.Odrediste.Adresa.NaseljenoMesto + ";" + voznja.Odrediste.Adresa.PozivniBroj + ";" + voznja.Dispecer + ";" + voznja.Vozac + ";" + voznja.Iznos + ";" + voznja.Komentar.Opis + ";" + voznja.Komentar.DatumObjave + ";" + voznja.Komentar.KorisnickoIme + ";" + voznja.Komentar.IdVoznje + ";" + voznja.Komentar.Ocena + ";" + voznja.StatusVoznje + "\n");
-                    File.AppendAllText(path, sb.ToString());
-                    sb.Length = 0;
-                }
-            }
-
-            voznje = new Voznje("~/App_Data/Voznje.txt");
-            HttpContext.Current.Application["voznje"] = voznje;
-
-        }
-*/
     }
 }
