@@ -54,6 +54,12 @@
             top: 0px;
             margin-left: 12px;
         }
+        .searchButtonK {
+            position: relative;
+            display: inline-block;
+            top: -20px;
+            margin-left: 8px;
+        }
 
         .positionButton{
             position:relative;
@@ -4136,6 +4142,218 @@
                     }
                 })
             })
+            //KRAJ OVOGA ZA PRETRAGU U DISPECERU
+
+
+            //PRETRAGA U KLIJENTU
+
+            let prviProlaz;
+            $('#pretragaKorisnik').click(function () {
+                let s = '';
+                prviProlaz = "da";
+
+                s += '<div style="position:relative;"><table style="position:absolute;margin-left:50%;margin-top:60px;margin-right:-50%;transform: translate(-50%, -50%);width:60%;"><tr><th colspan="4" ><h3>Ovde možete izvršiti pretragu vožnji</h3></th></tr>';
+                s += '<tr><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="date" name="datumPretragaOd" id="datumPretragaOd" placeholder="Datum OD" style="margin:5px;width:80%;"/></td><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="number" min="0" max="5" name="ocenaPretragaOd" id="ocenaPretragaOd" placeholder="Ocena OD" style="margin:5px;width:80%;"/></td><td style="width:30%;"><input type="number" name="cenaPretragaOd" id="cenaPretragaOd" placeholder="Cena OD" style="margin:5px;width:80%;"/></td><td rawspan="3"></td></tr>';
+                s += '<tr><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="date" name="datumPretragaDo" id="datumPretragaDo" placeholder="Datum DO" style="margin:5px;width:80%;"/></td><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="number" min="0" max="5" name="ocenaPretragaDo" id="ocenaPretragaDo" placeholder="Ocena DO" style="margin:5px;width:80%;"/></td><td style="width:30%;"><input type="number" name="cenaPretragaDo" id="cenaPretragaDo" placeholder="Cena DO" style="margin:5px;width:80%;"/></td><td><input type="button" name="traziKorisnik" id="traziKorisnik" value="Traži"/></td></tr>';
+                s += '</table></div>';
+
+
+                $('#glavni').hide();
+                $('#glavni').html(s);
+                $('#glavni').fadeIn(500);
+            })
+
+            $('#glavni').on('click', '#traziKorisnik', function () {
+                let s = '';
+                s += '<div>';
+                let niz = [];
+                let niz2 = [];
+                let niz3 = [];
+                let nizSve = [];
+
+                let datOd = `${$('#datumPretragaOd').val()}`;
+                let datDo = `${$('#datumPretragaDo').val()}`;
+                let ocenaOd = `${$('#ocenaPretragaOd').val()}`;
+                let ocenaDo = `${$('#ocenaPretragaDo').val()}`;
+                let cenaOd = `${$('#cenaPretragaOd').val()}`;
+                let cenaDo = `${$('#cenaPretragaDo').val()}`;
+
+                if (`${$('#datumPretragaOd').val()}` == "" && `${$('#datumPretragaDo').val()}` == "" && `${$('#ocenaPretragaOd').val()}` == "" && `${$('#ocenaPretragaDo').val()}` == "" && `${$('#cenaPretragaOd').val()}` == "" && `${$('#cenaPretragaDo').val()}` == "") {
+                    alert("Morate uneti bar 1 parametar po kome se vrši pretraga!");
+                } else {
+                    if (`${$('#datumPretragaOd').val()}` != "" && `${$('#datumPretragaDo').val()}` == "") {
+                        datOd = `${$('#datumPretragaOd').val()}`;
+                        datDo = '2025-01-01';
+                    } else if (`${$('#datumPretragaOd').val()}` == "" && `${$('#datumPretragaDo').val()}` != "") {
+                        datDo = `${$('#datumPretragaDo').val()}`;
+                        datOd = '2010-01-01';
+                    }
+
+                    if (`${$('#ocenaPretragaOd').val()}` != "" && `${$('#ocenaPretragaDo').val()}` == "") {
+                        ocenaOd = `${$('#ocenaPretragaOd').val()}`;
+                        ocenaDo = '5';
+                    } else if (`${$('#ocenaPretragaOd').val()}` == "" && `${$('#ocenaPretragaDo').val()}` != "") {
+                        ocenaDo = `${$('#ocenaPretragaDo').val()}`;
+                        ocenaOd = '0';
+                    }
+
+                    if (`${$('#cenaPretragaOd').val()}` != "" && `${$('#cenaPretragaDo').val()}` == "") {
+                        cenaOd = `${$('#cenaPretragaOd').val()}`;
+                        cenaDo = '40000';
+                    } else if (`${$('#cenaPretragaOd').val()}` == "" && `${$('#cenaPretragaDo').val()}` != "") {
+                        cenaDo = `${$('#cenaPretragaDo').val()}`;
+                        cenaOd = '0';
+                    }
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/Voznja',
+                        //data: JSON.stringify(KomentarOtkazaneVoznja),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.length > 0) {
+                                for (var i = 0; i < data.length; i++) {
+                                    if (data[i].Musterija == `${localStorage.getItem("Ulogovan")}`) {
+                                        nizSve.push(data[i]);
+                                    }
+                                }
+
+                                if (nizSve.length != 0) {
+                                    for (var i = 0; i < nizSve.length; i++) {
+
+                                        if (`${$('#datumPretragaOd').val()}` == "" && `${$('#datumPretragaDo').val()}` == "") {
+                                            niz.push(nizSve[i]);
+                                        } else {
+                                            if (new Date(datOd) <= new Date(nizSve[i].DatumVreme.substring(0, 10)) && new Date(datDo) >= new Date(nizSve[i].DatumVreme.substring(0, 10))) {
+                                                niz.push(nizSve[i]);
+                                            }
+                                        }
+                                    }
+
+                                    if (niz.length != 0) {
+                                        for (var i = 0; i < niz.length; i++) {
+                                            if (`${$('#ocenaPretragaOd').val()}` == "" && `${$('#ocenaPretragaDo').val()}` == "") {
+                                                niz2.push(niz[i]);
+                                            } else {
+                                                if (niz[i].Komentar.Ocena != "") {
+                                                    if (ocenaOd <= niz[i].Komentar.Ocena && ocenaDo >= niz[i].Komentar.Ocena) {
+                                                        niz2.push(niz[i]);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        if (niz2.length != 0) {
+                                            for (var i = 0; i < niz2.length; i++) {
+                                                if (`${$('#cenaPretragaOd').val()}` == "" && `${$('#cenaPretragaDo').val()}` == "") {
+                                                    niz3.push(niz2[i]);
+                                                } else {
+                                                    if (niz2[i].Iznos != "") {
+                                                        if (cenaOd <= niz2[i].Iznos && cenaDo >= niz2[i].Iznos) {
+                                                            niz3.push(niz2[i]);
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            if (niz3.length > 0) {
+
+                                                let s = '';
+                                                s += '<div class="voznje" style="font-size:14px;position:absolute;margin-top:100px;">';
+                                                s += '<table border=1 class="voznje boja"><tr><th colspan="10"><h3><b>Rezultat pretrage</b></h3></th></tr>';
+                                                s += '<tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
+
+
+                                                for (let i = 0; i < niz3.length; i++) {
+
+                                                    s += ("<tr><td>" + niz3[i].IdVoznje + "</td><td>" + niz3[i].DatumVreme + "</td>");
+
+                                                    if (niz3[i].Musterija == "") {
+                                                        s += '<td>/</td>';
+                                                    } else {
+                                                        s += ('<td>' + niz3[i].Dispecer + '</td>');
+                                                    }
+
+                                                    if (niz3[i].Vozac == "") {
+                                                        s += '<td>/</td>';
+                                                    } else {
+                                                        s += ('<td>' + niz3[i].Vozac + '</td>');
+                                                    }
+
+                                                    s += ('<td>' + niz3[i].Lokacija.Adresa.UlicaBroj + ", " + niz3[i].Lokacija.Adresa.NaseljenoMesto + " " + niz3[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+
+                                                    switch (niz3[i].Automobil) {
+                                                        case 0:
+                                                            s += "Putnički";
+                                                            break;
+                                                        case 1:
+                                                            s += "Kombi";
+                                                            break;
+                                                        case 2:
+                                                            s += "Svejedno";
+                                                    }
+
+                                                    if (niz3[i].Odrediste.Adresa.UlicaBroj == "") {
+                                                        s += ("</td><td>/" + "</td>");
+                                                    }
+                                                    else {
+                                                        s += ("</td><td>" + niz3[i].Odrediste.Adresa.UlicaBroj + ", " + niz3[i].Odrediste.Adresa.NaseljenoMesto + " " + niz3[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                                    }
+
+                                                    if (niz3[i].Iznos != "0") {
+                                                        s += ("<td>" + niz3[i].Iznos + "</td>");
+                                                    } else {
+                                                        s += ("<td>/</td>");
+                                                    }
+
+                                                    s += ('<td><textarea rows="5" cols="30" disabled>');
+
+                                                    if (niz3[i].Komentar.Opis == "") {
+                                                        s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                                    } else {
+                                                        s += ("Korisnicko ime: " + niz3[i].Komentar.KorisnickoIme + "\n\nOpis: " + niz3[i].Komentar.Opis + "\n\nOcena: " + niz3[i].Komentar.Ocena + "\nDatum: " + niz3[i].Komentar.DatumObjave + "</textarea ></td >");
+                                                    }
+
+                                                    s += ("<td>" + vratiStatusVoznje(niz3[i].StatusVoznje) + "</td></tr>");
+                                                }
+                                                s += '</table>';
+
+                                                if (prviProlaz == "da") {
+                                                    $('#glavni').append(s);
+                                                    prviProlaz = "ne";
+                                                } else {
+                                                    // $('.voznje').hide();
+                                                    $('.voznje').replaceWith(s);
+                                                }
+                                                $('#glavni').append(s);
+                                            }
+                                            else {
+                                                alert("Nemate voznje zadate ovom pretragom!");
+                                            }
+                                        } else {
+                                            alert("Za dat interval ocena, ni jedna voznja se ne uklapa!");
+                                        }
+
+                                    } else {
+                                        alert("Za odabrano vreme, ni jedna voznja se ne moze pronaci!");
+                                    }
+                                } else {
+                                    alert("Korisnik ne poseduje ni jednu voznju!");
+                                }
+                            } else {
+                                alert("Nema vožnji u sistemu!");
+                            }
+
+
+                        }
+                    })
+
+                }
+
+            })
+
+            //KRAJ PRETRAGA U KLIJENTU
 
         })
 
@@ -4177,17 +4395,9 @@
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                     </div>
-                    <div class="dropdown">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <button style="background-color:#ffd700;border:none;height:55px;width:auto" data-toggle="tooltip" title="Pretraži"><span class="glyphicon glyphicon-search"></span></button>
-                            </li>
-                        </ul>
-                        <div class="dropdown-content">
-                            <a href="#" id="pretragaDatum">Datum</a>
-                            <a href="#" id="pretragaOcena">Ocena</a>
-                            <a href="#" id="pretragaCena">Cena</a>
-                        </div>
+                    <div class="searchButtonK">
+                                <button style="background-color:#ffd700;border:none;height:55px;width:auto" data-toggle="tooltip" title="Pretraži" id="pretragaKorisnik"><span class="glyphicon glyphicon-search"></span></button>
+
                     </div>
                 </div>
             </div>
