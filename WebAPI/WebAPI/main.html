@@ -3743,7 +3743,7 @@
                 prviMusterija = "da";
 
                 s += '<div style="position:relative;"><table style="position:absolute;margin-left:50%;margin-top:60px;margin-right:-50%;transform: translate(-50%, -50%)"><tr><th colspan="3" ><h3>Ovde možete izvršiti pretragu vožnji</h3></th></tr>';
-                s += '<tr><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" ><input type="text" name="imeMusterijePretraga" id="imeMusterijePretraga" placeholder="Ime vozača" style="margin:5px"/></td><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" ><input type="text" name="prezimeMusterijePretraga" id="prezimeMusterijePretraga" placeholder="Prezime vozača" style="margin:5px"/></td>';
+                s += '<tr><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" ><input type="text" name="imeMusterijePretraga" id="imeMusterijePretraga" placeholder="Ime mušterije" style="margin:5px"/></td><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" ><input type="text" name="prezimeMusterijePretraga" id="prezimeMusterijePretraga" placeholder="Prezime mušterije" style="margin:5px"/></td>';
                 s += '<td colspan="2" align="right" data-balloon="Izvrši pretragu!" data-balloon-pos="down"><input type="button" name="pretraziMusteriju" id="pretraziMusteriju" value="Traži" style="margin:5px" /></td></tr>';
                 s += '</table></div>';
 
@@ -4568,8 +4568,106 @@
                         }
                     }
                 })
-
             })
+
+            $('#sortirajOcena').click(function () {
+                let zasortiranje = [];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Voznja',
+                    //data: JSON.stringify(KomentarOtkazaneVoznja),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].Musterija == `${localStorage.getItem("Ulogovan")}` && data[i].Komentar.Ocena != "") {
+                                    zasortiranje.push(data[i]);
+                                }
+                            }
+
+                            zasortiranje.sort(function (a, b) {
+                                return b.Komentar.Ocena - a.Komentar.Ocena;
+                            })
+
+                            //cisto smestam one bez ocene na kraj tabele jer onako
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].Musterija == `${localStorage.getItem("Ulogovan")}` && data[i].Komentar.Ocena == "") {
+                                    zasortiranje.push(data[i]);
+                                }
+                            }
+
+                            if (zasortiranje.length > 0) {
+                                let s = '';
+                                s += '<div class="voznje" style="font-size:14px;position:absolute;margin-top:0px;">';
+                                s += '<table border=1 class="voznje boja"><tr><th colspan="10"><h3><b>Rezultat sortiranja po ocenama</b></h3></th></tr>';
+                                s += '<tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
+
+                                for (var i = 0; i < zasortiranje.length; i++) {
+                                    s += ("<tr><td>" + zasortiranje[i].IdVoznje + "</td><td>" + zasortiranje[i].DatumVreme + "</td>");
+
+                                    if (zasortiranje[i].Dispecer == "") {
+                                        s += '<td>/</td>';
+                                    } else {
+                                        s += ('<td>' + zasortiranje[i].Dispecer + '</td>');
+                                    }
+
+                                    if (zasortiranje[i].Vozac == "") {
+                                        s += '<td>/</td>';
+                                    } else {
+                                        s += ('<td>' + zasortiranje[i].Vozac + '</td>');
+                                    }
+
+                                    s += ('<td>' + zasortiranje[i].Lokacija.Adresa.UlicaBroj + ", " + zasortiranje[i].Lokacija.Adresa.NaseljenoMesto + " " + zasortiranje[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+
+                                    switch (zasortiranje[i].Automobil) {
+                                        case 0:
+                                            s += "Putnički";
+                                            break;
+                                        case 1:
+                                            s += "Kombi";
+                                            break;
+                                        case 2:
+                                            s += "Svejedno";
+                                    }
+
+                                    if (zasortiranje[i].Odrediste.Adresa.UlicaBroj == "") {
+                                        s += ("</td><td>/" + "</td>");
+                                    }
+                                    else {
+                                        s += ("</td><td>" + zasortiranje[i].Odrediste.Adresa.UlicaBroj + ", " + zasortiranje[i].Odrediste.Adresa.NaseljenoMesto + " " + zasortiranje[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                    }
+
+                                    if (zasortiranje[i].Iznos != "0") {
+                                        s += ("<td>" + zasortiranje[i].Iznos + "</td>");
+                                    } else {
+                                        s += ("<td>/</td>");
+                                    }
+
+                                    s += ('<td><textarea rows="5" cols="30" disabled>');
+
+                                    if (zasortiranje[i].Komentar.Opis == "") {
+                                        s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                    } else {
+                                        s += ("Korisnicko ime: " + zasortiranje[i].Komentar.KorisnickoIme + "\n\nOpis: " + zasortiranje[i].Komentar.Opis + "\n\nOcena: " + zasortiranje[i].Komentar.Ocena + "\nDatum: " + zasortiranje[i].Komentar.DatumObjave + "</textarea ></td >");
+                                    }
+
+                                    s += ("<td>" + vratiStatusVoznje(zasortiranje[i].StatusVoznje) + "</td></tr>");
+                                }
+                                s += '</table>';
+
+                                $('#glavni').html(s);
+
+                            } else {
+                                alert("Korisnik " + `${localStorage.getItem("Ulogovan")}` +", trenutno ne poseduje vožnju!");
+                            }
+                        } else {
+                            alert("Nema vožnji u sistemu!");
+                        }
+                    }
+                })
+            })
+
             //KRAJ SORTIRAJ U KLIJENTU
 
         })
@@ -4614,7 +4712,6 @@
                     </div>
                     <div class="searchButtonK">
                         <button style="background-color:#ffd700;border:none;height:55px;width:auto" data-toggle="tooltip" title="Pretraži" id="pretragaKorisnik"><span class="glyphicon glyphicon-search"></span></button>
-
                     </div>
                     <div style="display:inline-block;position:absolute;margin-left:0px;">
                         <button style="background-color:#ffd700;border:none;height:55px;width:44px" data-toggle="tooltip" title="Filtriraj" id="filtrirajVoznje"><span class="glyphicon glyphicon-filter"></span></button>
@@ -4634,11 +4731,9 @@
                 </div>
             </div>
         </nav>
-
         <img src="pozadinaSreten.jpg" id="soloPic" />
         <div id="glavni">
-        </div>
-        
+        </div>      
     </div>
     <div id="dispecer">
         <nav class="nova">
@@ -4702,10 +4797,7 @@
         </nav>
         <img src="pozadinaSreten.jpg" id="soloPicd" />
         <div id="glavni2">
-
         </div>
-  
-
     </div>
     <div id="vozac">
         <nav class="nova">
