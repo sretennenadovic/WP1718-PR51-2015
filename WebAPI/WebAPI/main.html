@@ -58,7 +58,7 @@
             position: relative;
             display: inline-block;
             top: -20px;
-            margin-left: 8px;
+            margin-left: 0px;
         }
 
         .positionButton{
@@ -244,6 +244,8 @@
         button {
             border-radius: 8px;
         }
+
+
 
         
     </style>
@@ -4152,9 +4154,9 @@
                 let s = '';
                 prviProlaz = "da";
 
-                s += '<div style="position:relative;"><table style="position:absolute;margin-left:50%;margin-top:60px;margin-right:-50%;transform: translate(-50%, -50%);width:60%;"><tr><th colspan="4" ><h3>Ovde možete izvršiti pretragu vožnji</h3></th></tr>';
-                s += '<tr><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="date" name="datumPretragaOd" id="datumPretragaOd" placeholder="Datum OD" style="margin:5px;width:80%;"/></td><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="number" min="0" max="5" name="ocenaPretragaOd" id="ocenaPretragaOd" placeholder="Ocena OD" style="margin:5px;width:80%;"/></td><td style="width:30%;"><input type="number" name="cenaPretragaOd" id="cenaPretragaOd" placeholder="Cena OD" style="margin:5px;width:80%;"/></td><td rawspan="3"></td></tr>';
-                s += '<tr><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="date" name="datumPretragaDo" id="datumPretragaDo" placeholder="Datum DO" style="margin:5px;width:80%;"/></td><td  data-balloon="Neki od parametara može ostati prazan!" data-balloon-pos="down" style="width:30%;"><input type="number" min="0" max="5" name="ocenaPretragaDo" id="ocenaPretragaDo" placeholder="Ocena DO" style="margin:5px;width:80%;"/></td><td style="width:30%;"><input type="number" name="cenaPretragaDo" id="cenaPretragaDo" placeholder="Cena DO" style="margin:5px;width:80%;"/></td><td><input type="button" name="traziKorisnik" id="traziKorisnik" value="Traži"/></td></tr>';
+                s += '<div style="position:relative;" ><table  style="position:absolute;margin-left:50%;margin-top:60px;margin-right:-50%;transform: translate(-50%, -50%);width:60%;"><tr><th colspan="4" ><h3>Ovde možete izvršiti pretragu vožnji</h3></th></tr>';
+                s += '<tr><td  data-balloon="Datum od kog želite pretragu!" data-balloon-pos="down" style="width:30%;"><input type="date" name="datumPretragaOd" id="datumPretragaOd" placeholder="Datum OD" style="margin:5px;width:80%;"/></td><td   style="width:30%;"><input type="number" min="0" max="5" name="ocenaPretragaOd" id="ocenaPretragaOd" placeholder="Ocena OD" style="margin:5px;width:80%;"/></td><td style="width:30%;"><input type="number" name="cenaPretragaOd" id="cenaPretragaOd" placeholder="Cena OD" style="margin:5px;width:80%;"/></td><td rawspan="3"></td></tr>';
+                s += '<tr><td  data-balloon="Datum do kog želite pretragu!" data-balloon-pos="down" style="width:30%;"><input type="date" name="datumPretragaDo" id="datumPretragaDo" placeholder="Datum DO" style="margin:5px;width:80%;"/></td><td  style="width:30%;"><input type="number" min="0" max="5" name="ocenaPretragaDo" id="ocenaPretragaDo" placeholder="Ocena DO" style="margin:5px;width:80%;"/></td><td style="width:30%;"><input type="number" name="cenaPretragaDo" id="cenaPretragaDo" placeholder="Cena DO" style="margin:5px;width:80%;"/></td><td data-balloon="Ne moraju biti popunjeni svi parametri!" data-balloon-pos="down"><input type="button" name="traziKorisnik" id="traziKorisnik" value="Traži"/></td></tr>';
                 s += '</table></div>';
 
 
@@ -4326,7 +4328,7 @@
                                                     // $('.voznje').hide();
                                                     $('.voznje').replaceWith(s);
                                                 }
-                                                $('#glavni').append(s);
+                                               // $('#glavni').append(s);
                                             }
                                             else {
                                                 alert("Nemate voznje zadate ovom pretragom!");
@@ -4354,6 +4356,115 @@
             })
 
             //KRAJ PRETRAGA U KLIJENTU
+
+
+            //FILTER U KLIJENTU
+
+            let prviFilter;
+            $('#filtrirajVoznje').click(function(){
+
+                let s = '';
+                prviFilter = "da";
+
+                s += '<div style="position:relative;"><table style="position:absolute;margin-left:50%;margin-top:60px;margin-right:-50%;transform: translate(-50%, -50%);"><tr><th colspan="2" ><h3>Ovde možete izvršiti filtriranje po statusu vožnje</h3></th></tr>';
+                s += '<tr><td align="center"><select name="filterTip" id="filterTip"><option value="Kreirana">Kreirana</option><option value="Formirana">Formirana</option><option value="Obradjena">Obradjena</option><option value="Prihvaćena">Prihvaćena</option><option value="Otkazana">Otkazana</option><option value="Neuspešna">Neušpesna</option><option value="Uspešna">Uspešna</option></select></td><td><input type="button" name="filtriranje" id="filtriranje" value="Filtriraj"/></td></tr>';
+                s += '</table></div>';
+
+                $('#glavni').html(s);
+                $('#glavni').fadeIn(500);
+
+            })
+
+            $('#glavni').on('click', '#filtriranje', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Voznja',
+                    //data: JSON.stringify(KomentarOtkazaneVoznja),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.length != 0) {
+
+                            let s = '';
+                            s += '<div class="voznje" style="font-size:14px;position:absolute;margin-top:100px;">';
+                            s += '<table border=1 class="voznje boja"><tr><th colspan="10"><h3><b>Rezultat pretrage</b></h3></th></tr>';
+                            s += '<tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
+
+                            for (var i = 0; i < data.length; i++) {
+                                if (vratiStatusVoznje(data[i].StatusVoznje) == `${$('#filterTip').val()}` && data[i].Musterija == `${localStorage.getItem("Ulogovan")}`) {
+
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+
+                                    if (data[i].Musterija == "") {
+                                        s += '<td>/</td>';
+                                    } else {
+                                        s += ('<td>' + data[i].Dispecer + '</td>');
+                                    }
+
+                                    if (data[i].Vozac == "") {
+                                        s += '<td>/</td>';
+                                    } else {
+                                        s += ('<td>' + data[i].Vozac + '</td>');
+                                    }
+
+                                    s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+
+                                    switch (data[i].Automobil) {
+                                        case 0:
+                                            s += "Putnički";
+                                            break;
+                                        case 1:
+                                            s += "Kombi";
+                                            break;
+                                        case 2:
+                                            s += "Svejedno";
+                                    }
+
+                                    if (data[i].Odrediste.Adresa.UlicaBroj == "") {
+                                        s += ("</td><td>/" + "</td>");
+                                    }
+                                    else {
+                                        s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                    }
+
+                                    if (data[i].Iznos != "0") {
+                                        s += ("<td>" + data[i].Iznos + "</td>");
+                                    } else {
+                                        s += ("<td>/</td>");
+                                    }
+
+                                    s += ('<td><textarea rows="5" cols="30" disabled>');
+
+                                    if (data[i].Komentar.Opis == "") {
+                                        s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                    } else {
+                                        s += ("Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >");
+                                    }
+
+                                    s += ("<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td></tr>");
+                                }
+                            }
+                                s += '</table>';
+
+                                if (prviFilter == "da") {
+                                    $('#glavni').append(s);
+                                    prviFilter = "ne";
+                                } else {
+                                    // $('.voznje').hide();
+                                    $('.voznje').replaceWith(s);
+                                }
+
+
+                            
+                        } else {
+                            alert("Nema voznji u sistemu!");
+                        }
+                    }
+                })
+
+            })
+
+            //KRAJ FILTERA U KLIJENTU
 
         })
 
@@ -4398,6 +4509,9 @@
                     <div class="searchButtonK">
                                 <button style="background-color:#ffd700;border:none;height:55px;width:auto" data-toggle="tooltip" title="Pretraži" id="pretragaKorisnik"><span class="glyphicon glyphicon-search"></span></button>
 
+                    </div>
+                    <div  style="display:inline-block;position:absolute;margin-left:10px;">
+                        <button style="background-color:#ffd700;border:none;height:55px;width:44px" data-toggle="tooltip" title="Filtriraj" id="filtrirajVoznje"><span class="glyphicon glyphicon-filter"></span></button>
                     </div>
                 </div>
             </div>
