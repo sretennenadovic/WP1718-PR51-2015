@@ -108,110 +108,8 @@
         }
     </style>
     <script src="Scripts/jquery-1.10.2.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#div1').hide();
-
-            $("#RegistrujSe").click(function (data) {
-                let pol;
-                if ($('#Pol1').prop('checked')) {
-                    pol = 'Muski';
-                } else if ($('#Pol2').prop('checked')){
-                    pol = 'Zenski';
-                }
-
-                let Korisnik = {
-                    KorisnickoIme: `${$('#KorisnickoIme').val()}`,
-                    Lozinka: `${$('#Lozinka').val()}`,
-                    Ime: `${$('#Lozinka').val()}`,
-                    Prezime: `${$('#Prezime').val()}`,
-                    Pol: pol,
-                    JMBG: `${$('#JMBG').val()}`,
-                    KontaktTelefon: `${$('#KontaktTelefon').val()}`,
-                    Email: `${$('#Email').val()}`,
-                    Uloga: 'Musterija',
-                    Voznje: `${$('#Voznje').val()}`,
-                    Banovan:`${"NE"}`
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Registration',
-                    data: JSON.stringify(Korisnik),
-                    contentType: 'application/json;charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (!data) {
-                            alert("Korisničko ime već postoji!");
-                        } else {
-                            alert("Uspešno ste se registrovali!");
-                            $('#div2').find(':input').each(function () {
-                                switch (this.type) {
-                                    case 'text':
-                                    case 'password':
-                                    case 'email':
-                                        $(this).val('');
-                                        break;
-                                    case 'radio':
-                                        this.checked = false;
-                                        break;
-                                }
-                            });
-                        }
-                    }
-                })
-            })
-    
-            $('#act1').click(function () {
-                $('#div2').hide();
-                $('#div1').show();
-            })
-
-            $('#act2').click(function () {
-                $('#div1').hide();
-                $('#div2').show();
-            })
-
-            $('#LogujSe').click(function () {
-                let KorisnikLog = {
-                    KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}`,
-                    Lozinka: `${$('#LozinkaLogIn').val()}`
-                }
-
-                
-                
-                            $.ajax({
-                                type: 'POST',
-                                url: '/api/LogIn',
-                                data: JSON.stringify(KorisnikLog),
-                                contentType: 'application/json;charset=utf-8',
-                                dataType: 'json',
-                                success: function (data) {
-                                    if (!data) {
-                                        alert("Korisničko ime ili lozinka je nevalidna!");
-                                    } else {
-                                        //redirektuj na glavnu
-
-                                        $.ajax({
-                                            type: 'GET',
-                                            url: '/api/LogIn',
-                                            data: { KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}` },
-                                            contentType: 'application/json;charset=utf-8',
-                                            dataType: 'json',
-                                            success: function (data) {
-                                                if (data.Banovan == "NE") {
-                                                    localStorage.setItem("Ulogovan", KorisnikLog.KorisnickoIme);
-                                                    $(location).attr('href', 'main.html');
-                                                } else {
-                                                    alert("Žao nam je, banovani ste na ovom sajtu!");
-                                                }
-                                            }
-                                        })
-                                    }
-                                }
-                            })
-            })
-        });
+    <script src="Scripts/Moje Skripte/RegisterAndLog.js">
+        
 
     </script>
 </head>
@@ -248,7 +146,7 @@
                     <tr><th>Lozinka:</th><td><input type="password" name="Lozinka" id="Lozinka" style="margin:5px" required/></td></tr>
                     <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px" required/></td></tr>
                     <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px" required/></td></tr>
-                    <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1"/><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>
+                    <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1" checked/><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>
                     <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px" pattern="[0-9]{13}" minlength="13" maxlength="13" required/></td></tr>
                     <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px" required/></td></tr>
                     <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px" required/></td></tr>
