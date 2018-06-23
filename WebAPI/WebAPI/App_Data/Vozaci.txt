@@ -5,4 +5,4 @@
 5;ttt;ttt;ttt;ttt;Zenski;111;111;ttt;Vozac;nema;12;12;ttt 12;tttt;121212;5;111;111;111;Kombi;DA;NE
 6;vozac3;vozac;vozac;vozac;Muski;vozac;3;vozac;Vozac;nema;3;3;asdad;vozac;33;6;3;asfd;3;Putnicki;DA;NE
 7;prinudni;prinudni;prinudni;prinudni;Muski;4445554445554443;1233333;prinudni@gmail.com;Vozac;nema;11;22;CCC 1;BBB;123456;7;2011;ns-123-tx;3332;Putnicki;DA;NE
-8;p;p;p;p;Muski;123;123;p@gmai.com;Vozac;nema;2;1;Zorke 3;Mesto;11122;8;2001;123;1234;Putnicki;NE;NE
+8;pppp;pppp;p;p;Muski;123;123;p@gmai.com;Vozac;nema;2;1;Zorke 3;Mesto;11122;8;2001;123;1234;Putnicki;NE;NE
