@@ -15,16 +15,24 @@ namespace WebAPI.Controllers
 {
     public class VoznjaController : ApiController
     {
-        public List<Voznja> Get()
+        public HttpResponseMessage Get()
         {
-            List<Voznja> ret = new List<Voznja>();
+            HttpResponseMessage ret = new HttpResponseMessage();
+            List<Voznja> ret1 = new List<Voznja>();
             Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
             foreach (Voznja item in voznje.list.Values)
             {
-                ret.Add(item);
+                ret1.Add(item);
             }
 
+            if(ret1.Count == 0)
+            {
+               ret = Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Nema vožnji u sistemu.");
+            }else
+            {
+                ret = Request.CreateResponse(HttpStatusCode.OK, ret1);
+            }
             return ret;
         }
 
