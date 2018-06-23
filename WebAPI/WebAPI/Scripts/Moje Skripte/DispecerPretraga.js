@@ -823,3 +823,29 @@
 
 
 })
+
+function uporedi(atr1, atr2) {
+    const atr3 = [];
+
+    atr1.forEach((e1) => atr2.forEach((e2) => {
+        if (e1 == e2.Vozac) {
+            atr3.push(e2)
+        }
+    }
+
+    ));
+    return atr3;
+}
+
+function uporediMusterija(atr1, atr2) {
+    const atr3 = [];
+
+    atr1.forEach((e1) => atr2.forEach((e2) => {
+        if (e1 == e2.Musterija) {
+            atr3.push(e2)
+        }
+    }
+
+    ));
+    return atr3;
+}

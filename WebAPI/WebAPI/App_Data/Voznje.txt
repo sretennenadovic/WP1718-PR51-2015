@@ -18,3 +18,4 @@
 18;23.6.2018. 16.40.39;14;14;Ulica 14;Naseljeno Mesto;121214;Putnicki;;2;2;Ulica 2;Naseljeno mesto;121222;dispecer1;pppp;1222;;;;;;Uspesna
 19;23.6.2018. 17.16.42;145;145;Ulica 145;Naseljeno Mesto;145145;Kombi;zena;;;;;;;;0;pokusacu kasnije;23.6.2018. 17.17.12;;19;0;Otkazana
 20;23.6.2018. 17.17.53;144;144;Ulica 144;Naseljeno mesto;14414;Putnicki;zena;;;;;;dispecer4;pppp;0;nema zena pa nema;23.6.2018. 17.19.09;undefined;20;0;Neuspesna
+21;23.6.2018. 18.56.58;111;112;Ulica 112;Bec;112212;Putnicki;ljubo;11;22;Ulica Nzm;Bec;112233;dispecer1;pppp;3000;Super sam se snasao!;23.6.2018. 19.09.09;ljubo;21;5;Uspesna
