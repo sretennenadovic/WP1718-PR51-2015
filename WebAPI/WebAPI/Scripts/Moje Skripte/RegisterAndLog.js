@@ -6,7 +6,7 @@
         let uspeh = "da";
         let korisnickoIme = `${$('#KorisnickoIme').val()}`;
         let lozinka = `${$('#Lozinka').val()}`;
-        let ime = `${$('#Lozinka').val()}`;
+        let ime = `${$('#Ime').val()}`;
         let prezime = `${$('#Prezime').val()}`;
         let jmbg = `${$('#JMBG').val()}`;
         let kontaktTelefon = `${$('#KontaktTelefon').val()}`;

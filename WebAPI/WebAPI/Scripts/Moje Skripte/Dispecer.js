@@ -76,79 +76,206 @@
         $('#glavni2').hide();
         $('#dodavanjeVozaca').hide();
 
-        let s = '';
+        $.ajax({
+            type: 'GET',
+            url: '/api/Dispecer',
 
-        s += '<div id="zaizmenud">';
-        s += '  <table>';
-        s += '     <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoImed" id="KorisnickoImed" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Lozinka:</th><td><input type="text" name="Lozinkad" id="Lozinkad" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Ime:</th><td><input type="text" name="Imed" id="Imed" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Prezime:</th><td><input type="text" name="Prezimed" id="Prezimed" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>JMBG:</th><td><input type="text" name="JMBGd" id="JMBGd" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pold" value="Muski" id="Pol1d" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pold" id="Pol2d" /></td></tr>';
-        s += '     <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefond" id="KontaktTelefond" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Email:</th><td><input type="email" name="Emaild" id="Emaild" style="margin:5px" /></td></tr>';
-        s += '     <tr><td colspan="2"><hr /></td></tr>';
-        s += '    <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmenad" /></b></td></tr>';
-        s += '  </table>';
-        s += ' </div>';
+            data: { KorisnickoIme: `${localStorage.getItem("Ulogovan")}` },
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                korisnickiId = data.Id;
+                korisnik = data;
 
-        $('#glavni2').html(s);
+                let s = '';
 
-        $('#KorisnickoImed').val(korisnik.KorisnickoIme);
-        $('#Lozinkad').val(korisnik.Lozinka);
-        $('#Imed').val(korisnik.Ime);
-        $('#Prezimed').val(korisnik.Prezime);
-        $('#JMBGd').val(korisnik.JMBG);
-        if (korisnik.Pol == 0) {
-            $('#Pol1d').prop('checked', true);
-        } else {
-            $('#Pol2d').prop('checked', true);
-        }
-        $('#KontaktTelefond').val(korisnik.KontaktTelefon);
-        $('#Emaild').val(korisnik.Email);
-        $('#glavni2').fadeIn(500);
+                s += '<div id="zaizmenud">';
+                s += '  <table>';
+                s += '     <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoImed" id="KorisnickoImed" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Lozinka:</th><td><input type="text" name="Lozinkad" id="Lozinkad" style="margin:5px" /></td></tr>';
+                s += '      <tr><th>Ime:</th><td><input type="text" name="Imed" id="Imed" style="margin:5px" /></td></tr>';
+                s += '      <tr><th>Prezime:</th><td><input type="text" name="Prezimed" id="Prezimed" style="margin:5px" /></td></tr>';
+                s += '      <tr><th>JMBG:</th><td><input type="text" name="JMBGd" id="JMBGd" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pold" value="Muski" id="Pol1d" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pold" id="Pol2d" /></td></tr>';
+                s += '     <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefond" id="KontaktTelefond" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Email:</th><td><input type="email" name="Emaild" id="Emaild" style="margin:5px" /></td></tr>';
+                s += '     <tr><td colspan="2"><hr /></td></tr>';
+                s += '    <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmenad" /></b></td></tr>';
+                s += '  </table>';
+                s += ' </div>';
+
+                $('#glavni2').html(s);
+
+                $('#KorisnickoImed').val(data.KorisnickoIme);
+                $('#Lozinkad').val(data.Lozinka);
+                $('#Imed').val(data.Ime);
+                $('#Prezimed').val(data.Prezime);
+                $('#JMBGd').val(data.JMBG);
+                if (data.Pol == 0) {
+                    $('#Pol1d').prop('checked', true);
+                } else {
+                    $('#Pol2d').prop('checked', true);
+                }
+                $('#KontaktTelefond').val(data.KontaktTelefon);
+                $('#Emaild').val(data.Email);
+                $('#glavni2').fadeIn(500);
+            }
+        })
     })
 
 
     $('#glavni2').on('click', '#izmenad', function () {
-        let pol;
-        if ($('#Pol1d').prop('checked')) {
-            pol = 'Muski';
-        } else if ($('#Pol2d').prop('checked')) {
-            pol = 'Zenski';
-        }
-        let KorisnikIzmena = {
-            Id: korisnickiId,
-            KorisnickoIme: `${$('#KorisnickoImed').val()}`,
-            Lozinka: `${$('#Lozinkad').val()}`,
-            Ime: `${$('#Imed').val()}`,
-            Prezime: `${$('#Prezimed').val()}`,
-            Pol: pol,
-            JMBG: `${$('#JMBGd').val()}`,
-            KontaktTelefon: `${$('#KontaktTelefond').val()}`,
-            Email: `${$('#Emaild').val()}`,
-            Uloga: `${'Dispecer'}`,
-            Voznje: `${'nema'}`,
-            Banovan: `${"NE"}`
-        };
+        let uspeh = "da";
+        let korisnickoIme = `${$('#KorisnickoImed').val()}`;
+        let lozinka = `${$('#Lozinkad').val()}`;
+        let ime = `${$('#Imed').val()}`;
+        let prezime = `${$('#Prezimed').val()}`;
+        let jmbg = `${$('#JMBGd').val()}`;
+        let kontaktTelefon = `${$('#KontaktTelefond').val()}`;
+        let email = `${$('#Emaild').val()}`;
 
-        $.ajax({
-            type: 'PUT',
-            url: '/api/Dispecer/' + korisnickiId,
-            data: JSON.stringify(KorisnikIzmena),
-            contentType: 'application/json;charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                if (!data) {
-                    alert("Korisničko ime koje zahtevate, već postoji!");
+        if (korisnickoIme == "" || lozinka == "" || ime == "" || prezime == "" || jmbg == "" || kontaktTelefon == "" || email == "") {
+            alert("Sva polja se moraju popuniti!");
+            uspeh = "ne";
+        } else {
+
+
+            if (korisnickoIme.length < 3 || korisnickoIme.length > 15) {
+                uspeh = "ne";
+                $('#KorisnickoImed').css('background-color', '#ff7556');
+                $('#KorisnickoImed').val("");
+                $('#KorisnickoImed').attr('placeholder', 'Mora 3-15 slova!');
+            } else {
+                $('#KorisnickoImed').css('background-color', 'white');
+                $('#KorisnickoImed').attr('placeholder', '');
+            }
+
+            if (lozinka.length < 4 || lozinka.length > 15) {
+                uspeh = "ne";
+                $('#Lozinkad').css('background-color', '#ff7556');
+                $('#Lozinkad').val("");
+                $('#Lozinkad').attr('placeholder', 'Mora 4-15 karaktera!');
+            } else {
+                $('#Lozinkad').css('background-color', 'white');
+                $('#Lozinkad').attr('placeholder', '');
+            }
+
+            if (ime.length < 2 || ime.length > 15) {
+                uspeh = "ne";
+                $('#Imed').css('background-color', '#ff7556');
+                $('#Imed').val("");
+                $('#Imed').attr('placeholder', 'Mora 2-15 slova!');
+            } else {
+                $('#Imed').css('background-color', 'white');
+                $('#Imed').attr('placeholder', '');
+            }
+
+            if (prezime.length < 3 || prezime.length > 15) {
+                uspeh = "ne";
+                $('#Prezimed').css('background-color', '#ff7556');
+                $('#Prezimed').val("");
+                $('#Prezimed').attr('placeholder', 'Mora 3-15 slova!');
+            } else {
+                $('#Prezimed').css('background-color', 'white');
+                $('#Prezimed').attr('placeholder', '');
+            }
+
+            if (jmbg.length != 13) {
+                uspeh = "ne";
+                $('#JMBGd').css('background-color', '#ff7556');
+                $('#JMBGd').val("");
+                $('#JMBGd').attr('placeholder', 'Tačno 13 brojeva!');
+            } else {
+                if (isNaN(kontaktTelefon)) {
+                    uspeh = "ne";
+                    $('#JMBGd').css('background-color', '#ff7556');
+                    $('#JMBGd').val("");
+                    $('#JMBGd').attr('placeholder', 'Samo brojevi!');
                 } else {
-                    alert("Uspešno ste izmenili podatke!");
-                    localStorage.setItem("Ulogovan", KorisnikIzmena.KorisnickoIme);
-                    Korisnik.KorisnickoIme = KorisnikIzmena.KorisnickoIme;
+                    $('#JMBGd').css('background-color', 'white');
+                    $('#JMBGd').attr('placeholder', '');
                 }
             }
-        })
+
+            if (kontaktTelefon.length < 6 || kontaktTelefon.length > 7) {
+                uspeh = "ne";
+                $('#KontaktTelefond').css('background-color', '#ff7556');
+                $('#KontaktTelefond').val("");
+                $('#KontaktTelefond').attr('placeholder', 'Mora 6-7 brojeva!');
+            } else {
+                if (isNaN(kontaktTelefon)) {
+                    uspeh = "ne";
+                    $('#KontaktTelefond').css('background-color', '#ff7556');
+                    $('#KontaktTelefond').val("");
+                    $('#KontaktTelefond').attr('placeholder', 'Samo brojevi!');
+                } else {
+                    $('#KontaktTelefond').css('background-color', 'white');
+                    $('#KontaktTelefond').attr('placeholder', '');
+                }
+            }
+
+            if (email.length < 6) {
+                uspeh = "ne";
+                $('#Emaild').css('background-color', '#ff7556');
+                $('#Emaild').val("");
+                $('#Emaild').attr('placeholder', 'Mora minimum 6 karaktera!');
+            } else {
+                let patern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+
+                if (patern.test($("#Emaild").val())) {
+                    $('#Emaild').css('background-color', 'white');
+                    $('#Emaild').attr('placeholder', '');
+                } else {
+                    uspeh = "ne";
+                    $('#Emaild').css('background-color', '#ff7556');
+                    $('#Emaild').val("");
+                    $('#Emaild').attr('placeholder', 'Nevalidna email adresa!');
+                }
+            }
+
+
+            if (uspeh == "da") {
+                let pol;
+                if ($('#Pol1d').prop('checked')) {
+                    pol = 'Muski';
+                } else if ($('#Pol2d').prop('checked')) {
+                    pol = 'Zenski';
+                }
+                let KorisnikIzmena = {
+                    Id: korisnickiId,
+                    KorisnickoIme: `${$('#KorisnickoImed').val()}`,
+                    Lozinka: `${$('#Lozinkad').val()}`,
+                    Ime: `${$('#Imed').val()}`,
+                    Prezime: `${$('#Prezimed').val()}`,
+                    Pol: pol,
+                    JMBG: `${$('#JMBGd').val()}`,
+                    KontaktTelefon: `${$('#KontaktTelefond').val()}`,
+                    Email: `${$('#Emaild').val()}`,
+                    Uloga: `${'Dispecer'}`,
+                    Voznje: `${'nema'}`,
+                    Banovan: `${"NE"}`
+                };
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/Dispecer/' + korisnickiId,
+                    data: JSON.stringify(KorisnikIzmena),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            $('#KorisnickoImed').css('background-color', '#ff7556');
+                            alert("Korisničko ime koje zahtevate, već postoji!");
+                        } else {
+                            $('#KorisnickoIme').css('background-color', 'white');
+                            alert("Uspešno ste izmenili podatke!");
+                            localStorage.setItem("Ulogovan", KorisnikIzmena.KorisnickoIme);
+                            Korisnik.KorisnickoIme = KorisnikIzmena.KorisnickoIme;
+                        }
+                    }
+                })
+            }
+        }
     })
 
     //HOME DUGMIC I NJEGOV PADAJUCI MENI
@@ -422,7 +549,7 @@
         s += '      <tr><th>Ime:</th><td><input type="text" name="ImeVDodaj" id="ImeVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Prezime:</th><td><input type="text" name="PrezimeVDodaj" id="PrezimeVDodaj" style="margin:5px" /></td></tr>';
         s += '     <tr><th>JMBG:</th><td><input type="text" name="JMBGVDodaj" id="JMBGVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="PolVDodaj" value="Muski" id="Pol1VDodaj" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="PolVDodaj" id="Pol2VDodaj" /></td></tr>';
+        s += '      <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="PolVDodaj" value="Muski" id="Pol1VDodaj" checked/><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="PolVDodaj" id="Pol2VDodaj" /></td></tr>';
         s += '      <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefonVDodaj" id="KontaktTelefonVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Email:</th><td><input type="email" name="EmailVDodaj" id="EmailVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Lokacija X:</th><td><input type="text" name="LokacijaXVDodaj" id="LokacijaXVDodaj" style="margin:5px" /></td></tr>';
@@ -433,7 +560,7 @@
         s += '      <tr><th>Godište automobila:</th><td><input type="text" name="GodisteAutomobilaVDodaj" id="GodisteAutomobilaVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Registarske oznake:</th><td><input type="text" name="BrojRegistarskeOznakeVDodaj" id="BrojRegistarskeOznakeVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Taxi broj:</th><td><input type="text" name="BrojTaksiVozilaVDodaj" id="BrojTaksiVozilaVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Vrsta vozila:</th><td><label>Putnički:&nbsp&nbsp</label><input type="radio" name="TipAutomobilaVDodaj" value="Putnički" id="TipAutomobila1VDodaj" /><label>&nbsp&nbspKombi:&nbsp&nbsp</label><input type="radio" value="Kombi" name="TipAutomobilaVDodaj" id="TipAutomobila2VDodaj" /></td></tr>';
+        s += '      <tr><th>Vrsta vozila:</th><td><label>Putnički:&nbsp&nbsp</label><input type="radio" name="TipAutomobilaVDodaj" value="Putnički" id="TipAutomobila1VDodaj" checked/><label>&nbsp&nbspKombi:&nbsp&nbsp</label><input type="radio" value="Kombi" name="TipAutomobilaVDodaj" id="TipAutomobila2VDodaj" /></td></tr>';
         s += '     <tr><td colspan="2"><hr /></td></tr>';
         s += '     <tr><td colspan="2" align="right"><b><input type="button" value="Dodaj" id="VDodaj" /></b></td></tr>';
         s += '  </table>';
@@ -446,68 +573,255 @@
     //dodaj vozaca (DUGME)
 
     $('#glavni2').on('click', '#VDodaj', function () {
-        let pol;
-        if ($('#Pol1VDodaj').prop('checked')) {
-            pol = 'Muski';
-        } else if ($('#Pol2VDodaj').prop('checked')) {
-            pol = 'Zenski';
-        }
-        let tipAutomobila;
-        if ($('#TipAutomobila1VDodaj').prop('checked')) {
-            tipAutomobila = 'Putnicki';
-        } else if ($('#TipAutomobila2VDodaj').prop('checked')) {
-            tipAutomobila = 'Kombi';
-        }
 
-        let adresa = {
-            UlicaBroj: `${$('#UlicaBrojVDodaj').val()}`,
-            NaseljenoMesto: `${$('#NaseljenoMestoVDodaj').val()}`,
-            PozivniBroj: `${$('#PozivniBrojVDodaj').val()}`
-        }
+        //prvo validacija
 
-        let lokacija = {
-            X: `${$('#LokacijaXVDodaj').val()}`,
-            Y: `${$('#LokacijaYVDodaj').val()}`,
-            Adresa: adresa
-        }
-        let automobil = {
-            IdVozaca: "",
-            GodisteAutomobila: `${$('#GodisteAutomobilaVDodaj').val()}`,
-            BrojRegistarskeOznake: `${$('#BrojRegistarskeOznakeVDodaj').val()}`,
-            BrojTaksiVozila: `${$('#BrojTaksiVozilaVDodaj').val()}`,
-            TipAutomobila: tipAutomobila
-        }
-        let NovVozac = {
-            Id: "",
-            KorisnickoIme: `${$('#KorisnickoImeVDodaj').val()}`,
-            Lozinka: `${$('#LozinkaVDodaj').val()}`,
-            Ime: `${$('#ImeVDodaj').val()}`,
-            Prezime: `${$('#PrezimeVDodaj').val()}`,
-            Pol: pol,
-            JMBG: `${$('#JMBGVDodaj').val()}`,
-            KontaktTelefon: `${$('#KontaktTelefonVDodaj').val()}`,
-            Email: `${$('#EmailVDodaj').val()}`,
-            Uloga: `${'Vozac'}`,
-            Voznje: `${'nema'}`,
-            Banovan: `${"NE"}`,
-            Lokacija: lokacija,
-            Automobil: automobil
-        };
+        let uspeh = "da";
+        let korisnickoIme = `${$('#KorisnickoImeVDodaj').val()}`;
+        let lozinka = `${$('#LozinkaVDodaj').val()}`;
+        let ime = `${$('#ImeVDodaj').val()}`;
+        let prezime = `${$('#PrezimeVDodaj').val()}`;
+        let jmbg = `${$('#JMBGVDodaj').val()}`;
+        let email = `${$('#EmailVDodaj').val()}`;
+        let kontaktTelefon = `${$('#KontaktTelefonVDodaj').val()}`;
+        let godisteAutomobila = `${$('#GodisteAutomobilaVDodaj').val()}`;
+        let registarskeOznake = `${$('#BrojRegistarskeOznakeVDodaj').val()}`;
+        let brojTaksiVozila = `${$('#BrojTaksiVozilaVDodaj').val()}`;
 
-        $.ajax({
-            type: 'POST',
-            url: '/api/Vozac',
-            data: JSON.stringify(NovVozac),
-            contentType: 'application/json;charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                if (!data) {
-                    alert("Korisničko ime koje ste uneli već postoji!");
+
+        if (korisnickoIme == "" || lozinka == "" || ime == "" || prezime == "" || jmbg == "" || kontaktTelefon == "" || godisteAutomobila == "" || registarskeOznake == "" || brojTaksiVozila == "") {
+            alert("Sva polja su obavezna!");
+            uspeh = "ne";
+        } else {
+            if (korisnickoIme.length < 3 || korisnickoIme.length > 15) {
+                uspeh = "ne";
+                $('#KorisnickoImeVDodaj').css('background-color', '#ff7556');
+                $('#KorisnickoImeVDodaj').val("");
+                $('#KorisnickoImeVDodaj').attr('placeholder', 'Mora 3-15 slova!');
+            } else {
+                $('#KorisnickoImeVDodaj').css('background-color', 'white');
+                $('#KorisnickoImeVDodaj').attr('placeholder', '');
+            }
+
+            if (lozinka.length < 4 || lozinka.length > 15) {
+                uspeh = "ne";
+                $('#LozinkaVDodaj').css('background-color', '#ff7556');
+                $('#LozinkaVDodaj').val("");
+                $('#LozinkaVDodaj').attr('placeholder', 'Mora 4-15 karaktera!');
+            } else {
+                $('#LozinkaVDodaj').css('background-color', 'white');
+                $('#LozinkaVDodaj').attr('placeholder', '');
+            }
+
+            if (ime.length < 2 || ime.length > 15) {
+                uspeh = "ne";
+                $('#ImeVDodaj').css('background-color', '#ff7556');
+                $('#ImeVDodaj').val("");
+                $('#ImeVDodaj').attr('placeholder', 'Mora 2-15 slova!');
+            } else {
+                $('#ImeVDodaj').css('background-color', 'white');
+                $('#ImeVDodaj').attr('placeholder', '');
+            }
+
+            if (prezime.length < 3 || prezime.length > 15) {
+                uspeh = "ne";
+                $('#PrezimeVDodaj').css('background-color', '#ff7556');
+                $('#PrezimeVDodaj').val("");
+                $('#PrezimeVDodaj').attr('placeholder', 'Mora 3-15 slova!');
+            } else {
+                $('#PrezimeVDodaj').css('background-color', 'white');
+                $('#PrezimeVDodaj').attr('placeholder', '');
+            }
+
+            if (jmbg.length != 13) {
+                uspeh = "ne";
+                $('#JMBGVDodaj').css('background-color', '#ff7556');
+                $('#JMBGVDodaj').val("");
+                $('#JMBGVDodaj').attr('placeholder', 'Tačno 13 brojeva!');
+            } else {
+                if (isNaN(kontaktTelefon)) {
+                    uspeh = "ne";
+                    $('#JMBGVDodaj').css('background-color', '#ff7556');
+                    $('#JMBGVDodaj').val("");
+                    $('#JMBGVDodaj').attr('placeholder', 'Samo brojevi!');
                 } else {
-                    alert("Uspešno ste dodali novog vozača!");
+                    $('#JMBGVDodaj').css('background-color', 'white');
+                    $('#JMBGVDodaj').attr('placeholder', '');
                 }
             }
-        })
+
+            if (kontaktTelefon.length < 6 || kontaktTelefon.length > 7) {
+                uspeh = "ne";
+                $('#KontaktTelefonVDodaj').css('background-color', '#ff7556');
+                $('#KontaktTelefonVDodaj').val("");
+                $('#KontaktTelefonVDodaj').attr('placeholder', 'Mora 6-7 brojeva!');
+            } else {
+                if (isNaN(kontaktTelefon)) {
+                    uspeh = "ne";
+                    $('#KontaktTelefonVDodaj').css('background-color', '#ff7556');
+                    $('#KontaktTelefonVDodaj').val("");
+                    $('#KontaktTelefonVDodaj').attr('placeholder', 'Samo brojevi!');
+                } else {
+                    $('#KontaktTelefonVDodaj').css('background-color', 'white');
+                    $('#KontaktTelefonVDodaj').attr('placeholder', '');
+                }
+            }
+
+            if (email.length < 6) {
+                uspeh = "ne";
+                $('#EmailVDodaj').css('background-color', '#ff7556');
+                $('#EmailVDodaj').val("");
+                $('#EmailVDodaj').attr('placeholder', 'Mora minimum 6 karaktera!');
+            } else {
+                let patern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+
+                if (patern.test($("#EmailVDodaj").val())) {
+                    $('#EmailVDodaj').css('background-color', 'white');
+                    $('#EmailVDodaj').attr('placeholder', '');
+                } else {
+                    uspeh = "ne";
+                    $('#EmailVDodaj').css('background-color', '#ff7556');
+                    $('#EmailVDodaj').val("");
+                    $('#EmailVDodaj').attr('placeholder', 'Nevalidna email adresa!');
+                }
+            }
+
+            if (godisteAutomobila.length != 2 && godisteAutomobila.length != 4) {
+                uspeh = "ne";
+                $('#GodisteAutomobilaVDodaj').css('background-color', '#ff7556');
+                $('#GodisteAutomobilaVDodaj').val("");
+                $('#GodisteAutomobilaVDodaj').attr('placeholder', '2 ili 4 broja!');
+            } else {
+                $('#GodisteAutomobilaVDodaj').css('background-color', 'white');
+                $('#GodisteAutomobilaVDodaj').attr('placeholder', '');
+            }
+
+            if (registarskeOznake.length < 9) {
+                uspeh = "ne";
+                $('#BrojRegistarskeOznakeVDodaj').css('background-color', '#ff7556');
+                $('#BrojRegistarskeOznakeVDodaj').val("");
+                $('#BrojRegistarskeOznakeVDodaj').attr('placeholder', 'Nevalidne tablice!');
+            } else {
+                let patern = new RegExp(/NS[-/_0-9]{4,9}TX$/i);
+                if (patern.test($("#BrojRegistarskeOznakeVDodaj").val())) {
+                    $('#BrojRegistarskeOznakeVDodaj').css('background-color', 'white');
+                    $('#BrojRegistarskeOznakeVDodaj').attr('placeholder', '');
+                } else {
+                    uspeh = "ne";
+                    $('#BrojRegistarskeOznakeVDodaj').css('background-color', '#ff7556');
+                    $('#BrojRegistarskeOznakeVDodaj').val("");
+                    $('#BrojRegistarskeOznakeVDodaj').attr('placeholder', 'Nevalidne tablice!');
+                }
+
+            }
+
+            if (brojTaksiVozila.length < 3 || brojTaksiVozila.length > 5) {
+                uspeh = "ne";
+                $('#BrojTaksiVozilaVDodaj').css('background-color', '#ff7556');
+                $('#BrojTaksiVozilaVDodaj').val("");
+                $('#BrojTaksiVozilaVDodaj').attr('placeholder', 'Mora 3-5 brojeva!');
+            } else {
+                if (isNaN(brojTaksiVozila)) {
+                    uspeh = "ne";
+                    $('#BrojTaksiVozilaVDodaj').css('background-color', '#ff7556');
+                    $('#BrojTaksiVozilaVDodaj').val("");
+                    $('#BrojTaksiVozilaVDodaj').attr('placeholder', 'Samo brojevi!');
+                } else {
+                    let usao = "ne";
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/Vozac',
+                        //data: JSON.stringify(NovVozac),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].Automobil.BrojTaksiVozila == brojTaksiVozila) {
+                                    $('#BrojTaksiVozilaVDodaj').css('background-color', '#ff7556');
+                                    alert("Broj taksi vozila koje ste uneli već postoji!");
+                                    uspeh = "ne";
+                                    usao = "da";
+                                    break;
+                                }
+                            }
+
+                            if (usao == "ne") {
+                                $('#BrojTaksiVozilaVDodaj').css('background-color', 'white');
+                                $('#BrojTaksiVozilaVDodaj').attr('placeholder', '');
+                            }
+                        }
+                    })
+                }
+            }
+
+            if (uspeh == "da") {
+
+                let pol;
+                if ($('#Pol1VDodaj').prop('checked')) {
+                    pol = 'Muski';
+                } else if ($('#Pol2VDodaj').prop('checked')) {
+                    pol = 'Zenski';
+                }
+                let tipAutomobila;
+                if ($('#TipAutomobila1VDodaj').prop('checked')) {
+                    tipAutomobila = 'Putnicki';
+                } else if ($('#TipAutomobila2VDodaj').prop('checked')) {
+                    tipAutomobila = 'Kombi';
+                }
+
+                let adresa = {
+                    UlicaBroj: `${$('#UlicaBrojVDodaj').val()}`,
+                    NaseljenoMesto: `${$('#NaseljenoMestoVDodaj').val()}`,
+                    PozivniBroj: `${$('#PozivniBrojVDodaj').val()}`
+                }
+
+                let lokacija = {
+                    X: `${$('#LokacijaXVDodaj').val()}`,
+                    Y: `${$('#LokacijaYVDodaj').val()}`,
+                    Adresa: adresa
+                }
+                let automobil = {
+                    IdVozaca: "",
+                    GodisteAutomobila: `${$('#GodisteAutomobilaVDodaj').val()}`,
+                    BrojRegistarskeOznake: `${$('#BrojRegistarskeOznakeVDodaj').val()}`,
+                    BrojTaksiVozila: `${$('#BrojTaksiVozilaVDodaj').val()}`,
+                    TipAutomobila: tipAutomobila
+                }
+                let NovVozac = {
+                    Id: "",
+                    KorisnickoIme: `${$('#KorisnickoImeVDodaj').val()}`,
+                    Lozinka: `${$('#LozinkaVDodaj').val()}`,
+                    Ime: `${$('#ImeVDodaj').val()}`,
+                    Prezime: `${$('#PrezimeVDodaj').val()}`,
+                    Pol: pol,
+                    JMBG: `${$('#JMBGVDodaj').val()}`,
+                    KontaktTelefon: `${$('#KontaktTelefonVDodaj').val()}`,
+                    Email: `${$('#EmailVDodaj').val()}`,
+                    Uloga: `${'Vozac'}`,
+                    Voznje: `${'nema'}`,
+                    Banovan: `${"NE"}`,
+                    Lokacija: lokacija,
+                    Automobil: automobil
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Vozac',
+                    data: JSON.stringify(NovVozac),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            $('#KorisnickoImeVDodaj').css('background-color', '#ff7556');
+                            alert("Korisničko ime koje ste uneli već postoji!");
+                        } else {
+                            $('#KorisnickoImeVDodaj').css('background-color', 'white');
+                            alert("Uspešno ste dodali novog vozača!");
+                        }
+                    }
+                })
+            }
+        }
     })
             //KRAJ DODAVANJA VOZACA
 
@@ -718,7 +1032,7 @@
         $('#glavni2').hide();
 
         let s = '';
-        s += '<div id="divNovaVoznjaDispecer">';
+        s += '<div id="divNovaVoznjaDispecer" >';
         s += '  <table style="position:absolute;margin-left:3%;margin-top:3%;">';
         s += '     <tr ><th colspan="2">Unesite podatke o novoj vožnji:</th></tr>';
         s += '    <tr ><td colsapn="2"><hr /></td></tr>';
@@ -741,7 +1055,7 @@
         $('#DodajVozacaDispecer').hide();
 
         let s = '';
-        s += `<div style="position:absolute;"><h3>Moguć izbor vozača:</h3><br>Vozacev username: <select name="slobodniV" id="slobodniV">`;
+        s += `<div style="position:absolute;display:inline-block;margin-left:3%;margin-top:390px;"><h3>Moguć izbor vozača:</h3><br>Korisničko ime vozača: <select name="slobodniV" id="slobodniV">`;
         let usao = "ne";
 
         let tip;

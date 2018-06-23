@@ -233,3 +233,7 @@ input {
 button {
     border-radius: 8px;
 }
+
+#divNovaVoznjaDispecer{
+    position:relative;
+}

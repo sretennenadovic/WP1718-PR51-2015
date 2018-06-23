@@ -6,3 +6,4 @@
 6;vozac3;vozac;vozac;vozac;Muski;vozac;3;vozac;Vozac;nema;3;3;asdad;vozac;33;6;3;asfd;3;Putnicki;DA;NE
 7;prinudni;prinudni;prinudni;prinudni;Muski;4445554445554443;1233333;prinudni@gmail.com;Vozac;nema;11;22;CCC 1;BBB;123456;7;2011;ns-123-tx;3332;Putnicki;DA;NE
 8;pppp;pppp;p;p;Muski;123;123;p@gmai.com;Vozac;nema;2;2;Zorke 3;Mesto;11122;8;2001;123;1234;Putnicki;NE;NE
+9;novi;novi;novi;novi;Muski;1234123412341;1234123;novi@gmail.com;Vozac;nema;2;3;Ulica 23;Nema;12345;9;1990;NS-1234-TX;3000;Putnicki;NE;NE

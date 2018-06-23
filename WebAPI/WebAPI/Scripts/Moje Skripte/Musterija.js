@@ -72,80 +72,208 @@ $(document).ready(function () {
 
     $('#izmeni').click(function () {
         $('#glavni').hide();
+        $.ajax({
+            type: 'GET',
+            url: '/api/Registration',
 
-        let s = '';
-        s += '<div id="zaizmenu">';
-        s += '  <table>';
-        s += '      <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Lozinka:</th><td><input type="text" name="Lozinka" id="Lozinka" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>';
-        s += '     <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px" /></td></tr>';
-        s += '     <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px" /></td></tr>';
-        s += '     <tr ><td colspan="2"><hr /></td></tr>';
-        s += '     <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmena" /></b></td></tr';
-        s += '  </table>';
-        s += ' </div>';
+            data: { KorisnickoIme: `${localStorage.getItem("Ulogovan")}` },
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                korisnickiId = data.Id;
+                korisnik = data;
 
-        $('#glavni').html(s);
 
-        $('#KorisnickoIme').val(korisnik.KorisnickoIme);
-        $('#Lozinka').val(korisnik.Lozinka);
-        $('#Ime').val(korisnik.Ime);
-        $('#Prezime').val(korisnik.Prezime);
-        $('#JMBG').val(korisnik.JMBG);
-        if (korisnik.Pol == 0) {
-            $('#Pol1').prop('checked', true);
-        } else {
-            $('#Pol2').prop('checked', true);
-        }
-        $('#KontaktTelefon').val(korisnik.KontaktTelefon);
-        $('#Email').val(korisnik.Email);
-        $('#glavni').fadeIn(500);
+                let s = '';
+                s += '<div id="zaizmenu">';
+                s += '  <table>';
+                s += '      <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Lozinka:</th><td><input type="text" name="Lozinka" id="Lozinka" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Prezime:</th><td><input type="text" name="Prezime" id="Prezime" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>JMBG:</th><td><input type="text" name="JMBG" id="JMBG" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="Pol" value="Muski" id="Pol1" /><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="Pol" id="Pol2" /></td></tr>';
+                s += '     <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefon" id="KontaktTelefon" style="margin:5px" /></td></tr>';
+                s += '     <tr><th>Email:</th><td><input type="email" name="Email" id="Email" style="margin:5px" /></td></tr>';
+                s += '     <tr ><td colspan="2"><hr /></td></tr>';
+                s += '     <tr><td colspan="2" align="right"><b><input type="button" value="Izmeni" id="izmena" /></b></td></tr';
+                s += '  </table>';
+                s += ' </div>';
+
+                $('#glavni').html(s);
+
+                $('#KorisnickoIme').val(data.KorisnickoIme);
+                $('#Lozinka').val(data.Lozinka);
+                $('#Ime').val(data.Ime);
+                $('#Prezime').val(data.Prezime);
+                $('#JMBG').val(data.JMBG);
+                if (data.Pol == 0) {
+                    $('#Pol1').prop('checked', true);
+                } else {
+                    $('#Pol2').prop('checked', true);
+                }
+                $('#KontaktTelefon').val(data.KontaktTelefon);
+                $('#Email').val(data.Email);
+                $('#glavni').fadeIn(500);
+            }
+        })
     })
 
 
     //dugme izmeniii
     $('#glavni').on('click', '#izmena', function () {
-        let pol;
-        if ($('#Pol1').prop('checked')) {
-            pol = 'Muski';
-        } else if ($('#Pol2').prop('checked')) {
-            pol = 'Zenski';
-        }
-        let KorisnikIzmena = {
-            Id: korisnickiId,
-            KorisnickoIme: `${$('#KorisnickoIme').val()}`,
-            Lozinka: `${$('#Lozinka').val()}`,
-            Ime: `${$('#Ime').val()}`,
-            Prezime: `${$('#Prezime').val()}`,
-            Pol: pol,
-            JMBG: `${$('#JMBG').val()}`,
-            KontaktTelefon: `${$('#KontaktTelefon').val()}`,
-            Email: `${$('#Email').val()}`,
-            Uloga: `${'Musterija'}`,
-            Voznje: `${'nema'}`,
-            Banovan: `${"NE"}`
-        };
 
-        $.ajax({
-            type: 'PUT',
-            url: '/api/Registration/' + KorisnikIzmena.Id,
-            data: JSON.stringify(KorisnikIzmena),
-            contentType: 'application/json;charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                if (!data) {
-                    alert("Korisničko ime koje zahtevate, već postoji!");
+        //prvo ide validacija
+
+        let uspeh = "da";
+        let korisnickoIme = `${$('#KorisnickoIme').val()}`;
+        let lozinka = `${$('#Lozinka').val()}`;
+        let ime = `${$('#Ime').val()}`;
+        let prezime = `${$('#Prezime').val()}`;
+        let jmbg = `${$('#JMBG').val()}`;
+        let kontaktTelefon = `${$('#KontaktTelefon').val()}`;
+        let email = `${$('#Email').val()}`;
+
+        if (korisnickoIme == "" || lozinka == "" || ime == "" || prezime == "" || jmbg == "" || kontaktTelefon == "" || email == "") {
+            alert("Sva polja se moraju popuniti!");
+            uspeh = "ne";
+        } else {
+
+            if (korisnickoIme.length < 3 || korisnickoIme.length > 15) {
+                uspeh = "ne";
+                $('#KorisnickoIme').css('background-color', '#ff7556');
+                $('#KorisnickoIme').val("");
+                $('#KorisnickoIme').attr('placeholder', 'Mora 3-15 slova!');
+            } else {
+                $('#KorisnickoIme').css('background-color', 'white');
+                $('#KorisnickoIme').attr('placeholder', '');
+            }
+
+            if (lozinka.length < 4 || lozinka.length > 15) {
+                uspeh = "ne";
+                $('#Lozinka').css('background-color', '#ff7556');
+                $('#Lozinka').val("");
+                $('#Lozinka').attr('placeholder', 'Mora 4-15 karaktera!');
+            } else {
+                $('#Lozinka').css('background-color', 'white');
+                $('#Lozinka').attr('placeholder', '');
+            }
+
+            if (ime.length < 2 || ime.length > 15) {
+                uspeh = "ne";
+                $('#Ime').css('background-color', '#ff7556');
+                $('#Ime').val("");
+                $('#Ime').attr('placeholder', 'Mora 2-15 slova!');
+            } else {
+                $('#Ime').css('background-color', 'white');
+                $('#Ime').attr('placeholder', '');
+            }
+
+            if (prezime.length < 3 || prezime.length > 15) {
+                uspeh = "ne";
+                $('#Prezime').css('background-color', '#ff7556');
+                $('#Prezime').val("");
+                $('#Prezime').attr('placeholder', 'Mora 3-15 slova!');
+            } else {
+                $('#Prezime').css('background-color', 'white');
+                $('#Prezime').attr('placeholder', '');
+            }
+
+            if (jmbg.length != 13) {
+                uspeh = "ne";
+                $('#JMBG').css('background-color', '#ff7556');
+                $('#JMBG').val("");
+                $('#JMBG').attr('placeholder', 'Tačno 13 brojeva!');
+            } else {
+                if (isNaN(kontaktTelefon)) {
+                    uspeh = "ne";
+                    $('#JMBG').css('background-color', '#ff7556');
+                    $('#JMBG').val("");
+                    $('#JMBG').attr('placeholder', 'Samo brojevi!');
                 } else {
-                    alert("Uspešno ste izmenili podatke!");
-                    localStorage.setItem("Ulogovan", KorisnikIzmena.KorisnickoIme);
-                    Korisnik.KorisnickoIme = KorisnikIzmena.KorisnickoIme;
+                    $('#JMBG').css('background-color', 'white');
+                    $('#JMBG').attr('placeholder', '');
                 }
             }
-        })
+
+            if (kontaktTelefon.length < 6 || kontaktTelefon.length > 7) {
+                uspeh = "ne";
+                $('#KontaktTelefon').css('background-color', '#ff7556');
+                $('#KontaktTelefon').val("");
+                $('#KontaktTelefon').attr('placeholder', 'Mora 6-7 brojeva!');
+            } else {
+                if (isNaN(kontaktTelefon)) {
+                    uspeh = "ne";
+                    $('#KontaktTelefon').css('background-color', '#ff7556');
+                    $('#KontaktTelefon').val("");
+                    $('#KontaktTelefon').attr('placeholder', 'Samo brojevi!');
+                } else {
+                    $('#KontaktTelefon').css('background-color', 'white');
+                    $('#KontaktTelefon').attr('placeholder', '');
+                }
+            }
+
+            if (email.length < 6) {
+                uspeh = "ne";
+                $('#Email').css('background-color', '#ff7556');
+                $('#Email').val("");
+                $('#Email').attr('placeholder', 'Mora minimum 6 karaktera!');
+            } else {
+                let patern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+
+                if (patern.test($("#Email").val())) {
+                    $('#Email').css('background-color', 'white');
+                    $('#Email').attr('placeholder', '');
+                } else {
+                    uspeh = "ne";
+                    $('#Email').css('background-color', '#ff7556');
+                    $('#Email').val("");
+                    $('#Email').attr('placeholder', 'Nevalidna email adresa!');
+                }
+            }
+
+            if (uspeh == "da") {
+                let pol;
+                if ($('#Pol1').prop('checked')) {
+                    pol = 'Muski';
+                } else if ($('#Pol2').prop('checked')) {
+                    pol = 'Zenski';
+                }
+                let KorisnikIzmena = {
+                    Id: korisnickiId,
+                    KorisnickoIme: `${$('#KorisnickoIme').val()}`,
+                    Lozinka: `${$('#Lozinka').val()}`,
+                    Ime: `${$('#Ime').val()}`,
+                    Prezime: `${$('#Prezime').val()}`,
+                    Pol: pol,
+                    JMBG: `${$('#JMBG').val()}`,
+                    KontaktTelefon: `${$('#KontaktTelefon').val()}`,
+                    Email: `${$('#Email').val()}`,
+                    Uloga: `${'Musterija'}`,
+                    Voznje: `${'nema'}`,
+                    Banovan: `${"NE"}`
+                };
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/Registration/' + KorisnikIzmena.Id,
+                    data: JSON.stringify(KorisnikIzmena),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (!data) {
+                            $('#KorisnickoIme').css('background-color', '#ff7556');
+                            alert("Korisničko ime koje zahtevate, već postoji!");
+                        } else {
+                            $('#KorisnickoIme').css('background-color', 'white');
+                            alert("Uspešno ste izmenili podatke!");
+                            localStorage.setItem("Ulogovan", KorisnikIzmena.KorisnickoIme);
+                            Korisnik.KorisnickoIme = KorisnikIzmena.KorisnickoIme;
+                        }
+                    }
+                })
+            }
+        }
     })
 
 
