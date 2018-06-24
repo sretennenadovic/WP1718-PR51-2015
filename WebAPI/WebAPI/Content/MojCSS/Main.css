@@ -43,6 +43,13 @@
     margin-left: 12px;
 }
 
+.peoplesButton {
+    position: relative;
+    display: inline-block;
+    top: -11px;
+    margin-left: 12px;
+}
+
 .searchButtonK {
     position: relative;
     display: inline-block;
@@ -237,3 +244,5 @@ button {
 #divNovaVoznjaDispecer{
     position:relative;
 }
+
+

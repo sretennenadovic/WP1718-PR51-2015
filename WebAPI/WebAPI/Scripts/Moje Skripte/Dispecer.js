@@ -823,7 +823,7 @@
             }
         }
     })
-            //KRAJ DODAVANJA VOZACA
+    //KRAJ DODAVANJA VOZACA
 
 
 
@@ -1237,6 +1237,221 @@
             }
         })
     })
+
+    $('#clanovi').click(function () {
+        $.ajax({
+        type: 'GET',
+        url: '/api/Vozac',
+        contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+            success: function (dataV) {
+                let s = '';
+                s += '<div class="voznje" style="font-size:14px;position:absolute;margin-top:0px;">';
+                s += '<table border=1 class="voznje boja" ><tr><th colspan="10" ><h3><b>Svi članovi (korisnici/vozači)</b></h3></th></tr>';
+                s += '<tr><th>Korisničko ime</th><th>Uloga</th><th>Ime</th><th>Prezime</th><th>Opcije</th></tr>';
+
+
+                for (let i = 0; i < dataV.length; i++) {
+                    s += ("<tr><td>" + dataV[i].KorisnickoIme + "</td><td> Vozač </td><td>" + dataV[i].Ime + "</td><td>" + dataV[i].Prezime + '</td><td style="padding:5px;">');
+                    if (dataV[i].Banovan == "DA") {
+                        s += (`<input type="button" value="Odbanuj" id="odbanuj" class="odbbtn" name=${dataV[i].KorisnickoIme} /></td></tr>`);
+                    } else {
+                        s += (`<input type="button" value=" Banuj " id="banuj" class="banbtn" name=${dataV[i].KorisnickoIme} /></td></tr>`);
+
+                    }
+
+                }
+
+
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/Registration',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+
+                    for (let i = 0; i < data.length; i++) {
+                        s += ("<tr><td>" + data[i].KorisnickoIme + "</td><td> Mušterija </td><td>" + data[i].Ime + "</td><td>" + data[i].Prezime + '</td><td style="padding:5px;">');
+                        if (data[i].Banovan == "DA") {
+                            s += (`<input type="button" value="Odbanuj" id="odbanuj" class="odbbtn" name=${data[i].KorisnickoIme} /></td></tr>`);
+                        } else {
+                            s += (`<input type="button" value=" Banuj " id="banuj" class="banbtn" name=${data[i].KorisnickoIme} /></td></tr>`);
+
+                        }
+         
+                    }
+                    s += '</table>';
+
+                    $('#glavni2').html(s);
+                    $('#glavni2').fadeIn(500);
+                }
+            })
+        }
+        })
+    })
+
+    $(document).on('click', '.odbbtn', function () {
+        let korisnickoIme = $(this).prop('name');
+        let nasao = "ne";
+        let nadjen;
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Vozac',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (dataV) {
+                for (var i = 0; i < dataV.length; i++) {
+                    if (korisnickoIme == dataV[i].KorisnickoIme) {
+                        nasao = "da";
+                        nadjen = dataV[i];
+                        break;
+                    }
+                }
+
+                if (nasao == "da") {
+                    nadjen.Zauzet = "NE";
+                    nadjen.Banovan = "NE";
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/Vozac/' + nadjen.Id,
+                        data: JSON.stringify(nadjen),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data) {
+                                alert("Vozač je uspešno odbanovan!");
+                                $(location).attr('href', 'main.html');
+                            }
+
+                        }
+                    })
+
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/Registration',
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (korisnickoIme == data[i].KorisnickoIme) {
+                                    nasao = "da";
+                                    nadjen = data[i];
+                                    break;
+                                }
+                            }
+
+                            if (nasao == "da") {
+                                nadjen.Banovan = "NE";
+
+                                $.ajax({
+                                    type: 'PUT',
+                                    url: '/api/Registration/' + nadjen.Id,
+                                    data: JSON.stringify(nadjen),
+                                    contentType: 'application/json;charset=utf-8',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data) {
+                                            alert("Mušterija je uspešno odbanovana!");
+                                            $(location).attr('href', 'main.html');
+                                        }
+
+                                    }
+                                })
+
+                            }
+                        }
+                    })
+                }
+            }
+        })
+
+    })
+
+
+    $(document).on('click', '.banbtn', function () {
+        let korisnickoIme = $(this).prop('name');
+        let nasao = "ne";
+        let nadjen;
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Vozac',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (dataV) {
+                for (var i = 0; i < dataV.length; i++) {
+                    if (korisnickoIme == dataV[i].KorisnickoIme) {
+                        nasao = "da";
+                        nadjen = dataV[i];
+                        break;
+                    }
+                }
+
+                if (nasao == "da") {
+                    nadjen.Banovan = "DA";
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/Vozac/' + nadjen.Id,
+                        data: JSON.stringify(nadjen),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data) {
+                                alert("Vozač je uspešno banovan!");
+                                $(location).attr('href', 'main.html');
+                            }
+
+                        }
+                    })
+
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/Registration',
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (korisnickoIme == data[i].KorisnickoIme) {
+                                    nasao = "da";
+                                    nadjen = data[i];
+                                    break;
+                                }
+                            }
+
+                            if (nasao == "da") {
+                                nadjen.Zauzet = "NE";
+                                nadjen.Banovan = "DA";
+
+                                $.ajax({
+                                    type: 'PUT',
+                                    url: '/api/Registration/' + nadjen.Id,
+                                    data: JSON.stringify(nadjen),
+                                    contentType: 'application/json;charset=utf-8',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data) {
+                                            alert("Mušterija je uspešno banovana!");
+                                            $(location).attr('href', 'main.html');
+                                        }
+
+                                    }
+                                })
+
+                            }
+                        }
+                    })
+                }
+            }
+        })
+
+    })
+
 
 })
 
