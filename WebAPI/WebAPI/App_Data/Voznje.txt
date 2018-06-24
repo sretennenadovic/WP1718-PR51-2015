@@ -20,4 +20,5 @@
 20;23.6.2018. 17.17.53;144;144;Ulica 144;Naseljeno mesto;14414;Putnicki;zena;;;;;;dispecer4;pppp;0;nema zena pa nema;23.6.2018. 17.19.09;undefined;20;0;Neuspesna
 21;23.6.2018. 18.56.58;111;112;Ulica 112;Bec;112212;Putnicki;ljubo;11;22;Ulica Nzm;Bec;112233;dispecer1;pppp;3000;Super sam se snasao!;23.6.2018. 19.09.09;ljubo;21;5;Uspesna
 22;23.6.2018. 22.25.25;112;112;Ulica 212;Mesto;123321;Putnicki;;123;123;Ulica 222;NM2;12345;dispecer1;pppp;123;;;;;;Uspesna
-23;24.6.2018. 00.08.33;;;;;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
+23;24.6.2018. 00.08.33;;;;;;Putnicki;ljubo;45.253187695763735;19.84407314935038;Nadgrobni Spomenik Jermenske Porodice Čenazi; Novi Sad;;;pppp;1111;;;;;;Uspesna
+24;24.6.2018. 21.37.54;45.237776202369275;19.838976952222083;Шекспирова 2; Нови Сад;;Putnicki;ljubo;;;;;;;;0;;;;;;Kreirana

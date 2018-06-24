@@ -2,6 +2,7 @@
 $(document).ready(function () {
     /*pri kliku na link profil*/
     $('#profil').click(function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -78,6 +79,7 @@ $(document).ready(function () {
     })
 
     $('#izmeni').click(function () {
+        $('#map1').hide();
         $('#glavni').hide();
         $.ajax({
             type: 'GET',
@@ -95,6 +97,7 @@ $(document).ready(function () {
                     let s = '';
                     s += '<div id="zaizmenu">';
                     s += '  <table>';
+                    s += '<tr><th colspan="2" align="center" style="margin:5px" ><h2>Forma za izmenu</h2></th></tr>';
                     s += '      <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoIme" id="KorisnickoIme" style="margin:5px" /></td></tr>';
                     s += '     <tr><th>Lozinka:</th><td><input type="text" name="Lozinka" id="Lozinka" style="margin:5px" /></td></tr>';
                     s += '     <tr><th>Ime:</th><td><input type="text" name="Ime" id="Ime" style="margin:5px" /></td></tr>';
@@ -135,7 +138,7 @@ $(document).ready(function () {
 
     //dugme izmeniii
     $('#glavni').on('click', '#izmena', function () {
-
+        $('#map1').hide();
         //prvo ide validacija
 
         let uspeh = "da";
@@ -293,6 +296,7 @@ $(document).ready(function () {
     //dodaj posle da se sakrije i za pretragu i sve novije dodato
     $('#dugmeHome').click(function () {
         $('#glavni').hide();
+        $('#map1').hide();
 
         $.ajax({
             type: 'GET',
@@ -415,22 +419,21 @@ $(document).ready(function () {
 
                     let s = '';
                     s += '<div id="divNovaVoznja">';
-                    s += '  <table style="position:absolute;margin-left:3%;margin-top:3%;">';
-                    s += '     <tr ><th colspan="2">Unesite podatke o novoj vožnji:</th></tr>';
-                    s += '    <tr ><td colsapn="2"><hr /></td></tr>';
-                    s += '    <tr><td >Koordinata X:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaX" id="korisnikLokacijaX" /></td></tr';
-                    s += '    <tr><td>Koordinata Y:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaY" id="korisnikLokacijaY" /></td></tr>';
-                    s += '    <tr><td>Ulica i broj:</td><td><input type="text" style="margin:5px;" name="korisnikUlicaBroj" id="korisnikUlicaBroj" /></td></tr>';
-                    s += '     <tr><td>Naseljeno mesto:</td><td><input type="text" style="margin:5px;" name="korisnikNaseljenoMesto" id="korisnikNaseljenoMesto" /></td></tr>';
-                    s += '     <tr><td>Pozivni broj:</td><td><input type="text" style="margin:5px;" name="korisnikPozivniBroj" id="korisnikPozivniBroj" /></td></tr>';
-                    s += '     <tr><td>Željeni tip automobila:</td><td><label>&nbspPutnički:&nbsp&nbsp</label><input type="radio" style="margin:5px;" name="korisnikTipAuta" value="Putnicki" id="korisnikTipAuta1" /><label>&nbsp&nbspKombi:&nbsp&nbsp</label><input type="radio" value="Kombi" style="margin:5px;" name="korisnikTipAuta" id="korisnikTipAuta2" /></td></tr>';
+                    s += '  <table style="position:absolute;margin-left:3%;margin-top:40px;">';
+                    s += '     <tr ><th colspan="2"></th></tr>';
+                   // s += '    <tr><td >Koordinata X:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaX" id="korisnikLokacijaX" /></td></tr';
+                   // s += '    <tr><td>Koordinata Y:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaY" id="korisnikLokacijaY" /></td></tr>';
+                   // s += '    <tr><td>Ulica i broj:</td><td><input type="text" style="margin:5px;" name="korisnikUlicaBroj" id="korisnikUlicaBroj" /></td></tr>';
+                   // s += '     <tr><td>Naseljeno mesto:</td><td><input type="text" style="margin:5px;" name="korisnikNaseljenoMesto" id="korisnikNaseljenoMesto" /></td></tr>';
+                   // s += '     <tr><td>Pozivni broj:</td><td><input type="text" style="margin:5px;" name="korisnikPozivniBroj" id="korisnikPozivniBroj" /></td></tr>';
+                    s += '     <tr><td  style="margin:5px;">Željeni tip automobila:</td><td><label>&nbspPutnički:&nbsp&nbsp</label><input type="radio" style="margin:5px;" name="korisnikTipAuta" value="Putnicki" id="korisnikTipAuta1" /><label>&nbsp&nbspKombi:&nbsp&nbsp</label><input type="radio" value="Kombi" style="margin:5px;" name="korisnikTipAuta" id="korisnikTipAuta2" /></td></tr>';
                     s += '     <tr><td colspan="2" align="right"><input type="button" style="margin:5px;" name="DodajVoznju" id="DodajVoznju" value="Dodaj" /></td></tr>';
                     s += ' </table>';
                     s += ' </div>';
 
-                    $('#glavni').html(s);
+                    $('#map1').append(s);
 
-                    $('#glavni').fadeIn(500);
+                    $('#map1').fadeIn(500);
                 } else {
                     alert("Banovani ste sa ovog sajta!");
                     localStorage.setItem("Ulogovan", "");
@@ -440,7 +443,8 @@ $(document).ready(function () {
         })
     })
 
-    $('#glavni').on('click', '#DodajVoznju', function () {
+    $('#map1').on('click', '#DodajVoznju', function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -460,15 +464,18 @@ $(document).ready(function () {
                         tipAutomobila = 'Svejedno';
                     }
 
+                    let addr = KompletAdresa.split(',');
+
+
                     let AdresaKorisnikDodajeVoznju = {
-                        UlicaBroj: `${$('#korisnikUlicaBroj').val()}`,
-                        NaseljenoMesto: `${$('#korisnikNaseljenoMesto').val()}`,
-                        PozivniBroj: `${$('#korisnikPozivniBroj').val()}`
+                        UlicaBroj: addr[2],
+                        NaseljenoMesto: addr[3],
+                        PozivniBroj: ""
                     }
 
                     let LokacijaKorisnikDodajeVoznju = {
-                        X: `${$('#korisnikLokacijaX').val()}`,
-                        Y: `${$('#korisnikLokacijaY').val()}`,
+                        X: addr[0],
+                        Y: addr[1],
                         Adresa: AdresaKorisnikDodajeVoznju
                     }
 
@@ -538,7 +545,7 @@ $(document).ready(function () {
     //KLIK NA DUGME ODUSTANI U TABELI
 
     $(document).on('click', '.obtn', function () {
-
+        $('#map1').hide();
         let idVoznje = $(this).prop('name');
         idVoznja = idVoznje;
 
@@ -577,6 +584,7 @@ $(document).ready(function () {
 
     //KLIK NA DUGME IZMENI U TABELI
     $(document).on('click', '.ibtn', function () {
+        $('#map1').hide();
         let idVoznje = $(this).prop('name');
         idVoznja = idVoznje;
 
@@ -646,6 +654,7 @@ $(document).ready(function () {
 
     //KLIK NA DUGME DODAJ KOM
     $('#glavni').on('click', '#dodajKom', function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -740,6 +749,7 @@ $(document).ready(function () {
     //KLIK NA DUGME IZMENI VOZNJU
 
     $('#glavni').on('click', '#izmeniVoznju', function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -846,6 +856,7 @@ $(document).ready(function () {
 
     //KLIK NA DUGME KOMENTAR U TABELI KOD KORISNIKA NAKON STO JE VOZNJA USPESNA
     $(document).on('click', '.kombtn', function () {
+        $('#map1').hide();
         let idVoznje = $(this).prop('name');
         idVoznja = idVoznje;
 
@@ -881,6 +892,7 @@ $(document).ready(function () {
     })
 
     $('#glavni').on('click', '#dodajUspesanKomentar', function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',

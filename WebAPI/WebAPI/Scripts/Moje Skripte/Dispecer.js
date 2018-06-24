@@ -91,6 +91,7 @@
 
                 s += '<div id="zaizmenud">';
                 s += '  <table>';
+                s += '<tr><th colspan="2" align="center" style="margin:5px" ><h2>Forma za izmenu</h2></th></tr>';
                 s += '     <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoImed" id="KorisnickoImed" style="margin:5px" /></td></tr>';
                 s += '     <tr><th>Lozinka:</th><td><input type="text" name="Lozinkad" id="Lozinkad" style="margin:5px" /></td></tr>';
                 s += '      <tr><th>Ime:</th><td><input type="text" name="Imed" id="Imed" style="margin:5px" /></td></tr>';
@@ -544,6 +545,7 @@
 
         s += '<div id="dodavanjeVozaca">';
         s += '  <table class="w3-small">';
+        s += '<tr><th colspan="2" align="center" style="margin:5px" ><h3>Forma za dodavanje vozača</h3></th></tr>';
         s += '      <tr><th>Korisničko ime:</th><td><input type="text" name="KorisnickoImeVDodaj" id="KorisnickoImeVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Lozinka:</th><td><input type="text" name="LozinkaVDodaj" id="LozinkaVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Ime:</th><td><input type="text" name="ImeVDodaj" id="ImeVDodaj" style="margin:5px" /></td></tr>';
@@ -552,11 +554,6 @@
         s += '      <tr><th>Pol:</th><td><label>Muški:&nbsp&nbsp</label><input type="radio" name="PolVDodaj" value="Muski" id="Pol1VDodaj" checked/><label>&nbsp&nbspŽenski:&nbsp&nbsp</label><input type="radio" value="Zenski" name="PolVDodaj" id="Pol2VDodaj" /></td></tr>';
         s += '      <tr><th>Kontakt Telefon:</th><td><input type="text" name="KontaktTelefonVDodaj" id="KontaktTelefonVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Email:</th><td><input type="email" name="EmailVDodaj" id="EmailVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Lokacija X:</th><td><input type="text" name="LokacijaXVDodaj" id="LokacijaXVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Lokacija Y:</th><td><input type="text" name="LokacijaYVDodaj" id="LokacijaYVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Ulica i broj:</th><td><input type="text" name="UlicaBrojVDodaj" id="UlicaBrojVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Naseljeno mesto:</th><td><input type="text" name="NaseljenoMestoVDodaj" id="NaseljenoMestoVDodaj" style="margin:5px" /></td></tr>';
-        s += '      <tr><th>Pozivni broj:</th><td><input type="text" name="PozivniBrojVDodaj" id="PozivniBrojVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Godište automobila:</th><td><input type="text" name="GodisteAutomobilaVDodaj" id="GodisteAutomobilaVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Registarske oznake:</th><td><input type="text" name="BrojRegistarskeOznakeVDodaj" id="BrojRegistarskeOznakeVDodaj" style="margin:5px" /></td></tr>';
         s += '      <tr><th>Taxi broj:</th><td><input type="text" name="BrojTaksiVozilaVDodaj" id="BrojTaksiVozilaVDodaj" style="margin:5px" /></td></tr>';
@@ -770,14 +767,14 @@
                 }
 
                 let adresa = {
-                    UlicaBroj: `${$('#UlicaBrojVDodaj').val()}`,
-                    NaseljenoMesto: `${$('#NaseljenoMestoVDodaj').val()}`,
-                    PozivniBroj: `${$('#PozivniBrojVDodaj').val()}`
+                    UlicaBroj: "",
+                    NaseljenoMesto: "",
+                    PozivniBroj: ""
                 }
 
                 let lokacija = {
-                    X: `${$('#LokacijaXVDodaj').val()}`,
-                    Y: `${$('#LokacijaYVDodaj').val()}`,
+                    X: "",
+                    Y: "",
                     Adresa: adresa
                 }
                 let automobil = {

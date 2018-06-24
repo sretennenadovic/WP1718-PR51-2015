@@ -4,6 +4,7 @@
 
     let prviProlaz;
     $('#pretragaKorisnik').click(function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -132,7 +133,7 @@
                                     if (niz3.length > 0) {
 
                                         let s = '';
-                                        s += '<div class="voznje" style="font-size:14px;position:absolute;margin-top:100px;">';
+                                        s += '<div class="voznje" style="font-size:14px;position:absolute;margin-top:120px;">';
                                         s += '<table border=1 class="voznje boja"><tr><th colspan="10"><h3><b>Rezultat pretrage</b></h3></th></tr>';
                                         s += '<tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
 
@@ -232,6 +233,7 @@
 
     let prviFilter;
     $('#filtrirajVoznje').click(function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -369,6 +371,7 @@
     //SORTIRAJ U KLIJENTU
 
     $('#sortirajDatum').click(function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
@@ -479,6 +482,7 @@
     })
 
     $('#sortirajOcena').click(function () {
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Registration',
