@@ -697,7 +697,7 @@ $(document).ready(function () {
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
             success: function (datav) {
-                if (data.Banovanv == "NE") {
+                if (datav.Banovan == "NE") {
                         $('#glavni3').hide();
                         let s = '';
                         s += '<div class="komentar">';
@@ -728,7 +728,7 @@ $(document).ready(function () {
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
             success: function (datav) {
-                if (data.Banovanv == "NE") {
+                if (datav.Banovan == "NE") {
 
                     $.ajax({
                         type: 'GET',

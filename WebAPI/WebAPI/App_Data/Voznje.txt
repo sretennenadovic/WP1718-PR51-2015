@@ -22,3 +22,4 @@
 22;23.6.2018. 22.25.25;112;112;Ulica 212;Mesto;123321;Putnicki;;123;123;Ulica 222;NM2;12345;dispecer1;pppp;123;;;;;;Uspesna
 23;24.6.2018. 00.08.33;;;;;;Putnicki;ljubo;45.253187695763735;19.84407314935038;Nadgrobni Spomenik Jermenske Porodice Čenazi; Novi Sad;;;pppp;1111;;;;;;Uspesna
 24;24.6.2018. 21.37.54;45.237776202369275;19.838976952222083;Шекспирова 2; Нови Сад;;Putnicki;ljubo;;;;;;;;0;;;;;;Kreirana
+25;25.6.2018. 00.26.49;45.24160514384284;19.83270860011953;Bulevar cara Lazara 65; Novi Sad 21000;;Svejedno;;;;;;;dispecer2;vozac2;0;Nije dosla musterija!;25.6.2018. 00.31.59;vozac2;25;0;Neuspesna

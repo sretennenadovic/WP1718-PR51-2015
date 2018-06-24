@@ -3,6 +3,7 @@
 
     let prvi;
     $('#pretragaVozac').click(function () {
+        $('#map1').hide();
         let s = '';
         prvi = "da";
 
@@ -414,6 +415,7 @@
 
     let prviMusterija;
     $('#pretragaMusterija').click(function () {
+        $('#map1').hide();
         let s = '';
         prviMusterija = "da";
 

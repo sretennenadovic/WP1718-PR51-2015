@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $('#profild').click(function () {
+        $('#map1').hide();
         //------------------------------------------------------------------------------------------------------------
         //moram da ponavljam je r kada uradim izmenu, mora opet novo da mi povuce
         $.ajax({
@@ -75,6 +76,7 @@
     $('#izmenid').click(function () {
         $('#glavni2').hide();
         $('#dodavanjeVozaca').hide();
+        $('#map1').hide();
 
         $.ajax({
             type: 'GET',
@@ -283,6 +285,7 @@
 
     $('#moje').click(function () {
         $('#glavni2').hide();
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Voznja',
@@ -369,6 +372,7 @@
 
     $('#sve').click(function () {
         $('#glavni2').hide();
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Voznja',
@@ -452,6 +456,7 @@
 
     $('#nacekanju').click(function () {
         $('#glavni2').hide();
+        $('#map1').hide();
         $.ajax({
             type: 'GET',
             url: '/api/Voznja',
@@ -540,6 +545,7 @@
     //dodaj vozaca iz dispecera (NIJE DUGME)
     $('#novVozac').click(function () {
         $('#glavni2').hide();
+        $('#map1').hide();
 
         let s = '';
 
@@ -846,7 +852,7 @@
                         if (dataV.length > 0) {
                             let s = '';
                             let usao = "ne";
-                            s += `<div style="position:absolute;"><h3>Moguć izbor vozača:</h3><br>Vozacev username: <select name="biloKo" id="biloKo">`;
+                            s += `<div style="position:absolute;margin-left:50px;margin-top:3%;"><h3>Moguć izbor vozača:</h3><br>Korisničko ime vozača: <select name="biloKo" id="biloKo">`;
                             for (var i = 0; i < dataV.length; i++) {
                                 if (dataV[i].Zauzet == "NE") {
                                     if (data.Automobil == 2) {
@@ -1027,32 +1033,43 @@
     //KLIK NA LINK DODAJ NOVU VOZNJU (DISPECERRRRR)
     $('#nV').click(function () {
         $('#glavni2').hide();
+        if ($("#kritican").parents("#map1").length == 1) {
+            $("#kritican").remove();
+        }
+        if ($("#divNovaVoznjaDispecer").parents("#map1").length == 1) {
+            $("#divNovaVoznjaDispecer").remove();
+        }
+        /*
+        if (ima == "da") {
+            $('#map1 div:last-child').remove();
+        }*/
+        
 
         let s = '';
         s += '<div id="divNovaVoznjaDispecer" >';
-        s += '  <table style="position:absolute;margin-left:3%;margin-top:3%;">';
-        s += '     <tr ><th colspan="2">Unesite podatke o novoj vožnji:</th></tr>';
-        s += '    <tr ><td colsapn="2"><hr /></td></tr>';
-        s += '    <tr><td >Koordinata X:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaXDispecer" id="korisnikLokacijaXDispecer" /></td></tr';
-        s += '    <tr><td>Koordinata Y:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaYDispecer" id="korisnikLokacijaYDispecer" /></td></tr>';
-        s += '    <tr><td>Ulica i broj:</td><td><input type="text" style="margin:5px;" name="korisnikUlicaBrojDispecer" id="korisnikUlicaBrojDispecer" /></td></tr>';
-        s += '     <tr><td>Naseljeno mesto:</td><td><input type="text" style="margin:5px;" name="korisnikNaseljenoMestoDispecer" id="korisnikNaseljenoMestoDispecer" /></td></tr>';
-        s += '     <tr><td>Pozivni broj:</td><td><input type="text" style="margin:5px;" name="korisnikPozivniBrojDispecer" id="korisnikPozivniBrojDispecer" /></td></tr>';
+        s += '  <table style="position:absolute;margin-left:50px;margin-top:30px;">';
+        //s += '     <tr ><th colspan="2">Unesite podatke o novoj vožnji:</th></tr>';
+        //s += '    <tr ><td colsapn="2"><hr /></td></tr>';
+        //s += '    <tr><td >Koordinata X:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaXDispecer" id="korisnikLokacijaXDispecer" /></td></tr';
+        //s += '    <tr><td>Koordinata Y:</td><td><input type="text" style="margin:5px;" name="korisnikLokacijaYDispecer" id="korisnikLokacijaYDispecer" /></td></tr>';
+        //s += '    <tr><td>Ulica i broj:</td><td><input type="text" style="margin:5px;" name="korisnikUlicaBrojDispecer" id="korisnikUlicaBrojDispecer" /></td></tr>';
+        //s += '     <tr><td>Naseljeno mesto:</td><td><input type="text" style="margin:5px;" name="korisnikNaseljenoMestoDispecer" id="korisnikNaseljenoMestoDispecer" /></td></tr>';
+        //s += '     <tr><td>Pozivni broj:</td><td><input type="text" style="margin:5px;" name="korisnikPozivniBrojDispecer" id="korisnikPozivniBrojDispecer" /></td></tr>';
         s += '     <tr><td>Željeni tip automobila:</td><td><label>&nbspPutnički:&nbsp&nbsp</label><input type="radio" style="margin:5px;" name="korisnikTipAutaDispecer" value="Putnicki" id="korisnikTipAutaDispecer1" /><label>&nbsp&nbspKombi:&nbsp&nbsp</label><input type="radio" value="Kombi" style="margin:5px;" name="korisnikTipAutaDispecer" id="korisnikTipAutaDispecer2" /></td></tr>';
         s += '     <tr><td colspan="2" align="right"><input type="button" style="margin:5px;" name="DodajVozacaDispecer" id="DodajVozacaDispecer" value="Dodaj vozača" /></td></tr>';
         s += ' </table>';
         s += ' </div>';
 
-        $('#glavni2').html(s);
+        $('#map1').append(s);
 
-        $('#glavni2').fadeIn(500);
+        $('#map1').fadeIn(500);
     })
 
-    $('#glavni2').on('click', '#DodajVozacaDispecer', function () {
+    $('#map1').on('click', '#DodajVozacaDispecer', function () {
         $('#DodajVozacaDispecer').hide();
 
         let s = '';
-        s += `<div style="position:absolute;display:inline-block;margin-left:3%;margin-top:390px;"><h3>Moguć izbor vozača:</h3><br>Korisničko ime vozača: <select name="slobodniV" id="slobodniV">`;
+        s += `<div id="kritican" style="position:absolute;display:inline-block;margin-left:50px;margin-top:70px;"><h4>Moguć izbor vozača:</h4>Korisničko ime vozača: <select name="slobodniV" id="slobodniV">`;
         let usao = "ne";
 
         let tip;
@@ -1087,8 +1104,8 @@
                         s += '</select>';
                         s += '     <input type="button" style="margin:5px;" name="DodajVoznjuDispecer" id="DodajVoznjuDispecer" value="Dodaj" /></div>';
 
-                        $('#glavni2').append(s);
-                        $('#glavni2').fadeIn(500);
+                        $('#map1').append(s);
+                        $('#map1').fadeIn(500);
                     } else {
                         alert("Nema odgovarajućeg vozača!");
                         $(location).attr('href', 'main.html');
@@ -1101,7 +1118,7 @@
         })
     })
 
-    $('#glavni2').on('click', '#DodajVoznjuDispecer', function () {
+    $('#map1').on('click', '#DodajVoznjuDispecer', function () {
         let odabranVozac = $('#slobodniV').prop('value');
 
 
@@ -1169,65 +1186,73 @@
                     success: function (data) {
                         if (data) {
 
-                            let AdresaKorisnikDodajeVoznju = {
-                                UlicaBroj: `${$('#korisnikUlicaBrojDispecer').val()}`,
-                                NaseljenoMesto: `${$('#korisnikNaseljenoMestoDispecer').val()}`,
-                                PozivniBroj: `${$('#korisnikPozivniBrojDispecer').val()}`
-                            }
+                            let addr = KompletAdresa.split(',');
 
-                            let LokacijaKorisnikDodajeVoznju = {
-                                X: `${$('#korisnikLokacijaXDispecer').val()}`,
-                                Y: `${$('#korisnikLokacijaYDispecer').val()}`,
-                                Adresa: AdresaKorisnikDodajeVoznju
-                            }
+                            if (addr[0] != "") {
 
-                            let AdresaKorisnikDodajeVoznju2 = {
-                                UlicaBroj: "",
-                                NaseljenoMesto: "",
-                                PozivniBroj: ""
-                            }
-
-                            let LokacijaKorisnikDodajeVoznju2 = {
-                                X: "",
-                                Y: "",
-                                Adresa: AdresaKorisnikDodajeVoznju2
-                            }
-
-                            let komentar = {
-                                Opis: "",
-                                DatumObjave: "",
-                                KorisnickoIme: "",
-                                IdVoznje: "",
-                                Ocena: ""
-                            }
-
-                            let NovaVoznjaDispecera = {
-                                IdVoznje: "",
-                                DatumVreme: "",
-                                Lokacija: LokacijaKorisnikDodajeVoznju,
-                                Automobil: tipAutomobila,
-                                Musterija: "",
-                                Odrediste: LokacijaKorisnikDodajeVoznju2,
-                                Dispecer: `${localStorage.getItem("Ulogovan")}`,
-                                Vozac: dataV.KorisnickoIme,
-                                Iznos: "",
-                                Komentar: komentar,
-                                StatusVoznje: 1 //status voznje je formirana
-                            }
-
-                            $.ajax({
-                                type: 'POST',
-                                url: '/api/Voznja',
-                                data: JSON.stringify(NovaVoznjaDispecera),
-                                contentType: 'application/json;charset=utf-8',
-                                dataType: 'json',
-                                success: function (data) {
-                                    if (data) {
-                                        alert("Vožnja uspešno kreirana!");
-                                        $(location).attr('href', 'main.html');
-                                    }
+                                let AdresaKorisnikDodajeVoznju = {
+                                    UlicaBroj: addr[2],
+                                    NaseljenoMesto: addr[3],
+                                    PozivniBroj: ""
                                 }
-                            })
+
+                                let LokacijaKorisnikDodajeVoznju = {
+                                    X: addr[0],
+                                    Y: addr[1],
+                                    Adresa: AdresaKorisnikDodajeVoznju
+                                }
+
+                                let AdresaKorisnikDodajeVoznju2 = {
+                                    UlicaBroj: "",
+                                    NaseljenoMesto: "",
+                                    PozivniBroj: ""
+                                }
+
+                                let LokacijaKorisnikDodajeVoznju2 = {
+                                    X: "",
+                                    Y: "",
+                                    Adresa: AdresaKorisnikDodajeVoznju2
+                                }
+
+                                let komentar = {
+                                    Opis: "",
+                                    DatumObjave: "",
+                                    KorisnickoIme: "",
+                                    IdVoznje: "",
+                                    Ocena: ""
+                                }
+
+                                let NovaVoznjaDispecera = {
+                                    IdVoznje: "",
+                                    DatumVreme: "",
+                                    Lokacija: LokacijaKorisnikDodajeVoznju,
+                                    Automobil: tipAutomobila,
+                                    Musterija: "",
+                                    Odrediste: LokacijaKorisnikDodajeVoznju2,
+                                    Dispecer: `${localStorage.getItem("Ulogovan")}`,
+                                    Vozac: dataV.KorisnickoIme,
+                                    Iznos: "",
+                                    Komentar: komentar,
+                                    StatusVoznje: 1 //status voznje je formirana
+                                }
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/api/Voznja',
+                                    data: JSON.stringify(NovaVoznjaDispecera),
+                                    contentType: 'application/json;charset=utf-8',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data) {
+                                            $('#map1').hide();
+                                            alert("Vožnja uspešno kreirana!");
+                                            $(location).attr('href', 'main.html');
+                                        }
+                                    }
+                                })
+                            } else {
+                                alert("Morate uneti lokaciju!");
+                            }
                         }
                     }
                 })
@@ -1236,6 +1261,7 @@
     })
 
     $('#clanovi').click(function () {
+        $('#map1').hide();
         $.ajax({
         type: 'GET',
         url: '/api/Vozac',
