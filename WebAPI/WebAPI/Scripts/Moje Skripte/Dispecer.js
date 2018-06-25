@@ -835,6 +835,10 @@
     $(document).on('click', '.obradibtn', function () {
         let idVoznje = $(this).prop('name');
         idVoznja = idVoznje;
+        let rastojanja;
+        let odgovarajuci = [];
+        let petNajblizih = [];
+
         $.ajax({
             type: 'GET',
             url: '/api/Voznja/' + idVoznja,
@@ -855,17 +859,51 @@
                             s += `<div style="position:absolute;margin-left:50px;margin-top:3%;"><h3>Moguć izbor vozača:</h3><br>Korisničko ime vozača: <select name="biloKo" id="biloKo">`;
                             for (var i = 0; i < dataV.length; i++) {
                                 if (dataV[i].Zauzet == "NE") {
-                                    if (data.Automobil == 2) {
-                                        s += `<option value=${dataV[i].KorisnickoIme}>${dataV[i].KorisnickoIme}</option>`;
+                                    if (vratiVozilo(data.Automobil) == "Svejedno") {
+                                        odgovarajuci.push(dataV[i]);
+                                        // s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
                                         usao = "da";
-                                    } else if (data.Automobil == dataV[i].Automobil.TipAutomobila) {
-                                        s += `<option value=${dataV[i].KorisnickoIme}>${dataV[i].KorisnickoIme}</option>`;
+                                    } else if (vratiVozilo(data.Automobil) == vratiVozilo(dataV[i].Automobil.TipAutomobila)) {
+                                        odgovarajuci.push(dataV[i]);
+                                        //  s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
                                         usao = "da";
                                     }
                                 }
                             }
+
                             if (usao == "da") {
-                                s += '<input type="button" name="dodeli" id="dodeli" value="Dodeli"/></div>';
+                                if (odgovarajuci.length > 5) {
+                                    for (var i = 0; i < odgovarajuci.length; i++) {
+                                        rastojanja = Math.sqrt(Math.pow(data.Lokacija.X - odgovarajuci[i].Lokacija.X, 2) + Math.pow(data.Lokacija.Y - odgovarajuci[i].Lokacija.Y, 2));
+
+                                        let vozac = {
+                                            Id: odgovarajuci[i].Id,
+                                            Rastojanje: rastojanja
+                                        }
+
+                                        petNajblizih.push(vozac);
+                                    }
+
+                                    petNajblizih.sort(function (a, b) {
+                                        return a.Rastojanje - b.Rastojanje;
+                                    })
+
+                                    for (var j = 0; j < 5; j++) {
+                                        for (var i = 0; i < odgovarajuci.length; i++) {
+                                            if (petNajblizih[j].Id == odgovarajuci[i].Id) {
+                                                s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
+                                            }
+                                        }
+                                    }
+
+                                } else {
+                                    for (var i = 0; i < odgovarajuci.length; i++) {
+                                        s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
+                                    }
+
+                                }
+
+                                s += '</select>';                                s += '<input type="button" name="dodeli" id="dodeli" value="Dodeli"/></div>';
                                 $('#glavni2').hide();
                                 $('#glavni2').html(s);
                                 $('#glavni2').fadeIn(500);

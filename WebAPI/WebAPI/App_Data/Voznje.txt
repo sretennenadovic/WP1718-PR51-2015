@@ -25,7 +25,7 @@
 25;25.6.2018. 00.26.49;45.24160514384284;19.83270860011953;Bulevar cara Lazara 65; Novi Sad 21000;;Svejedno;;;;;;;dispecer2;vozac2;0;Nije dosla musterija!;25.6.2018. 00.31.59;vozac2;25;0;Neuspesna
 26;25.6.2018. 11.45.05;45.26391910215495;19.806103114464236;Bulevar Evrope; Novi Sad 21000;;Putnicki;;45.264101310314906;19.83045743577418;Bulevar Jaše Tomića; Novi Sad;;dispecer1;vozac00;450;;;;;;Uspesna
 27;25.6.2018. 11.51.03;45.244214219391665;19.847248884824012;Fruškogorska; Novi Sad;;Putnicki;ljubo;;;;;;;;0;;;;;;Kreirana
-28;25.6.2018. 11.51.25;45.242413310401076;19.834224077847693;Bulevar cara Lazara 58; Novi Sad 21000;;Putnicki;ljubo;;;;;;;;0;;;;;;Kreirana
+28;25.6.2018. 11.51.25;45.242413310401076;19.834224077847693;Bulevar cara Lazara 58; Novi Sad 21000;;Putnicki;ljubo;;;;;;dispecer1;vozac8;0;Ode mali za Bec <3.;25.6.2018. 12.35.18;vozac8;28;5;Neuspesna
 29;25.6.2018. 11.56.40;45.24255230893582;19.83652004876444;Bulevar cara Lazara 47; Novi Sad 21000;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
 30;25.6.2018. 11.58.24;45.246238662808175;19.84029659905741;Bulevar oslobođenja 98; Novi Sad 21102;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
 31;25.6.2018. 12.01.15;45.242371006672265;19.846347662595008;Narodnog fronta 2a; Novi Sad 21000;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
