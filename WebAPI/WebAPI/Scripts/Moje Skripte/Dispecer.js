@@ -1067,6 +1067,10 @@
 
     $('#map1').on('click', '#DodajVozacaDispecer', function () {
         $('#DodajVozacaDispecer').hide();
+        let odgovarajuci = [];
+        let petNajblizih = [];
+        let rastojanja;
+        let addr = KompletAdresa.split(',');
 
         let s = '';
         s += `<div id="kritican" style="position:absolute;display:inline-block;margin-left:50px;margin-top:70px;"><h4>Moguć izbor vozača:</h4>Korisničko ime vozača: <select name="slobodniV" id="slobodniV">`;
@@ -1092,15 +1096,52 @@
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].Zauzet == "NE") {
                             if (tip == "Svejedno") {
-                                s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
+                                odgovarajuci.push(data[i]);
+                               // s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
                                 usao = "da";
                             } else if (tip == vratiVozilo(data[i].Automobil.TipAutomobila)) {
-                                s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
+                                odgovarajuci.push(data[i]);
+                              //  s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
                                 usao = "da";
                             }
                         }
                     }
+
                     if (usao == "da") {
+                        if (odgovarajuci.length > 5) {
+                            for (var i = 0; i < odgovarajuci.length; i++) {
+                                rastojanja = Math.sqrt(Math.pow(addr[0] - odgovarajuci[i].Lokacija.X, 2) + Math.pow(addr[1] - odgovarajuci[i].Lokacija.Y, 2));
+
+                                let vozac = {
+                                    Id: odgovarajuci[i].Id,
+                                    Rastojanje: rastojanja
+                                }
+
+                                petNajblizih.push(vozac);
+                            }
+
+                            petNajblizih.sort(function (a, b) {
+                                return a.Rastojanje - b.Rastojanje;
+                            })
+
+
+
+    
+                            for (var j = 0; j < 5; j++) {
+                                for (var i = 0; i < odgovarajuci.length; i++) {
+                                    if (petNajblizih[j].Id == odgovarajuci[i].Id) {
+                                        s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
+                                    }
+                                }
+                                }
+
+                        } else {
+                            for (var i = 0; i < odgovarajuci.length; i++) {
+                                s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
+                            }
+                             
+                        }
+                    
                         s += '</select>';
                         s += '     <input type="button" style="margin:5px;" name="DodajVoznjuDispecer" id="DodajVoznjuDispecer" value="Dodaj" /></div>';
 

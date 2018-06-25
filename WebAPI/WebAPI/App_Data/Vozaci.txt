@@ -7,4 +7,10 @@
 7;prinudni;prinudni;prinudni;prinudni;Muski;4445554445554443;1233333;prinudni@gmail.com;Vozac;nema;11;22;CCC 1;BBB;123456;7;2011;ns-123-tx;3332;Putnicki;DA;NE
 8;pppp;pppp;pppp;pppp;Muski;1221122111222;1111111;p@gmai.com;Vozac;nema;45.23684100970111;19.838923308041785;Bulevar despota Stefana 7; Novi Sad;;8;2001;NS/111/TX;1111;Putnicki;DA;NE
 9;novi;novi;novi;novi;Muski;1234123412341;1234123;novi@gmail.com;Vozac;nema;2;3;Ulica 23;Nema;12345;9;1990;NS-1234-TX;3000;Putnicki;DA;NE
-10;neki;neki;neki;neki;Muski;1234512345123;1234567;neki@gmail.com;Vozac;nema;;;;;;10;2010;NS_333_TX;4444;Putnicki;NE;NE
+10;neki;neki;neki;neki;Muski;1234512345123;1234567;neki@gmail.com;Vozac;nema;;;;;;10;2010;NS_333_TX;4444;Putnicki;DA;NE
+11;vozac7;vozac7;vozac7;vozac7;Muski;1234512345123;123456;vozac7@gmail.com;Vozac;nema;45.240165116123556;19.825662466672156;Bulevar cara Lazara 124; Novi Sad 21000;;11;2000;NS-111-TX;3321;Putnicki;NE;NE
+12;vozac8;vozac8;vozac8;vozac8;Muski;1234512345123;123458;vozac8@gmail.com;Vozac;nema;45.24143426909362;19.83106980004618;Bulevar cara Lazara 76; Novi Sad;;12;2008;NS-118-TX;3328;Putnicki;NE;NE
+13;vozac9;vozac9;vozac9;vozac9;Muski;1234512345123;123459;vozac9@gmail.com;Vozac;nema;45.243730759546104;19.841498228696082;Bulеvar oslobođenja 100; Novi Sad 21000;;13;2009;NS-119-TX;3329;Putnicki;NE;NE
+14;vozac00;vozac00;vozac00;vozac00;Muski;1234512345123;1234500;vozac9@gmail.com;Vozac;nema;45.24376097590699;19.841712805417274;Bulevar cara Lazara 19; Novi Sad 21000;;14;2000;NS-110-TX;3300;Putnicki;NE;NE
+15;vozac01;vozac01;vozac01;vozac01;Muski;1234512345123;1234501;vozac1@gmail.com;Vozac;nema;45.22958773886502;19.855934140146246;Tunel Mišeluk; Sremska Kamenica;;15;2001;NS-111-TX;3301;Putnicki;NE;NE
+16;vozac02;vozac02;vozac02;vozac02;Muski;1234512345123;1234567;vozac02@gmail.com;Vozac;nema;45.250691855008;19.837749690338228;Bulevar oslobođenja 76; Novi Sad 21000;;16;2001;NS-112-tx;1127;Putnicki;NE;NE

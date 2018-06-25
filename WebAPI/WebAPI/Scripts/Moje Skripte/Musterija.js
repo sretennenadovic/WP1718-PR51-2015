@@ -523,6 +523,7 @@ $(document).ready(function () {
                             if (!data) {
                                 alert("Vožnja nije dodata!");
                             } else {
+
                                 alert("Uspešno ste dodali novu vožnju!");
                             }
                         }
