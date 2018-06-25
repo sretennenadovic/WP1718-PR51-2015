@@ -936,59 +936,64 @@ $(document).ready(function () {
 
                         let addr = KompletAdresa.split(',');
 
-                        let AdresaVozacMenjaLokaciju = {
-                            UlicaBroj: addr[2],
-                            NaseljenoMesto: addr[3],
-                            PozivniBroj: ""
-                        }
+                        if (addr[0] != "") {
 
-                        let LokacijaVozacMenjaLokaciju = {
-                            X: addr[0],
-                            Y: addr[1],
-                            Adresa: AdresaVozacMenjaLokaciju
-                        }
-
-                        let Auto = {
-                            IdVozaca: dataV.Id,
-                            GodisteAutomobila: dataV.Automobil.GodisteAutomobila,
-                            BrojRegistarskeOznake: dataV.Automobil.BrojRegistarskeOznake,
-                            BrojTaksiVozila: dataV.Automobil.BrojTaksiVozila,
-                            TipAutomobila: dataV.Automobil.TipAutomobila
-                        }
-
-                        let NovaLokacijaVozac = {
-                            Id: `${dataV.Id}`,
-                            KorisnickoIme: `${dataV.KorisnickoIme}`,
-                            Lozinka: `${dataV.Lozinka}`,
-                            Ime: `${dataV.Ime}`,
-                            Prezime: `${dataV.Prezime}`,
-                            Pol: `${dataV.Pol}`,
-                            JMBG: `${dataV.JMBG}`,
-                            KontaktTelefon: `${dataV.KontaktTelefon}`,
-                            Email: `${dataV.Email}`,
-                            Uloga: `${dataV.Uloga}`,
-                            Voznje: `${dataV.Voznje}`,
-                            Banovan: `${"NE"}`,
-                            Lokacija: LokacijaVozacMenjaLokaciju,
-                            Automobil: Auto,
-                            Zauzet: `${dataV.Zauzet}`
-                        }
-
-                        $.ajax({
-                            type: 'PUT',
-                            url: '/api/Vozac/' + dataV.Id,
-                            data: JSON.stringify(NovaLokacijaVozac),
-                            contentType: 'application/json;charset=utf-8',
-                            dataType: 'json',
-                            success: function (data) {
-                                if (!data) {
-                                    alert("Lokacija nije izmenjena!");
-                                } else {
-                                    alert("Uspešno ste izmenili lokaciju!");
-                                    $(location).attr('href', 'main.html');
-                                }
+                            let AdresaVozacMenjaLokaciju = {
+                                UlicaBroj: addr[2],
+                                NaseljenoMesto: addr[3],
+                                PozivniBroj: ""
                             }
-                        })
+
+                            let LokacijaVozacMenjaLokaciju = {
+                                X: addr[0],
+                                Y: addr[1],
+                                Adresa: AdresaVozacMenjaLokaciju
+                            }
+
+                            let Auto = {
+                                IdVozaca: dataV.Id,
+                                GodisteAutomobila: dataV.Automobil.GodisteAutomobila,
+                                BrojRegistarskeOznake: dataV.Automobil.BrojRegistarskeOznake,
+                                BrojTaksiVozila: dataV.Automobil.BrojTaksiVozila,
+                                TipAutomobila: dataV.Automobil.TipAutomobila
+                            }
+
+                            let NovaLokacijaVozac = {
+                                Id: `${dataV.Id}`,
+                                KorisnickoIme: `${dataV.KorisnickoIme}`,
+                                Lozinka: `${dataV.Lozinka}`,
+                                Ime: `${dataV.Ime}`,
+                                Prezime: `${dataV.Prezime}`,
+                                Pol: `${dataV.Pol}`,
+                                JMBG: `${dataV.JMBG}`,
+                                KontaktTelefon: `${dataV.KontaktTelefon}`,
+                                Email: `${dataV.Email}`,
+                                Uloga: `${dataV.Uloga}`,
+                                Voznje: `${dataV.Voznje}`,
+                                Banovan: `${"NE"}`,
+                                Lokacija: LokacijaVozacMenjaLokaciju,
+                                Automobil: Auto,
+                                Zauzet: `${dataV.Zauzet}`
+                            }
+
+                            $.ajax({
+                                type: 'PUT',
+                                url: '/api/Vozac/' + dataV.Id,
+                                data: JSON.stringify(NovaLokacijaVozac),
+                                contentType: 'application/json;charset=utf-8',
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (!data) {
+                                        alert("Lokacija nije izmenjena!");
+                                    } else {
+                                        alert("Uspešno ste izmenili lokaciju!");
+                                        $(location).attr('href', 'main.html');
+                                    }
+                                }
+                            })
+                        } else {
+                            alert("Morate prvo odabrati lokaciju na karti!");
+                        }
                     } else {
                         alert("Vozač ne može promeniti lokaciju, jer je trenutno zauzet!");
                         $(location).attr('href', 'main.html');
@@ -1220,6 +1225,149 @@ $(document).ready(function () {
         })
 
     })
+
+    $('#najblizeVoznje').click(function () {
+        $('#glavni3').hide();
+        $('#map1').hide();
+        let niz = [];
+        let nizPrave = [];
+
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Vozac',
+
+            data: { KorisnickoIme: `${localStorage.getItem("Ulogovan")}` },
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (datav) {
+                if (datav.Banovan == "NE") {
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/Voznja',
+                        //data: JSON.stringify(korisnik.Id),
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+
+                            //trazim ulogovanog da bi mogao ispitati njegovo zauzece zbog PRIHVATI dugmica
+                            $.ajax({
+                                type: 'GET',
+                                url: '/api/Vozac',
+                                data: { KorisnickoIme: `${localStorage.getItem("Ulogovan")}` },
+                                contentType: 'application/json;charset=utf-8',
+                                dataType: 'json',
+                                success: function (dataV) {
+
+                                    for (var i = 0; i < data.length; i++) {
+                                        rastojanja = Math.sqrt(Math.pow(data[i].Lokacija.X - dataV.Lokacija.X, 2) + Math.pow(data[i].Lokacija.Y - dataV.Lokacija.Y, 2));
+
+                                        let voznja = {
+                                            Id: data[i].IdVoznje,
+                                            Rastojanje: rastojanja
+                                        }
+
+                                        niz.push(voznja);
+                                    }
+
+                                    niz.sort(function (a, b) {
+                                        return a.Rastojanje - b.Rastojanje;
+                                    })
+
+                                    for (var j = 0; j < niz.length; j++) {
+                                        for (var i = 0; i < data.length; i++) {
+                                        
+                                            if (data[i].IdVoznje == niz[j].Id) {
+                                                nizPrave.push(data[i]);
+                                            }
+                                        }
+                                    }
+
+                                    let s = '';
+                                    s += ' <div id="voznjeV" style="font-size:14px">';
+                                    s += '<table border=1 class="voznje boja"><tr><th colspan="11"><b>Vožnje sortirane po udaljenosti</b></h3></th></tr>';
+                                    s += '<tr ><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Dispečer</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
+
+                                    for (let i = 0; i < nizPrave.length; i++) {
+                                        if (vratiStatusVoznje(nizPrave[i].StatusVoznje) == "Kreirana" && (dataV.Automobil.TipAutomobila == nizPrave[i].Automobil || nizPrave[i].Automobil == 2)) {
+                                            s += ("<tr><td>" + nizPrave[i].IdVoznje + "</td><td>" + nizPrave[i].DatumVreme + "</td>");
+
+                                            if (nizPrave[i].Musterija == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + nizPrave[i].Musterija + '</td>');
+                                            }
+
+                                            if (nizPrave[i].Dispecer == "") {
+                                                s += '<td>/</td>';
+                                            } else {
+                                                s += ('<td>' + nizPrave[i].Dispecer + '</td>');
+                                            }
+
+                                            s += ('<td>' + nizPrave[i].Lokacija.Adresa.UlicaBroj + ", " + nizPrave[i].Lokacija.Adresa.NaseljenoMesto + " " + nizPrave[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+
+                                            switch (nizPrave[i].Automobil) {
+                                                case 0:
+                                                    s += "Putnički";
+                                                    break;
+                                                case 1:
+                                                    s += "Kombi";
+                                                    break;
+                                                case 2:
+                                                    s += "Svejedno";
+                                            }
+
+                                            if (nizPrave[i].Odrediste.Adresa.UlicaBroj == "") {
+                                                s += ("</td><td>/" + "</td>");
+                                            }
+                                            else {
+                                                s += ("</td><td>" + nizPrave[i].Odrediste.Adresa.UlicaBroj + ", " + nizPrave[i].Odrediste.Adresa.NaseljenoMesto + " " + nizPrave[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                            }
+
+                                            if (nizPrave[i].Iznos != "0") {
+                                                s += ("<td>" + nizPrave[i].Iznos + "</td>");
+                                            } else {
+                                                s += ("<td>/</td>");
+                                            }
+
+                                            s += ('<td><textarea rows="5" cols="30" disabled>');
+
+                                            if (nizPrave[i].Komentar.Opis == "") {
+                                                s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                            } else {
+                                                s += ("Korisnicko ime: " + nizPrave[i].Komentar.KorisnickoIme + "\n\nOpis: " + nizPrave[i].Komentar.Opis + "\n\nOcena: " + nizPrave[i].Komentar.Ocena + "\nDatum: " + nizPrave[i].Komentar.DatumObjave + "</textarea ></td >");
+                                            }
+
+                                            s += ("<td>" + vratiStatusVoznje(nizPrave[i].StatusVoznje) + "</td> <td>");
+
+                                            if (vratiStatusVoznje(nizPrave[i].StatusVoznje) == "Kreirana") {
+                                                s += (`<input type="button" value="Prihvati" id="Prihvati" class="prihvatibtn" name=${nizPrave[i].IdVoznje} /><br /><br />`);
+                                            } else {
+                                                s += ("Nedostupne");
+                                            }
+                                            s += (`</td></tr>`);
+                                        }
+                                    }
+
+                                    s += '</table></div>';
+                                    $('#glavni3').html(s);
+                                }
+                            })
+                        }
+                    })
+                    $('#glavni3').fadeIn(500);
+                } else {
+                    alert("Banovani ste sa ovog sajta!");
+                    localStorage.setItem("Ulogovan", "");
+                    $(location).attr('href', 'index.html');
+                }
+            }
+        })
+
+    })
+
+
 
     //ya ovo iznad KAD VOZAC STISNE PRIHVATI!
 
