@@ -529,7 +529,7 @@ $(document).ready(function () {
 
         let iznos = `${$('#konacnoIznos').val()}`;
 
-        if (iznos == "") {
+        if (iznos === "") {
             alert("Iznos se mora uneti!");
         }
         else {
@@ -676,6 +676,9 @@ $(document).ready(function () {
                             alert("Morate uneti krajnju lokaciju!");
                         }
 
+                    },
+                    error: function (ret1) {
+                        alert("Greska: " + ret1.responseText);
                     }
                 })
             }
@@ -865,6 +868,9 @@ $(document).ready(function () {
                                 }
 
                             }
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                                 })
                 } else {
@@ -1042,7 +1048,13 @@ $(document).ready(function () {
 
                             for (let i = 0; i < data.length; i++) {
                                 if (data[i].Vozac == `${localStorage.getItem("Ulogovan")}`) {
-                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                    s += ("" + datum + " " + vreme + "</td>");
 
                                     if (data[i].Musterija == "") {
                                         s += '<td>/</td>';
@@ -1106,6 +1118,9 @@ $(document).ready(function () {
 
                             s += '</table></div>';
                             $('#glavni3').html(s);
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     })
 
@@ -1155,7 +1170,13 @@ $(document).ready(function () {
 
                         for (let i = 0; i < data.length; i++) {
                             if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana" && (dataV.Automobil.TipAutomobila == data[i].Automobil || data[i].Automobil == 2)) {
-                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                s += ("" + datum + " " + vreme + "</td>");
 
                                 if (data[i].Musterija == "") {
                                     s += '<td>/</td>';
@@ -1218,6 +1239,9 @@ $(document).ready(function () {
                         $('#glavni3').html(s);
                     }
                 })
+            },
+            error: function (ret1) {
+                alert("Greska: " + ret1.responseText);
             }
         })
                     $('#glavni3').fadeIn(500);
@@ -1296,7 +1320,13 @@ $(document).ready(function () {
 
                                     for (let i = 0; i < nizPrave.length; i++) {
                                         if (vratiStatusVoznje(nizPrave[i].StatusVoznje) == "Kreirana" && (dataV.Automobil.TipAutomobila == nizPrave[i].Automobil || nizPrave[i].Automobil == 2)) {
-                                            s += ("<tr><td>" + nizPrave[i].IdVoznje + "</td><td>" + nizPrave[i].DatumVreme + "</td>");
+                                            s += ("<tr><td>" + nizPrave[i].IdVoznje + "</td><td>");
+
+                                            var currentdate = new Date(Date.parse(nizPrave[i].DatumVreme));
+                                            var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                            var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                            s += ("" + datum + " " + vreme + "</td>");
 
                                             if (nizPrave[i].Musterija == "") {
                                                 s += '<td>/</td>';
@@ -1359,6 +1389,9 @@ $(document).ready(function () {
                                     $('#glavni3').html(s);
                                 }
                             })
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     })
                     $('#glavni3').fadeIn(500);
@@ -1514,6 +1547,9 @@ $(document).ready(function () {
                                                 $(location).attr('href', 'main.html');
                                             }
                                         })
+                                    },
+                                    error: function (ret1) {
+                                        alert("Greska: " + ret1.responseText);
                                     }
                                 })
                             }
@@ -1675,7 +1711,13 @@ $(document).ready(function () {
 
                                         for (let i = 0; i < niz3.length; i++) {
 
-                                            s += "<tr><td>" + niz3[i].IdVoznje + "</td><td>" + niz3[i].DatumVreme + "</td>";
+                                            s += ("<tr><td>" + niz3[i].IdVoznje + "</td><td>");
+
+                                            var currentdate = new Date(Date.parse(niz3[i].DatumVreme));
+                                            var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                            var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                            s += ("" + datum + " " + vreme + "</td>");
 
                                             if (niz3[i].Dispecer === "") {
                                                 s += '<td>/</td>';
@@ -1754,6 +1796,9 @@ $(document).ready(function () {
                     }
 
 
+                },
+                error: function (ret1) {
+                    alert("Greska: " + ret1.responseText);
                 }
             });
 
@@ -1820,7 +1865,13 @@ $(document).ready(function () {
 
                         for (var j = 0; j < data.length; j++) {
 
-                            s += "<tr><td>" + data[j].IdVoznje + "</td><td>" + data[j].DatumVreme + "</td>";
+                            s += ("<tr><td>" + data[j].IdVoznje + "</td><td>");
+
+                            var currentdate = new Date(Date.parse(data[j].DatumVreme));
+                            var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                            var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                            s += ("" + datum + " " + vreme + "</td>");
 
                             if (data[j].Dispecer === "") {
                                 s += '<td>/</td>';
@@ -1935,7 +1986,13 @@ $(document).ready(function () {
                                     s += '<tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Mušterija</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
 
                                     for (var k = 0; k < zasortiranje.length; k++) {
-                                        s += "<tr><td>" + zasortiranje[k].IdVoznje + "</td><td>" + zasortiranje[k].DatumVreme + "</td>";
+                                        s += ("<tr><td>" + zasortiranje[k].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(zasortiranje[k].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (zasortiranje[k].Dispecer === "") {
                                             s += '<td>/</td>';
@@ -1996,6 +2053,9 @@ $(document).ready(function () {
                             } else {
                                 alert("U sistemu ne postoji ni jedna vožnja!");
                             }
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 }
@@ -2054,7 +2114,13 @@ $(document).ready(function () {
                                     s += '<tr><th>Id vožnje</th><th>Datum</th><th>Dispečer</th><th>Mušterija</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
 
                                     for (var j = 0; j < zasortiranje.length; j++) {
-                                        s += "<tr><td>" + zasortiranje[j].IdVoznje + "</td><td>" + zasortiranje[j].DatumVreme + "</td>";
+                                        s += ("<tr><td>" + zasortiranje[j].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(zasortiranje[j].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (zasortiranje[j].Dispecer === "") {
                                             s += '<td>/</td>';
@@ -2116,6 +2182,9 @@ $(document).ready(function () {
                             } else {
                                 alert("Nema vožnji u sistemu!");
                             }
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 }

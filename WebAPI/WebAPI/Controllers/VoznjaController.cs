@@ -15,9 +15,8 @@ namespace WebAPI.Controllers
 {
     public class VoznjaController : ApiController
     {
-        public HttpResponseMessage Get()
+        public List<Voznja> Get()
         {
-            HttpResponseMessage ret = new HttpResponseMessage();
             List<Voznja> ret1 = new List<Voznja>();
 
             foreach (Voznja item in Voznje.list.Values)
@@ -25,20 +24,12 @@ namespace WebAPI.Controllers
                 ret1.Add(item);
             }
 
-            if(ret1.Count == 0)
-            {
-               ret = Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Nema vožnji u sistemu.");
-            }else
-            {
-                ret = Request.CreateResponse(HttpStatusCode.OK, ret1);
-            }
-            return ret;
+            return ret1;
         }
 
         public Voznja GetId(int Id)
         {
             Voznja v = new Voznja();
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
             v = Voznje.list[Id];
 
@@ -50,11 +41,6 @@ namespace WebAPI.Controllers
 
             voznja.IdVoznje = Voznje.list.Count + 1;
             voznja.DatumVreme = DateTime.Now;
-
-            /* voznja.StatusVoznje = StatusVoznje.Kreirana;
-
-             voznja.Odrediste = new Lokacija("", "", "", "", "");
-             voznja.Komentar = new Komentar("", "", "", voznja.IdVoznje.ToString(), "");*/
 
             Voznje.list.Add(voznja.IdVoznje, voznja);
             string path = HostingEnvironment.MapPath("~/App_Data/Voznje.txt");

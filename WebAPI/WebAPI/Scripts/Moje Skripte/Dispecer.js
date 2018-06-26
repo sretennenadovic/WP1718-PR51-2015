@@ -303,8 +303,13 @@
 
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].Dispecer == localStorage.getItem("Ulogovan")) {
-                        s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                        s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
 
+                        var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                        s += ("" + datum + " " + vreme + "</td>");
                         if (data[i].Musterija == "") {
                             s += '<td>/</td>';
                         } else {
@@ -364,6 +369,9 @@
 
                 s += '</table>';
                 $('#glavni2').html(s);
+            },
+            error: function (ret1) {
+                alert("Greska: " + ret1.responseText);
             }
         })
         $('#glavni2').fadeIn(500);
@@ -388,7 +396,13 @@
 
 
                 for (let i = 0; i < data.length; i++) {
-                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                    s += ("" + datum + " " + vreme + "</td>");
 
                     if (data[i].Musterija == "") {
                         s += '<td>/</td>';
@@ -448,6 +462,9 @@
 
                 s += '</table>';
                 $('#glavni2').html(s);
+            },
+            error: function (ret1) {
+                alert("Greska: " + ret1.responseText);
             }
         })
         $('#glavni2').fadeIn(500);
@@ -474,7 +491,13 @@
 
                 for (let i = 0; i < data.length; i++) {
                     if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
-                        s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                        s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                        var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                        s += ("" + datum + " " + vreme + "</td>");
 
                         if (data[i].Musterija == "") {
                             s += '<td>/</td>';
@@ -536,6 +559,9 @@
 
                 s += '</table>';
                 $('#glavni2').html(s);
+            },
+            error: function (ret1) {
+                alert("Greska: " + ret1.responseText);
             }
         })
         $('#glavni2').fadeIn(500);
@@ -718,18 +744,12 @@
 
             }
 
-            if (brojTaksiVozila.length < 3 || brojTaksiVozila.length > 5) {
+            if (brojTaksiVozila.length < 3 || brojTaksiVozila.length > 5 || isNaN(brojTaksiVozila)) {
                 uspeh = "ne";
                 $('#BrojTaksiVozilaVDodaj').css('background-color', '#ff7556');
                 $('#BrojTaksiVozilaVDodaj').val("");
                 $('#BrojTaksiVozilaVDodaj').attr('placeholder', 'Mora 3-5 brojeva!');
             } else {
-                if (isNaN(brojTaksiVozila)) {
-                    uspeh = "ne";
-                    $('#BrojTaksiVozilaVDodaj').css('background-color', '#ff7556');
-                    $('#BrojTaksiVozilaVDodaj').val("");
-                    $('#BrojTaksiVozilaVDodaj').attr('placeholder', 'Samo brojevi!');
-                } else {
                     let usao = "ne";
                     $.ajax({
                         type: 'GET',
@@ -752,78 +772,79 @@
                                 $('#BrojTaksiVozilaVDodaj').css('background-color', 'white');
                                 $('#BrojTaksiVozilaVDodaj').attr('placeholder', '');
                             }
+                            if (uspeh == "da") {
+
+                                let pol;
+                                if ($('#Pol1VDodaj').prop('checked')) {
+                                    pol = 'Muski';
+                                } else if ($('#Pol2VDodaj').prop('checked')) {
+                                    pol = 'Zenski';
+                                }
+                                let tipAutomobila;
+                                if ($('#TipAutomobila1VDodaj').prop('checked')) {
+                                    tipAutomobila = 'Putnicki';
+                                } else if ($('#TipAutomobila2VDodaj').prop('checked')) {
+                                    tipAutomobila = 'Kombi';
+                                }
+
+                                let adresa = {
+                                    UlicaBroj: "",
+                                    NaseljenoMesto: "",
+                                    PozivniBroj: ""
+                                }
+
+                                let lokacija = {
+                                    X: "",
+                                    Y: "",
+                                    Adresa: adresa
+                                }
+                                let automobil = {
+                                    IdVozaca: "",
+                                    GodisteAutomobila: `${$('#GodisteAutomobilaVDodaj').val()}`,
+                                    BrojRegistarskeOznake: `${$('#BrojRegistarskeOznakeVDodaj').val()}`,
+                                    BrojTaksiVozila: `${$('#BrojTaksiVozilaVDodaj').val()}`,
+                                    TipAutomobila: tipAutomobila
+                                }
+                                let NovVozac = {
+                                    Id: "",
+                                    KorisnickoIme: `${$('#KorisnickoImeVDodaj').val()}`,
+                                    Lozinka: `${$('#LozinkaVDodaj').val()}`,
+                                    Ime: `${$('#ImeVDodaj').val()}`,
+                                    Prezime: `${$('#PrezimeVDodaj').val()}`,
+                                    Pol: pol,
+                                    JMBG: `${$('#JMBGVDodaj').val()}`,
+                                    KontaktTelefon: `${$('#KontaktTelefonVDodaj').val()}`,
+                                    Email: `${$('#EmailVDodaj').val()}`,
+                                    Uloga: `${'Vozac'}`,
+                                    Voznje: "",
+                                    Zauzet: `${"NE"}`,
+                                    Banovan: `${"NE"}`,
+                                    Lokacija: lokacija,
+                                    Automobil: automobil
+                                };
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/api/Vozac',
+                                    data: JSON.stringify(NovVozac),
+                                    contentType: 'application/json;charset=utf-8',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (!data) {
+                                            $('#KorisnickoImeVDodaj').css('background-color', '#ff7556');
+                                            alert("Korisničko ime koje ste uneli već postoji!");
+                                        } else {
+                                            $('#KorisnickoImeVDodaj').css('background-color', 'white');
+                                            alert("Uspešno ste dodali novog vozača!");
+                                        }
+                                    }
+                                })
+                            }
                         }
                     })
-                }
             }
 
-            if (uspeh == "da") {
-
-                let pol;
-                if ($('#Pol1VDodaj').prop('checked')) {
-                    pol = 'Muski';
-                } else if ($('#Pol2VDodaj').prop('checked')) {
-                    pol = 'Zenski';
-                }
-                let tipAutomobila;
-                if ($('#TipAutomobila1VDodaj').prop('checked')) {
-                    tipAutomobila = 'Putnicki';
-                } else if ($('#TipAutomobila2VDodaj').prop('checked')) {
-                    tipAutomobila = 'Kombi';
-                }
-
-                let adresa = {
-                    UlicaBroj: "",
-                    NaseljenoMesto: "",
-                    PozivniBroj: ""
-                }
-
-                let lokacija = {
-                    X: "",
-                    Y: "",
-                    Adresa: adresa
-                }
-                let automobil = {
-                    IdVozaca: "",
-                    GodisteAutomobila: `${$('#GodisteAutomobilaVDodaj').val()}`,
-                    BrojRegistarskeOznake: `${$('#BrojRegistarskeOznakeVDodaj').val()}`,
-                    BrojTaksiVozila: `${$('#BrojTaksiVozilaVDodaj').val()}`,
-                    TipAutomobila: tipAutomobila
-                }
-                let NovVozac = {
-                    Id: "",
-                    KorisnickoIme: `${$('#KorisnickoImeVDodaj').val()}`,
-                    Lozinka: `${$('#LozinkaVDodaj').val()}`,
-                    Ime: `${$('#ImeVDodaj').val()}`,
-                    Prezime: `${$('#PrezimeVDodaj').val()}`,
-                    Pol: pol,
-                    JMBG: `${$('#JMBGVDodaj').val()}`,
-                    KontaktTelefon: `${$('#KontaktTelefonVDodaj').val()}`,
-                    Email: `${$('#EmailVDodaj').val()}`,
-                    Uloga: `${'Vozac'}`,
-                    Voznje: "",
-                    Banovan: `${"NE"}`,
-                    Lokacija: lokacija,
-                    Automobil: automobil
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Vozac',
-                    data: JSON.stringify(NovVozac),
-                    contentType: 'application/json;charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (!data) {
-                            $('#KorisnickoImeVDodaj').css('background-color', '#ff7556');
-                            alert("Korisničko ime koje ste uneli već postoji!");
-                        } else {
-                            $('#KorisnickoImeVDodaj').css('background-color', 'white');
-                            alert("Uspešno ste dodali novog vozača!");
-                        }
-                    }
-                })
-            }
+            
         }
     })
     //KRAJ DODAVANJA VOZACA
@@ -919,6 +940,9 @@
                         }
                     }
                 })
+            },
+            error: function (ret1) {
+                alert("Greska: " + ret1.responseText);
             }
         })
     })
@@ -979,8 +1003,8 @@
                     data: JSON.stringify(NovoStanjeVozac),
                     contentType: 'application/json;charset=utf-8',
                     dataType: 'json',
-                    success: function (data) {
-                        if (data) {
+                    success: function (datav) {
+                        if (datav) {
 
                             $.ajax({
                                 type: 'GET',
@@ -1049,6 +1073,9 @@
                                         }
                                     })
 
+                                },
+                                error: function (ret1) {
+                                    alert("Greska: " + ret1.responseText);
                                 }
                             })
                         }
@@ -1690,7 +1717,13 @@
 
                                         for (let i = 0; i < niz3.length; i++) {
 
-                                            s += "<tr><td>" + niz3[i].IdVoznje + "</td><td>" + niz3[i].DatumVreme + "</td>";
+                                            s += ("<tr><td>" + niz3[i].IdVoznje + "</td><td>");
+
+                                            var currentdate = new Date(Date.parse(niz3[i].DatumVreme));
+                                            var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                            var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                            s += ("" + datum + " " + vreme + "</td>");
 
                                             if (niz3[i].Musterija === "") {
                                                 s += '<td>/</td>';
@@ -1769,6 +1802,9 @@
                     }
 
 
+                },
+                error: function (ret1) {
+                    alert("Greska: " + ret1.responseText);
                 }
             });
 
@@ -1835,7 +1871,13 @@
 
                         for (var j = 0; j < data.length; j++) {
 
-                            s += "<tr><td>" + data[j].IdVoznje + "</td><td>" + data[j].DatumVreme + "</td>";
+                            s += ("<tr><td>" + data[j].IdVoznje + "</td><td>");
+
+                            var currentdate = new Date(Date.parse(data[j].DatumVreme));
+                            var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                            var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                            s += ("" + datum + " " + vreme + "</td>");
 
                             if (data[j].Musterija === "") {
                                 s += '<td>/</td>';
@@ -1947,7 +1989,13 @@
                                     s += '<tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
 
                                     for (var k = 0; k < zasortiranje.length; k++) {
-                                        s += "<tr><td>" + zasortiranje[k].IdVoznje + "</td><td>" + zasortiranje[k].DatumVreme + "</td>";
+                                        s += ("<tr><td>" + zasortiranje[k].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(zasortiranje[k].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (zasortiranje[k].Musterija === "") {
                                             s += '<td>/</td>';
@@ -2008,6 +2056,9 @@
                             } else {
                                 alert("U sistemu ne postoji ni jedna vožnja!");
                             }
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 }
@@ -2066,7 +2117,13 @@
                                     s += '<tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Vozač</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th></tr>';
 
                                     for (var j = 0; j < zasortiranje.length; j++) {
-                                        s += "<tr><td>" + zasortiranje[j].IdVoznje + "</td><td>" + zasortiranje[j].DatumVreme + "</td>";
+                                        s += ("<tr><td>" + zasortiranje[j].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(zasortiranje[j].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (zasortiranje[j].Musterija === "") {
                                             s += '<td>/</td>';
@@ -2128,6 +2185,9 @@
                             } else {
                                 alert("Nema vožnji u sistemu!");
                             }
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 }

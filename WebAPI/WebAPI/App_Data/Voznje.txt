@@ -1,35 +1,16 @@
-1;20.6.2018. 15.32.22;5;5;Ulica 5;Naseljeno Mesto;15300;Putnicki;ljubo;333;333;Ulica 333;NM333;111333;dispecer2;vozac2;1000;voznja nije bila losa.;21.6.2018. 19.39.36;ljubo;1;3;Otkazana
-2;20.6.2018. 18.13.23;33;33;Ulica 33;NM33;33333;Kombi;;;;;;;dispecer1;;0;;;;;;Formirana
-3;20.6.2018. 18.33.58;33;33;Ulica 33;NM33;33333;Svejedno;;;;;;;dispecer1;vozac3;0;;;;;;Formirana
-4;21.6.2018. 12.28.00;77;77;Ulica 77;NM77;77777;Putnicki;neko;88;88;Ulica 88;NM88;88888;dispecer3;ttt;1800;;;;;;Uspesna
-5;21.6.2018. 12.35.14;44;44;Ulica 44;NM44;44444;Putnicki;zena;123;321;Nikola Pasic 12;Nemam pojma;12345;dispecer3;ttt;1250;super ste. ;23.6.2018. 17.13.08;zena;5;5;Uspesna
-6;21.6.2018. 12.36.00;11;11;Ulica 1;NM1;112212;Svejedno;sreten;;;;;;;;0;Cekao sam predugo, nema odgovora i zovem sada neki drugi. Poy;21.6.2018. 12.46.05;sreten;6;1;Otkazana
-7;21.6.2018. 13.07.51;2;2;Ulica 2;NM2;221133;Putnicki;sreten;11;22;Ulica 33;NEMA;789987;;ttt;2000;dobar 3;22.6.2018. 00.39.56;sreten;7;3;Otkazana
-8;21.6.2018. 13.31.32;11.2;22.1;Ulica MR Braun 5;BBNN;123321;Putnicki;ljubo;44;44;WW44;QQQ;3344444;;ttt;4000;extra steeeeee;22.6.2018. 00.16.45;ljubo;8;5;Otkazana
-9;21.6.2018. 13.46.59;31;13;dddd 12;www;333333;Svejedno;;;;;;;dispecer2;prinudni;0;Musterija se nije pojavil;21.6.2018. 15.36.05;prinudni;9;;Neuspesna
-10;21.6.2018. 16.26.20;0;0;Ulica 0;NM0;000000;Svejedno;;;;;;;dispecer1;prinudni;0;;;;;;Formirana
-11;21.6.2018. 17.06.39;55.55;55.5;Knjeginje Milice;Ne znam;14334;Putnicki;ljubo;;;;;;4;5;0;;;;;;Obradjena
-12;21.6.2018. 17.25.40;12;12;Ulica 4 AVenija;New York;13000;Putnicki;ljubo;;;;;;4;8;0;;;;;;Obradjena
-13;21.6.2018. 17.28.24;3;3;Nzm vise 4;Nemam pojma;22222;Putnicki;ljubo;;;;;;dispecer4;p;0;Ne znam gde se to nalazi nema cak ni na mapi!;21.6.2018. 17.29.44;p;13;0;Neuspesna
-14;22.6.2018. 00.18.53;1;1;RR1;ee;22222;Putnicki;ljubo;;;;;;0;8;0;;;;;;Prihvacena
-15;22.6.2018. 00.40.28;4;4;Ulica 4;NNNN;333444;Putnicki;sreten;;;;;;0;8;0;;;;;;Prihvacena
-16;22.6.2018. 00.42.59;11;11;ee11;1;11111;Putnicki;sreten;;;;;;0;8;0;;;;;;Prihvacena
-17;22.6.2018. 00.54.01;22;22;cvvv222;dfffff;22222;Putnicki;sreten;5;5;5;5;5;;p;5555;nemam reci;22.6.2018. 01.00.06;sreten;17;5;Uspesna
-18;23.6.2018. 16.40.39;14;14;Ulica 14;Naseljeno Mesto;121214;Putnicki;;2;2;Ulica 2;Naseljeno mesto;121222;dispecer1;pppp;1222;;;;;;Uspesna
-19;23.6.2018. 17.16.42;145;145;Ulica 145;Naseljeno Mesto;145145;Kombi;zena;;;;;;;;0;pokusacu kasnije;23.6.2018. 17.17.12;;19;0;Otkazana
-20;23.6.2018. 17.17.53;144;144;Ulica 144;Naseljeno mesto;14414;Putnicki;zena;;;;;;dispecer4;pppp;0;nema zena pa nema;23.6.2018. 17.19.09;undefined;20;0;Neuspesna
-21;23.6.2018. 18.56.58;111;112;Ulica 112;Bec;112212;Putnicki;ljubo;11;22;Ulica Nzm;Bec;112233;dispecer1;pppp;3000;Super sam se snasao!;23.6.2018. 19.09.09;ljubo;21;5;Uspesna
-22;23.6.2018. 22.25.25;112;112;Ulica 212;Mesto;123321;Putnicki;;123;123;Ulica 222;NM2;12345;dispecer1;pppp;123;;;;;;Uspesna
-23;24.6.2018. 00.08.33;;;;;;Putnicki;ljubo;45.253187695763735;19.84407314935038;Nadgrobni Spomenik Jermenske Porodice Čenazi; Novi Sad;;;pppp;1111;;;;;;Uspesna
-24;24.6.2018. 21.37.54;45.237776202369275;19.838976952222083;Шекспирова 2; Нови Сад;;Putnicki;ljubo;45.23700766841678;19.838923308041785;Bulevar despota Stefana 2; Novi Sad;;;vozac00;300;Peske cu do B doma!;25.6.2018. 11.48.04;ljubo;24;4;Uspesna
-25;25.6.2018. 00.26.49;45.24160514384284;19.83270860011953;Bulevar cara Lazara 65; Novi Sad 21000;;Svejedno;;;;;;;dispecer2;vozac2;0;Nije dosla musterija!;25.6.2018. 00.31.59;vozac2;25;0;Neuspesna
-26;25.6.2018. 11.45.05;45.26391910215495;19.806103114464236;Bulevar Evrope; Novi Sad 21000;;Putnicki;;45.264101310314906;19.83045743577418;Bulevar Jaše Tomića; Novi Sad;;dispecer1;vozac00;450;;;;;;Uspesna
-27;25.6.2018. 11.51.03;45.244214219391665;19.847248884824012;Fruškogorska; Novi Sad;;Putnicki;ljubo;;;;;;;;0;;;;;;Kreirana
-28;25.6.2018. 11.51.25;45.242413310401076;19.834224077847693;Bulevar cara Lazara 58; Novi Sad 21000;;Putnicki;ljubo;;;;;;dispecer1;vozac8;0;Ode mali za Bec <3.;25.6.2018. 12.35.18;vozac8;28;5;Neuspesna
-29;25.6.2018. 11.56.40;45.24255230893582;19.83652004876444;Bulevar cara Lazara 47; Novi Sad 21000;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
-30;25.6.2018. 11.58.24;45.246238662808175;19.84029659905741;Bulevar oslobođenja 98; Novi Sad 21102;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
-31;25.6.2018. 12.01.15;45.242371006672265;19.846347662595008;Narodnog fronta 2a; Novi Sad 21000;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
-32;25.6.2018. 12.01.25;45.242371006672265;19.846347662595008;Narodnog fronta 2a; Novi Sad 21000;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
-33;25.6.2018. 12.02.16;45.24291477317829;19.83834960771719;Bulevar cara Lazara 37; Novi Sad 21000;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
-34;26.6.2018. 13.49.02;;;;;;Putnicki;ljubo;;;;;;;;0;;;;;;Kreirana
-35;26.6.2018. 13.49.28;45.23684100970111;19.838880392697547;Bulevar despota Stefana 7; Novi Sad;;Svejedno;ljubo;;;;;;;;0;;;;;;Kreirana
+1;26.6.2018. 19.50.30;45.23688784288952;19.839128223241005;Bulevar despota Stefana 7; Novi Sad;;Svejedno;ljubo;;;;;;;;0;Odustajem ipak!;26.6.2018. 19.51.01;;1;0;Otkazana
+2;26.6.2018. 19.51.23;45.24264295985061;19.841927382138465;Bulеvar oslobođenja; Novi Sad;;Putnicki;ljubo;45.236939495174774;19.838746346257835;Bulevar despota Stefana 2; Novi Sad;;;vozac1;222;Stigao sam.;26.6.2018. 20.09.49;ljubo;2;5;Uspesna
+3;26.6.2018. 20.12.10;45.24613291008728;19.847914072659705;Bulevar cara Lazara 5; Novi Sad 21000;;Putnicki;;45.23828615744888;19.8307969838105;Narodnog fronta 62; Novi Sad 21102;;dispecer5;vozac3;500;;;;;;Uspesna
+4;26.6.2018. 20.18.52;45.240165116123556;19.837678763058875;Narodnog fronta 34; Novi Sad 21102;;Putnicki;capo;;;;;;;vozac2;0;Musteriji se nije svideo automobil :);26.6.2018. 20.26.47;vozac2;4;0;Neuspesna
+5;26.6.2018. 20.19.47;45.24073926026449;19.837635847714637;Šekspirova 7; Novi Sad 21000;;Putnicki;draga;45.23678056960251;19.838923308041785;Bulevar despota Stefana 7; Novi Sad;;dispecer2;vozac2;150;Stigla sam. Super ste!;26.6.2018. 20.21.56;draga;5;5;Uspesna
+6;26.6.2018. 20.27.25;45.24364011036703;19.84733471551249;Fruškogorska; Novi Sad;;Putnicki;goca;45.23687888747364;19.83883747735331;Bulevar despota Stefana 7; Novi Sad;;dispecer4;vozac2;400;Tacno na mesto!;26.6.2018. 20.29.04;goca;6;4;Uspesna
+7;26.6.2018. 20.32.03;45.24367032677613;19.8410690752537;Bulevar cara Lazara 19; Novi Sad 21000;;Putnicki;sreten;45.23678056960251;19.838622900632117;Bulevar despota Stefana 7; Novi Sad;;;vozac3;350;Dobro je da nisam banovan opet!;26.6.2018. 20.33.11;sreten;7;5;Uspesna
+8;26.6.2018. 21.40.55;45.24602715716953;19.850896689084266;Vladimira Perića Valtera 2; Novi Sad;;Putnicki;;45.23883549689046;19.848235937741492;Fruškogorska; Novi Sad;;dispecer5;vozac5;590;;;;;;Uspesna
+9;26.6.2018. 21.41.12;45.25399770546567;19.850424620297645;Bulevar Mihajla Pupina 19; Novi Sad;;Kombi;;;;;;;dispecer5;vozac6;0;Nema nikog na adresi!;26.6.2018. 21.41.41;vozac6;9;0;Neuspesna
+10;26.6.2018. 21.44.19;45.236636052678854;19.83808553914821;Bulevar despota Stefana 7; Novi Sad;;Putnicki;sreten;45.243353401783274;19.840499944235262;Bulevar cara Lazara 25; Novi Sad 21000;;dispecer2;vozac2;200;;;;;;Uspesna
+11;26.6.2018. 21.44.38;45.246099587085745;19.85409817592722;Dr Ilije Đuričića; Novi Sad;;Kombi;ljubo;;;;;;;;0;;;;;;Kreirana
+12;26.6.2018. 21.45.18;45.244536514554824;19.84404126170716;Bulevar cara Lazara; Novi Sad 21000;;Svejedno;capo;;;;;;;;0;;;;;;Kreirana
+13;26.6.2018. 21.47.32;45.24584526718228;19.854371981460872;Dr Zorana Đinđića; Novi Sad;;Putnicki;draga;;;;;;;;0;;;;;;Kreirana
+14;26.6.2018. 21.48.33;45.24196053785775;19.834163288474087;Bulevar cara Lazara 57; Novi Sad 21000;;Putnicki;goca;;;;;;;;0;;;;;;Kreirana
+15;26.6.2018. 21.50.45;45.24780982289873;19.849850646192408;Bulevar cara Lazara 1; Novi Sad 21000;;Kombi;gadzi;;;;;;;;0;;;;;;Kreirana
+16;26.6.2018. 21.51.07;45.26288896306588;19.84593245651365;Almaška 18; Novi Sad 21000;;Svejedno;mici;;;;;;;;0;;;;;;Kreirana

@@ -112,6 +112,7 @@ td {
 .izmenaVoznje {
     margin-left: 5%;
     margin-top: 3%;
+    position:absolute;
 }
 
 footer {
@@ -165,7 +166,7 @@ img {
     top: 50%;
     margin-left: -300px;
     margin-top: -250px;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 /*div*/

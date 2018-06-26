@@ -72,7 +72,13 @@ $(document).ready(function () {
 
                             for (let i = 0; i < data.length; i++) {
                                 if (data[i].Musterija === localStorage.getItem("Ulogovan")) {
-                                    s += "<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>";
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                    s += ("" + datum + " " + vreme + "</td>");
 
                                     if (data[i].Dispecer === "") {
                                         s += '<td>/</td>';
@@ -136,6 +142,9 @@ $(document).ready(function () {
 
                             s += '</table></div>';
                             $('#glavni').append(s);
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 } else if (korisnik.Uloga === 1) {
@@ -158,7 +167,13 @@ $(document).ready(function () {
 
                             for (let i = 0; i < data.length; i++) {
                                 if (data[i].Dispecer === localStorage.getItem("Ulogovan")) {
-                                    s += "<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>";
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                    s += ("" + datum + " " + vreme + "</td>");
 
                                     if (data[i].Musterija === "") {
                                         s += '<td>/</td>';
@@ -219,6 +234,9 @@ $(document).ready(function () {
 
                             s += '</table>';
                             $('#glavni2').append(s);
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 } else {
@@ -241,7 +259,13 @@ $(document).ready(function () {
 
                             for (let i = 0; i < data.length; i++) {
                                 if (data[i].Vozac === localStorage.getItem("Ulogovan")) {
-                                    s += "<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>";
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                    s += ("" + datum + " " + vreme + "</td>");
 
                                     if (data[i].Musterija === "") {
                                         s += '<td>/</td>';
@@ -305,6 +329,9 @@ $(document).ready(function () {
 
                             s += '</table></div>';
                             $('#glavni3').append(s);
+                        },
+                        error: function (ret1) {
+                            alert("Greska: " + ret1.responseText);
                         }
                     });
                 }

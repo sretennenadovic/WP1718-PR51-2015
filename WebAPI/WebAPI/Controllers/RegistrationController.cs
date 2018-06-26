@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
         public Korisnik Get(string KorisnickoIme)
         {
             Korisnik k = null;
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
 
             foreach (Korisnik item in Korisnici.list.Values)
             {
@@ -46,9 +45,6 @@ namespace WebAPI.Controllers
         public bool Post([FromBody]Korisnik korisnik)
         {
             bool nasao = false;
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
-            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             //provera postojanja usernamea u korisnicima
             foreach (Korisnik item in Korisnici.list.Values)
@@ -81,21 +77,20 @@ namespace WebAPI.Controllers
 
             if (!nasao)
             {
-                Korisnici.list.Add(korisnik.Id, korisnik);
 
-                string path = HostingEnvironment.MapPath("~/App_Data/Korisnici.txt");
                 
                 StringBuilder sb = new StringBuilder();
-                korisnik.Id = Korisnici.list.Count;
-                sb.Append(korisnik.Id + ";" + korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";" + korisnik.Pol + ";" + korisnik.JMBG + ";" + korisnik.KontaktTelefon + ";" + korisnik.Email + ";" + korisnik.Uloga + ";" + korisnik.Voznje + ";"+"NE"+"\n");
+                korisnik.Id = Korisnici.list.Count + 1;
+
+                Korisnici.list.Add(korisnik.Id, korisnik);
+                string path = HostingEnvironment.MapPath("~/App_Data/Korisnici.txt");
+
+                sb.Append(korisnik.Id + ";" + korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";" + korisnik.Pol + ";" + korisnik.JMBG + ";" + korisnik.KontaktTelefon + ";" + korisnik.Email + ";" + korisnik.Uloga + ";" + korisnik.Voznje + ";"+korisnik.Banovan+"\n");
 
                 if (!File.Exists(path))
                     File.WriteAllText(path, sb.ToString());
                 else
                     File.AppendAllText(path, sb.ToString());
-
-                korisnici = new Korisnici("~/App_Data/Korisnici.txt");
-                HttpContext.Current.Application["korisnici"] = korisnici;
 
                 return true;
             }

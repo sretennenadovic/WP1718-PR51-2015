@@ -64,7 +64,13 @@
 
 
                                 for (let i = 0; i < data.length; i++) {
-                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                    s += ("" + datum + " " + vreme + "</td>");
 
                                     if (data[i].Musterija == "") {
                                         s += '<td>/</td>';
@@ -123,6 +129,9 @@
                                 } else {
                                     $('.voznje').replaceWith(s);
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
 
@@ -150,7 +159,13 @@
                                 if (konacno.length > 0) {
                                     for (let i = 0; i < konacno.length; i++) {
 
-                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>" + konacno[i].DatumVreme + "</td>");
+                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(konacno[i].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (konacno[i].Musterija == "") {
                                             s += '<td>/</td>';
@@ -215,6 +230,9 @@
                                     alert("Sa imenom " + `${$('#imeVozacaPretraga').val()}` + " nije pronadjena ni jedna vožnja!");
                                     $(location).attr('href', 'main.html');
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
 
@@ -243,7 +261,13 @@
                                 if (konacno.length > 0) {
                                     for (let i = 0; i < konacno.length; i++) {
 
-                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>" + konacno[i].DatumVreme + "</td>");
+                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(konacno[i].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (konacno[i].Musterija == "") {
                                             s += '<td>/</td>';
@@ -308,6 +332,9 @@
                                     alert("Sa prezimenom " + `${$('#prezimeVozacaPretraga').val()}` + " nije pronadjena ni jedna vožnja!");
                                     $(location).attr('href', 'main.html');
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
                     } else if (slucaj == 3) {
@@ -334,7 +361,13 @@
                                 if (konacno.length > 0) {
                                     for (let i = 0; i < konacno.length; i++) {
 
-                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>" + konacno[i].DatumVreme + "</td>");
+                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(konacno[i].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (konacno[i].Musterija == "") {
                                             s += '<td>/</td>';
@@ -399,6 +432,9 @@
                                     alert("Sa imenom " + `${$('#imeVozacaPretraga').val()}` + " i prezimenom " + `${$('#prezimeVozacaPretraga').val()}` + " nije pronadjena ni jedna vožnja!");
                                     $(location).attr('href', 'main.html');
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
                     }
@@ -476,7 +512,13 @@
 
 
                                 for (let i = 0; i < data.length; i++) {
-                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>");
+
+                                    var currentdate = new Date(Date.parse(data[i].DatumVreme));
+                                    var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                    var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                    s += ("" + datum + " " + vreme + "</td>");
 
                                     if (data[i].Musterija == "") {
                                         s += '<td>/</td>';
@@ -535,6 +577,9 @@
                                 } else {
                                     $('.voznje').replaceWith(s);
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
 
@@ -562,7 +607,13 @@
                                 if (konacno.length > 0) {
                                     for (let i = 0; i < konacno.length; i++) {
 
-                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>" + konacno[i].DatumVreme + "</td>");
+                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(konacno[i].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (konacno[i].Musterija == "") {
                                             s += '<td>/</td>';
@@ -627,6 +678,9 @@
                                     alert("Sa imenom " + `${$('#imeMusterijePretraga').val()}` + " nije pronadjena ni jedna vožnja!");
                                     $(location).attr('href', 'main.html');
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
 
@@ -655,7 +709,13 @@
                                 if (konacno.length > 0) {
                                     for (let i = 0; i < konacno.length; i++) {
 
-                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>" + konacno[i].DatumVreme + "</td>");
+                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(konacno[i].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (konacno[i].Musterija == "") {
                                             s += '<td>/</td>';
@@ -720,6 +780,9 @@
                                     alert("Sa prezimenom " + `${$('#prezimeMusterijePretraga').val()}` + " nije pronadjena ni jedna vožnja!");
                                     $(location).attr('href', 'main.html');
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
                     } else if (slucaj == 3) {
@@ -746,7 +809,13 @@
                                 if (konacno.length > 0) {
                                     for (let i = 0; i < konacno.length; i++) {
 
-                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>" + konacno[i].DatumVreme + "</td>");
+                                        s += ("<tr><td>" + konacno[i].IdVoznje + "</td><td>");
+
+                                        var currentdate = new Date(Date.parse(konacno[i].DatumVreme));
+                                        var datum = currentdate.getFullYear() + "/" + ("0" + (currentdate.getMonth() + 1)).slice(-2) + "/" + ("0" + currentdate.getDate()).slice(-2);
+                                        var vreme = ("0" + currentdate.getHours()).slice(-2) + ":" + ("0" + currentdate.getMinutes()).slice(-2);
+
+                                        s += ("" + datum + " " + vreme + "</td>");
 
                                         if (konacno[i].Musterija == "") {
                                             s += '<td>/</td>';
@@ -811,6 +880,9 @@
                                     alert("Sa imenom " + `${$('#imeMusterijePretraga').val()}` + " i prezimenom " + `${$('#prezimeMusterijePretraga').val()}` + " nije pronadjena ni jedna vožnja!");
                                     $(location).attr('href', 'main.html');
                                 }
+                            },
+                            error: function (ret1) {
+                                alert("Greska: " + ret1.responseText);
                             }
                         })
                     }

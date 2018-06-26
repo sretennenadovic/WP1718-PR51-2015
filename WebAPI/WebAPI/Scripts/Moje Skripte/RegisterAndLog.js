@@ -122,7 +122,7 @@
                 let Korisnik = {
                     KorisnickoIme: `${$('#KorisnickoIme').val()}`,
                     Lozinka: `${$('#Lozinka').val()}`,
-                    Ime: `${$('#Lozinka').val()}`,
+                    Ime: `${$('#Ime').val()}`,
                     Prezime: `${$('#Prezime').val()}`,
                     Pol: pol,
                     JMBG: `${$('#JMBG').val()}`,

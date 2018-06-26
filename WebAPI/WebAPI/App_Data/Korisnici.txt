@@ -1,9 +1,7 @@
-1;ljubo;ljubo;ljubo;ljubo;Muski;1231231231231;123123;ljubo@gmail.com;Musterija;nema;NE
-2;sreten;sreten;sreten;nenadovic;Muski;2805996773642;0009998;sreten@gmail.com;Musterija;nema;NE
-3;neko;neko;neko;neko;Muski;234122222;22222;asdasd@fdasd;Musterija;nema;NE
-4;neko2;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined;NE
-5;neko3;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined;NE
-6;neko4;neko;neko;neko;Muski;neko;neko;neko;Musterija;undefined;NE
-7;neko5;neko;neko;neko;Muski;neko;neko;neko@gmail.com;Musterija;nema;NE
-8;zena;zena;zena;zena;Zenski;zena;zena;zena@;Musterija;nema;NE
-9;nemanja;nemanja;nemanja;Vasiljevic;Muski;1234567899123;123456;nemanja1996@hotmail.com;Musterija;undefined;NE
+1;ljubo;ljubo;Ljubomir;Nenadovic;Muski;0704000131312;1234567;ljubon@gmail.com;Musterija;;NE
+2;goca;goca;Gordana;Nenadovic;Zenski;3112997212344;1233245;goca@gmail.com;Musterija;;NE
+3;capo;capo;Slavoljub;Nenadovic;Muski;2609997223412;5522341;capo@gmail.com;Musterija;;NE
+4;draga;draga;Draga;Nenadovic;Zenski;2409948112345;1142355;draga@gmail.com;Musterija;;NE
+5;sreten;sreten;Sreten;Nenadovic;Muski;2805996221111;111333;sreten@gmial.com;Musterija;;NE
+6;gadzi;gadzi;Dragan;Nenadovic;Muski;2609981222002;0022563;gadzi@gmail.com;Musterija;;NE
+7;mici;mici;Mica;Micic;Zenski;1234512332123;1233444;mici@gmail.com;Musterija;;NE
