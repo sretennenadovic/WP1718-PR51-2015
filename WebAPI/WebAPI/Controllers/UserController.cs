@@ -14,10 +14,8 @@ namespace WebAPI.Controllers
         public Korisnik Post([FromBody]Korisnik korisnik)
         {
             Korisnik k = null;
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
 
-            foreach (Korisnik item in korisnici.list.Values)
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (korisnik.KorisnickoIme.Equals(item.KorisnickoIme))
                 {
@@ -25,7 +23,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            foreach (Dispecer item in dispeceri.list.Values)
+            foreach (Dispecer item in Dispeceri.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {

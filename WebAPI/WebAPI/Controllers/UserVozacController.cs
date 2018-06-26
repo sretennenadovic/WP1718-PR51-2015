@@ -15,9 +15,8 @@ namespace WebAPI.Controllers
             public Vozac Post([FromBody]Korisnik korisnik)
             {
                 Vozac k = null;
-                Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
-                foreach (Vozac item in vozaci.list.Values)
+                foreach (Vozac item in Vozaci.list.Values)
                 {
                     if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                     {

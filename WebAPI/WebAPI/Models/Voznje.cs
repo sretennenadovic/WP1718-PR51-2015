@@ -9,7 +9,7 @@ namespace WebAPI.Models
 {
     public class Voznje
     {
-        public Dictionary<int, Voznja> list { get; set; }
+        public static Dictionary<int, Voznja> list { get; set; }
         public Voznje()
         {
 

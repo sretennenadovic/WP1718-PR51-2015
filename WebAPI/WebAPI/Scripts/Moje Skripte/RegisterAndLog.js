@@ -12,7 +12,7 @@
         let kontaktTelefon = `${$('#KontaktTelefon').val()}`;
         let email = `${$('#Email').val()}`;
 
-        if (korisnickoIme == "" || lozinka == "" || ime == "" || prezime == "" || jmbg == "" || kontaktTelefon == "" || email == "") {
+        if (korisnickoIme === "" || lozinka === "" || ime === "" || prezime === "" || jmbg === "" || kontaktTelefon === "" || email === "") {
             alert("Sva polja se moraju popuniti!");
             uspeh = "ne";
         } else {
@@ -57,7 +57,7 @@
                 $('#Prezime').attr('placeholder', '');
             }
 
-            if (jmbg.length != 13) {
+            if (jmbg.length !== 13) {
                 uspeh = "ne";
                 $('#JMBG').css('background-color', '#ff7556');
                 $('#JMBG').val("");
@@ -74,7 +74,7 @@
                 }
             }
 
-            if (kontaktTelefon.length < 6 || kontaktTelefon.length >7) {
+            if (kontaktTelefon.length < 6 || kontaktTelefon.length > 7) {
                 uspeh = "ne";
                 $('#KontaktTelefon').css('background-color', '#ff7556');
                 $('#KontaktTelefon').val("");
@@ -110,7 +110,7 @@
                 }
             }
 
-            if (uspeh == "da") {
+            if (uspeh === "da") {
 
                 let pol;
                 if ($('#Pol1').prop('checked')) {
@@ -129,7 +129,7 @@
                     KontaktTelefon: `${$('#KontaktTelefon').val()}`,
                     Email: `${$('#Email').val()}`,
                     Uloga: 'Musterija',
-                    Voznje: `${$('#Voznje').val()}`,
+                    Voznje: "",
                     Banovan: `${"NE"}`
                 };
 
@@ -158,20 +158,20 @@
                             });
                         }
                     }
-                })
+                });
             }
         }
-    })
+    });
 
     $('#act1').click(function () {
         $('#div2').hide();
         $('#div1').show();
-    })
+    });
 
     $('#act2').click(function () {
         $('#div1').hide();
         $('#div2').show();
-    })
+    });
 
     $('#LogujSe').click(function () {
 
@@ -179,7 +179,7 @@
         let lozinka = `${$('#LozinkaLogIn').val()}`;
         let uspeh = "da";
 
-        if (korisnickoIme == "" || lozinka == "") {
+        if (korisnickoIme === "" || lozinka === "") {
             alert("Ni jedno polje ne sme biti prazno!");
         } else {
             if (korisnickoIme.length < 3 || korisnickoIme.length > 15) {
@@ -202,12 +202,12 @@
                 $('#LozinkaLogIn').attr('placeholder', '');
             }
 
-            if (uspeh == "da") {
+            if (uspeh === "da") {
 
                 let KorisnikLog = {
                     KorisnickoIme: `${$('#KorisnickoImeLogIn').val()}`,
                     Lozinka: `${$('#LozinkaLogIn').val()}`
-                }
+                };
 
 
 
@@ -230,19 +230,19 @@
                                 contentType: 'application/json;charset=utf-8',
                                 dataType: 'json',
                                 success: function (data) {
-                                    if (data.Banovan == "NE") {
+                                    if (data.Banovan === "NE") {
                                         localStorage.setItem("Ulogovan", KorisnikLog.KorisnickoIme);
                                         $(location).attr('href', 'main.html');
                                     } else {
                                         alert("Žao nam je, banovani ste na ovom sajtu!");
                                     }
                                 }
-                            })
+                            });
                         }
                     }
-                })
+                });
 
             }
         }
-    })
+    });
 });

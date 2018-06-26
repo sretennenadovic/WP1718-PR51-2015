@@ -18,9 +18,9 @@ namespace WebAPI.Controllers
         public List<Korisnik> Get()
         {
             List<Korisnik> ret = new List<Korisnik>();
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
 
-            foreach (Korisnik item in korisnici.list.Values)
+
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 ret.Add(item);
             }
@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
             Korisnik k = null;
             Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
 
-            foreach (Korisnik item in korisnici.list.Values)
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (KorisnickoIme.Equals(item.KorisnickoIme))
                 {
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             //provera postojanja usernamea u korisnicima
-            foreach (Korisnik item in korisnici.list.Values)
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             }
 
             //provera postojanja usernamea u dispecerima
-            foreach (Dispecer item in dispeceri.list.Values)
+            foreach (Dispecer item in Dispeceri.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            foreach (Vozac item in vozaci.list.Values)
+            foreach (Vozac item in Vozaci.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -81,13 +81,13 @@ namespace WebAPI.Controllers
 
             if (!nasao)
             {
-                korisnici.list.Add(korisnik.Id, korisnik);
+                Korisnici.list.Add(korisnik.Id, korisnik);
 
                 string path = HostingEnvironment.MapPath("~/App_Data/Korisnici.txt");
                 
                 StringBuilder sb = new StringBuilder();
-                korisnik.Id = korisnici.list.Count;
-                sb.Append(korisnik.Id + ";" + korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";" + korisnik.Pol + ";" + korisnik.JMBG + ";" + korisnik.KontaktTelefon + ";" + korisnik.Email + ";" + korisnik.Uloga + ";" + korisnik.Voznje + "\n");
+                korisnik.Id = Korisnici.list.Count;
+                sb.Append(korisnik.Id + ";" + korisnik.KorisnickoIme + ";" + korisnik.Lozinka + ";" + korisnik.Ime + ";" + korisnik.Prezime + ";" + korisnik.Pol + ";" + korisnik.JMBG + ";" + korisnik.KontaktTelefon + ";" + korisnik.Email + ";" + korisnik.Uloga + ";" + korisnik.Voznje + ";"+"NE"+"\n");
 
                 if (!File.Exists(path))
                     File.WriteAllText(path, sb.ToString());
@@ -110,9 +110,6 @@ namespace WebAPI.Controllers
         //prilikom izmene korisnika
         public bool Put(int Id, [FromBody]Korisnik korisnik)
         {
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
-            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             int idKorisnika = Id;
             string pol;
@@ -141,7 +138,7 @@ namespace WebAPI.Controllers
                 uloga = "Vozac";
             }
             //provera postojanja usernamea u korisnicima
-            foreach (Korisnik item in korisnici.list.Values)
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Id != korisnik.Id)
                 {
@@ -151,7 +148,7 @@ namespace WebAPI.Controllers
             }
 
             //provera postojanja usernamea u dispecerima
-            foreach (Dispecer item in dispeceri.list.Values)
+            foreach (Dispecer item in Dispeceri.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -160,7 +157,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            foreach (Vozac item in vozaci.list.Values)
+            foreach (Vozac item in Vozaci.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -177,13 +174,13 @@ namespace WebAPI.Controllers
             if (!nadjen)
             {
                 bool prviPut = true;
-                korisnici.list[idKorisnika] = izmenjen;
+                Korisnici.list[idKorisnika] = izmenjen;
 
                 string path = HostingEnvironment.MapPath("~/App_Data/Korisnici.txt");
 
                 StringBuilder sb = new StringBuilder();
 
-                foreach (Korisnik item in korisnici.list.Values)
+                foreach (Korisnik item in Korisnici.list.Values)
                 {
                     if (prviPut)
                     {
@@ -199,9 +196,6 @@ namespace WebAPI.Controllers
                         sb.Length = 0;
                     }
                 }
-
-                korisnici = new Korisnici("~/App_Data/Korisnici.txt");
-                HttpContext.Current.Application["korisnici"] = korisnici;
 
                 return true;
             }

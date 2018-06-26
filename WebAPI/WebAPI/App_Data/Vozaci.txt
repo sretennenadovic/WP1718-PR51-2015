@@ -14,3 +14,5 @@
 14;vozac00;vozac00;vozac00;vozac00;Muski;1234512345123;1234500;vozac9@gmail.com;Vozac;nema;45.23839732009958;19.844545218137;Bulevar despota Stefana 1; Novi Sad 403201;;14;2000;NS-110-TX;3300;Putnicki;NE;NE
 15;vozac01;vozac01;vozac01;vozac01;Muski;1234512345123;1234501;vozac1@gmail.com;Vozac;nema;45.22958773886502;19.855934140146246;Tunel Mišeluk; Sremska Kamenica;;15;2001;NS-111-TX;3301;Putnicki;NE;NE
 16;vozac02;vozac02;vozac02;vozac02;Muski;1234512345123;1234567;vozac02@gmail.com;Vozac;nema;45.250691855008;19.837749690338228;Bulevar oslobođenja 76; Novi Sad 21000;;16;2001;NS-112-tx;1127;Putnicki;NE;NE
+17;vozacn;vozacn;vozacn;vozacn;Zenski;1234561234512;1233211;vozacn@gmail.com;Vozac;nema;45.2497434987374;19.832614752438758;Futoška 50; Novi Sad;;17;2011;NS-221-TX;3322;Kombi;NE;NE
+18;nekinzm;neko;neko;neko;Muski;3322113322113;332211;neko@gmaaaa.com;Vozac;;;;;;;18;2018;NS-1111-TX;3344;Kombi;NE;NE

@@ -19,9 +19,8 @@ namespace WebAPI.Controllers
         {
             HttpResponseMessage ret = new HttpResponseMessage();
             List<Voznja> ret1 = new List<Voznja>();
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
-            foreach (Voznja item in voznje.list.Values)
+            foreach (Voznja item in Voznje.list.Values)
             {
                 ret1.Add(item);
             }
@@ -41,24 +40,23 @@ namespace WebAPI.Controllers
             Voznja v = new Voznja();
             Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
-            v = voznje.list[Id];
+            v = Voznje.list[Id];
 
             return v;
         }
 
         public bool Post([FromBody]Voznja voznja)
         {
-            Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
-            voznja.IdVoznje = voznje.list.Count + 1;
+            voznja.IdVoznje = Voznje.list.Count + 1;
             voznja.DatumVreme = DateTime.Now;
 
-           /* voznja.StatusVoznje = StatusVoznje.Kreirana;
+            /* voznja.StatusVoznje = StatusVoznje.Kreirana;
 
-            voznja.Odrediste = new Lokacija("", "", "", "", "");
-            voznja.Komentar = new Komentar("", "", "", voznja.IdVoznje.ToString(), "");*/
+             voznja.Odrediste = new Lokacija("", "", "", "", "");
+             voznja.Komentar = new Komentar("", "", "", voznja.IdVoznje.ToString(), "");*/
 
-            voznje.list.Add(voznja.IdVoznje, voznja);
+            Voznje.list.Add(voznja.IdVoznje, voznja);
             string path = HostingEnvironment.MapPath("~/App_Data/Voznje.txt");
 
             StringBuilder sb = new StringBuilder();
@@ -70,9 +68,6 @@ namespace WebAPI.Controllers
             else
                 File.AppendAllText(path, sb.ToString());
 
-            voznje = new Voznje("~/App_Data/Voznje.txt");
-            HttpContext.Current.Application["voznje"] = voznje;
-
             return true;
         }
 
@@ -81,7 +76,7 @@ namespace WebAPI.Controllers
         {
             Voznje voznje = (Voznje)HttpContext.Current.Application["voznje"];
 
-            Voznja v = voznje.list[Id];
+            Voznja v = Voznje.list[Id];
 
             v.DatumVreme = vo.DatumVreme;
             v.Lokacija.X = vo.Lokacija.X;
@@ -123,14 +118,14 @@ namespace WebAPI.Controllers
             v.Komentar.Ocena = vo.Komentar.Ocena;
             v.StatusVoznje = vo.StatusVoznje;
 
-            voznje.list[vo.IdVoznje] = v;
+            Voznje.list[vo.IdVoznje] = v;
 
             bool prviPut = true;
 
             string path = HostingEnvironment.MapPath("~/App_Data/Voznje.txt");
             StringBuilder sb = new StringBuilder();
 
-            foreach (Voznja voznja in voznje.list.Values)
+            foreach (Voznja voznja in Voznje.list.Values)
             {
                 if (prviPut)
                 {

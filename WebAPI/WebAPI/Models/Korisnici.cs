@@ -9,7 +9,7 @@ namespace WebAPI.Models
 {
     public class Korisnici
     {
-        public Dictionary<int, Korisnik> list { get; set; }
+        public static Dictionary<int, Korisnik> list { get; set; }
 
         public Korisnici()
         {

@@ -17,11 +17,9 @@ namespace WebAPI.Controllers
         public Korisnik Get(string KorisnickoIme)
         {
             Korisnik ret = null;
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
-            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
-            foreach (Korisnik item in korisnici.list.Values)
+
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (item.KorisnickoIme.Equals(KorisnickoIme))
                 {
@@ -30,7 +28,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            foreach (Korisnik item in dispeceri.list.Values)
+            foreach (Korisnik item in Dispeceri.list.Values)
             {
 
                 if (item.KorisnickoIme.Equals(KorisnickoIme))
@@ -40,7 +38,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            foreach (Korisnik item in vozaci.list.Values)
+            foreach (Korisnik item in Vozaci.list.Values)
             {
 
                 if (item.KorisnickoIme.Equals(KorisnickoIme))
@@ -57,11 +55,9 @@ namespace WebAPI.Controllers
         public bool Post([FromBody]Korisnik korisnik)
         {
             bool logovan = false;
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
-            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
-            foreach (Korisnik item in korisnici.list.Values)
+
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Lozinka.Equals(korisnik.Lozinka))
                 {
@@ -77,7 +73,7 @@ namespace WebAPI.Controllers
             else
             {
 
-                foreach (Dispecer item in dispeceri.list.Values)
+                foreach (Dispecer item in Dispeceri.list.Values)
                 {
                     if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Lozinka.Equals(korisnik.Lozinka))
                     {
@@ -92,7 +88,7 @@ namespace WebAPI.Controllers
                 }
                 else
                 {
-                    foreach (Vozac item in vozaci.list.Values)
+                    foreach (Vozac item in Vozaci.list.Values)
                     {
                         if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Lozinka.Equals(korisnik.Lozinka))
                         {

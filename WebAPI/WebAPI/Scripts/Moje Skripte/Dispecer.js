@@ -801,7 +801,7 @@
                     KontaktTelefon: `${$('#KontaktTelefonVDodaj').val()}`,
                     Email: `${$('#EmailVDodaj').val()}`,
                     Uloga: `${'Vozac'}`,
-                    Voznje: `${'nema'}`,
+                    Voznje: "",
                     Banovan: `${"NE"}`,
                     Lokacija: lokacija,
                     Automobil: automobil

@@ -13,7 +13,7 @@
 
 function proveriUlogovanog() {
     let korisnickoIme = localStorage.getItem("Ulogovan");
-    if (korisnickoIme == "") {
+    if (korisnickoIme === "") {
         $(location).attr('href', 'index.html');
     }
 }
@@ -21,11 +21,13 @@ function proveriUlogovanog() {
 proveriUlogovanog();
 
 
-$(document).ready(function () {
 
+$(document).ready(function () {
     $('#vozac').hide();
     $('#dispecer').hide();
     $('#korisnik').hide();
+    $('#map1').hide();
+
 
     let korisnik;
     let korisnickoIme = localStorage.getItem("Ulogovan");
@@ -45,11 +47,11 @@ $(document).ready(function () {
         contentType: 'application/json;charset=utf-8',
         dataType: 'json',
         success: function (data) {
-            if (data != null) {
+            if (data !== null) {
                 korisnik = data;// MORAM IZBACITI JER SVAKI PUT IDE GET
                 korisnickiId = data.Id;
                 //prikaz odredjenog diva za odredjenu ulogu korisnika
-                if (korisnik.Uloga == 0) {
+                if (korisnik.Uloga === 0) {
                     $('#vozac').hide();
                     $('#dispecer').hide();
                     $('#korisnik').show();
@@ -69,22 +71,22 @@ $(document).ready(function () {
 
 
                             for (let i = 0; i < data.length; i++) {
-                                if (data[i].Musterija == localStorage.getItem("Ulogovan")) {
-                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                if (data[i].Musterija === localStorage.getItem("Ulogovan")) {
+                                    s += "<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>";
 
-                                    if (data[i].Dispecer == "") {
+                                    if (data[i].Dispecer === "") {
                                         s += '<td>/</td>';
                                     } else {
-                                        s += ('<td>' + data[i].Dispecer + '</td>');
+                                        s += '<td>' + data[i].Dispecer + '</td>';
                                     }
 
-                                    if (data[i].Vozac == "") {
+                                    if (data[i].Vozac === "") {
                                         s += '<td>/</td>';
                                     } else {
-                                        s += ('<td>' + data[i].Vozac + '</td>');
+                                        s += '<td>' + data[i].Vozac + '</td>';
                                     }
 
-                                    s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                    s += '<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>";
 
                                     switch (data[i].Automobil) {
                                         case 0:
@@ -97,46 +99,46 @@ $(document).ready(function () {
                                             s += "Svejedno";
                                     }
 
-                                    if (data[i].Odrediste.Adresa.UlicaBroj == "") {
-                                        s += ("<td>/" + "</td>");
+                                    if (data[i].Odrediste.Adresa.UlicaBroj === "") {
+                                        s += "<td>/" + "</td>";
                                     }
                                     else {
-                                        s += ("<td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                        s += "<td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>";
                                     }
 
-                                    if (data[i].Iznos != "0") {
-                                        s += ("<td>" + data[i].Iznos + "</td>");
+                                    if (data[i].Iznos !== "0") {
+                                        s += "<td>" + data[i].Iznos + "</td>";
                                     } else {
-                                        s += ("<td>/</td>");
+                                        s += "<td>/</td>";
                                     }
 
-                                    s += ('<td><textarea rows="5" cols="30" disabled>');
+                                    s += '<td><textarea rows="5" cols="30" disabled>';
 
-                                    if (data[i].Komentar.Opis == "") {
-                                        s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                    if (data[i].Komentar.Opis === "") {
+                                        s += "Komentar nije dodat!" + "</textarea ></td >";
                                     } else {
-                                        s += ("Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >");
+                                        s += "Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >";
                                     }
 
-                                    s += ("<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td> <td>");
+                                    s += "<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td> <td>";
 
-                                    if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
-                                        s += (`<input type="button" value="Odustani" id="odustani" class="obtn" name=${data[i].IdVoznje} /><br /><br />`);
-                                        s += (`<input type="button" value="  Izmeni " id="izmeniV" class="ibtn" name=${data[i].IdVoznje} />`);
-                                    } else if (vratiStatusVoznje(data[i].StatusVoznje) == "Uspešna") {
-                                        s += (`<input type="button" value=" Komentar " id="dodajKomentarUspesna" class="kombtn" name=${data[i].IdVoznje} />`);
+                                    if (vratiStatusVoznje(data[i].StatusVoznje) === "Kreirana") {
+                                        s += `<input type="button" value="Odustani" id="odustani" class="obtn" name=${data[i].IdVoznje} /><br /><br />`;
+                                        s += `<input type="button" value="  Izmeni " id="izmeniV" class="ibtn" name=${data[i].IdVoznje} />`;
+                                    } else if (vratiStatusVoznje(data[i].StatusVoznje) === "Uspešna") {
+                                        s += `<input type="button" value=" Komentar " id="dodajKomentarUspesna" class="kombtn" name=${data[i].IdVoznje} />`;
                                     } else {
-                                        s += ("Nedostupne");
+                                        s += "Nedostupne";
                                     }
-                                    s += (`</td></tr>`)
+                                    s += `</td></tr>`;
                                 }
                             }
 
                             s += '</table></div>';
                             $('#glavni').append(s);
                         }
-                    })
-                } else if (korisnik.Uloga == 1) {
+                    });
+                } else if (korisnik.Uloga === 1) {
                     $('#vozac').hide();
                     $('#korisnik').hide();
                     $('#dispecer').show();
@@ -155,22 +157,22 @@ $(document).ready(function () {
 
 
                             for (let i = 0; i < data.length; i++) {
-                                if (data[i].Dispecer == localStorage.getItem("Ulogovan")) {
-                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                if (data[i].Dispecer === localStorage.getItem("Ulogovan")) {
+                                    s += "<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>";
 
-                                    if (data[i].Musterija == "") {
+                                    if (data[i].Musterija === "") {
                                         s += '<td>/</td>';
                                     } else {
-                                        s += ('<td>' + data[i].Musterija + '</td>');
+                                        s += '<td>' + data[i].Musterija + '</td>';
                                     }
 
-                                    if (data[i].Vozac == "") {
+                                    if (data[i].Vozac === "") {
                                         s += '<td>/</td>';
                                     } else {
-                                        s += ('<td>' + data[i].Vozac + '</td>');
+                                        s += '<td>' + data[i].Vozac + '</td>';
                                     }
 
-                                    s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                    s += '<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>";
 
                                     switch (data[i].Automobil) {
                                         case 0:
@@ -183,42 +185,42 @@ $(document).ready(function () {
                                             s += "Svejedno";
                                     }
 
-                                    if (data[i].Odrediste.Adresa.UlicaBroj == "") {
-                                        s += ("</td><td>/" + "</td>");
+                                    if (data[i].Odrediste.Adresa.UlicaBroj === "") {
+                                        s += "</td><td>/" + "</td>";
                                     }
                                     else {
-                                        s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                        s += "</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>";
                                     }
 
-                                    if (data[i].Iznos != "0") {
-                                        s += ("<td>" + data[i].Iznos + "</td>");
+                                    if (data[i].Iznos !== "0") {
+                                        s += "<td>" + data[i].Iznos + "</td>";
                                     } else {
-                                        s += ("<td>/</td>");
+                                        s += "<td>/</td>";
                                     }
 
-                                    s += ('<td><textarea rows="5" cols="30" disabled>');
+                                    s += '<td><textarea rows="5" cols="30" disabled>';
 
-                                    if (data[i].Komentar.Opis == "") {
-                                        s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                    if (data[i].Komentar.Opis === "") {
+                                        s += "Komentar nije dodat!" + "</textarea ></td >";
                                     } else {
-                                        s += ("Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >");
+                                        s += "Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >";
                                     }
 
-                                    s += ("<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td> <td>");
+                                    s += "<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td> <td>";
 
-                                    if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana") {
-                                        s += (`<input type="button" value="Obradi" id="obradi" class="obradibtn" name=${data[i].IdVoznje} /><br /><br />`);
+                                    if (vratiStatusVoznje(data[i].StatusVoznje) === "Kreirana") {
+                                        s += `<input type="button" value="Obradi" id="obradi" class="obradibtn" name=${data[i].IdVoznje} /><br /><br />`;
                                     } else {
-                                        s += ("Nedostupne");
+                                        s += "Nedostupne";
                                     }
-                                    s += (`</td></tr>`)
+                                    s += `</td></tr>`;
                                 }
                             }
 
                             s += '</table>';
                             $('#glavni2').append(s);
                         }
-                    })
+                    });
                 } else {
                     $('#korisnik').hide();
                     $('#dispecer').hide();
@@ -238,22 +240,22 @@ $(document).ready(function () {
                             s += '<table border=1 class="voznje boja"><tr><th>Id vožnje</th><th>Datum</th><th>Mušterija</th><th>Dispečer</th><th >Mesto polaska</th><th>Tip auta</th><th>Ordedište</th><th>Iznos</th><th>Komentar</th><th>Status vožnje</th><th>Opcije</th></tr>';
 
                             for (let i = 0; i < data.length; i++) {
-                                if (data[i].Vozac == localStorage.getItem("Ulogovan")) {
-                                    s += ("<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>");
+                                if (data[i].Vozac === localStorage.getItem("Ulogovan")) {
+                                    s += "<tr><td>" + data[i].IdVoznje + "</td><td>" + data[i].DatumVreme + "</td>";
 
-                                    if (data[i].Musterija == "") {
+                                    if (data[i].Musterija === "") {
                                         s += '<td>/</td>';
                                     } else {
-                                        s += ('<td>' + data[i].Musterija + '</td>');
+                                        s += '<td>' + data[i].Musterija + '</td>';
                                     }
 
-                                    if (data[i].Dispecer == "") {
+                                    if (data[i].Dispecer === "") {
                                         s += '<td>/</td>';
                                     } else {
-                                        s += ('<td>' + data[i].Dispecer + '</td>');
+                                        s += '<td>' + data[i].Dispecer + '</td>';
                                     }
 
-                                    s += ('<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>");
+                                    s += '<td>' + data[i].Lokacija.Adresa.UlicaBroj + ", " + data[i].Lokacija.Adresa.NaseljenoMesto + " " + data[i].Lokacija.Adresa.PozivniBroj + "</td><td>";
 
                                     switch (data[i].Automobil) {
                                         case 0:
@@ -266,56 +268,56 @@ $(document).ready(function () {
                                             s += "Svejedno";
                                     }
 
-                                    if (data[i].Odrediste.Adresa.UlicaBroj == "") {
-                                        s += ("</td><td>/" + "</td>");
+                                    if (data[i].Odrediste.Adresa.UlicaBroj === "") {
+                                        s += "</td><td>/" + "</td>";
                                     }
                                     else {
-                                        s += ("</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>");
+                                        s += "</td><td>" + data[i].Odrediste.Adresa.UlicaBroj + ", " + data[i].Odrediste.Adresa.NaseljenoMesto + " " + data[i].Odrediste.Adresa.PozivniBroj + "</td>";
                                     }
 
-                                    if (data[i].Iznos != "0") {
-                                        s += ("<td>" + data[i].Iznos + "</td>");
+                                    if (data[i].Iznos !== "0") {
+                                        s += "<td>" + data[i].Iznos + "</td>";
                                     } else {
-                                        s += ("<td>/</td>");
+                                        s += "<td>/</td>";
                                     }
 
-                                    s += ('<td><textarea rows="5" cols="30" disabled>');
+                                    s += '<td><textarea rows="5" cols="30" disabled>';
 
-                                    if (data[i].Komentar.Opis == "") {
-                                        s += ("Komentar nije dodat!" + "</textarea ></td >");
+                                    if (data[i].Komentar.Opis === "") {
+                                        s += "Komentar nije dodat!" + "</textarea ></td >";
                                     } else {
-                                        s += ("Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >");
+                                        s += "Korisnicko ime: " + data[i].Komentar.KorisnickoIme + "\n\nOpis: " + data[i].Komentar.Opis + "\n\nOcena: " + data[i].Komentar.Ocena + "\nDatum: " + data[i].Komentar.DatumObjave + "</textarea ></td >";
                                     }
 
-                                    s += ("<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td> <td>");
+                                    s += "<td>" + vratiStatusVoznje(data[i].StatusVoznje) + "</td> <td>";
 
-                                    if (vratiStatusVoznje(data[i].StatusVoznje) == "Kreirana" && data[i].Zauzet != "DA") {//ovo ovde cu ostaviti ne steti ali nije ispravno!
-                                        s += (`<input type="button" value="Prihvati" id="Prihvati" class="prihvatibtn" name=${data[i].IdVoznje} /><br /><br />`);
-                                    } else if (vratiStatusVoznje(data[i].StatusVoznje) == "Prihvaćena" || vratiStatusVoznje(data[i].StatusVoznje) == "Obradjena" || vratiStatusVoznje(data[i].StatusVoznje) == "Formirana") {
-                                        s += (`<input type="button" value=" Uspešna  " id="uspesna" class="uspesnabtn" name=${data[i].IdVoznje} /><br /><br />`);
-                                        s += (`<input type="button" value="Neuspešna" id="neuspesna" class="neuspesnabtn" name=${data[i].IdVoznje} /><br />`);
+                                    if (vratiStatusVoznje(data[i].StatusVoznje) === "Kreirana" && data[i].Zauzet !== "DA") {//ovo ovde cu ostaviti ne steti ali nije ispravno!
+                                        s += `<input type="button" value="Prihvati" id="Prihvati" class="prihvatibtn" name=${data[i].IdVoznje} /><br /><br />`;
+                                    } else if (vratiStatusVoznje(data[i].StatusVoznje) === "Prihvaćena" || vratiStatusVoznje(data[i].StatusVoznje) === "Obradjena" || vratiStatusVoznje(data[i].StatusVoznje) === "Formirana") {
+                                        s += `<input type="button" value=" Uspešna  " id="uspesna" class="uspesnabtn" name=${data[i].IdVoznje} /><br /><br />`;
+                                        s += `<input type="button" value="Neuspešna" id="neuspesna" class="neuspesnabtn" name=${data[i].IdVoznje} /><br />`;
                                     } else {
-                                        s += ("Nedostupne");
+                                        s += "Nedostupne";
                                     }
-                                    s += (`</td></tr>`);
+                                    s += `</td></tr>`;
                                 }
                             }
 
                             s += '</table></div>';
                             $('#glavni3').append(s);
                         }
-                    })
+                    });
                 }
             }
         }
-    })
+    });
 
     //ZA LOG OUT CISTO DA STOJI ODVOJEN OD OSTALIH
     $('#odjavi,#odjavid,#odjaviv').click(function () {
         localStorage.setItem("Ulogovan", "");
         $(location).attr('href', 'index.html');
 
-    })
+    });
 
 
-})
+});

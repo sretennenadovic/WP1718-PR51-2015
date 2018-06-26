@@ -1,5 +1,8 @@
 ﻿let idVoznja;
 $(document).ready(function () {
+    $('#vozac').hide();
+    $('#dispecer').hide();
+    $('#korisnik').hide();
     $('#map1').hide();
 
     $('#profilv').click(function () {

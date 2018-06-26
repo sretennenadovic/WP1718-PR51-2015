@@ -10,7 +10,7 @@ namespace WebAPI.Models
     public class Vozaci
     {
 
-        public Dictionary<int, Vozac> list { get; set; }
+        public static Dictionary<int, Vozac> list { get; set; }
 
         public Vozaci()
         {

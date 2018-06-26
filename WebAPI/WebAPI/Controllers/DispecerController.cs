@@ -19,9 +19,8 @@ namespace WebAPI.Controllers
         public Korisnik Get(string KorisnickoIme)
         {
             Dispecer k = null;
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
 
-            foreach (Dispecer item in dispeceri.list.Values)
+           foreach (Dispecer item in Dispeceri.list.Values)
             {
                 if (KorisnickoIme.Equals(item.KorisnickoIme))
                 {
@@ -35,9 +34,6 @@ namespace WebAPI.Controllers
         //pri update (izmeni) dispecera
         public bool Put(int Id,[FromBody]Korisnik korisnik)
         {
-            Korisnici korisnici = (Korisnici)HttpContext.Current.Application["korisnici"];
-            Dispeceri dispeceri = (Dispeceri)HttpContext.Current.Application["dispeceri"];
-            Vozaci vozaci = (Vozaci)HttpContext.Current.Application["vozaci"];
 
             int idKorisnika = Id;
             string pol;
@@ -69,7 +65,7 @@ namespace WebAPI.Controllers
                 Dispecer izmenjen = new Dispecer(idKorisnika, korisnik.KorisnickoIme, korisnik.Lozinka, korisnik.Ime, korisnik.Prezime, pol, korisnik.JMBG, korisnik.KontaktTelefon, korisnik.Email, uloga, korisnik.Voznje,korisnik.Banovan);
 
             //provera postojanja usernamea u korisnicima
-            foreach (Korisnik item in korisnici.list.Values)
+            foreach (Korisnik item in Korisnici.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -79,7 +75,7 @@ namespace WebAPI.Controllers
             }
 
             //provera postojanja usernamea u dispecerima
-            foreach (Dispecer item in dispeceri.list.Values)
+            foreach (Dispecer item in Dispeceri.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme) && item.Id != korisnik.Id)
                 {
@@ -88,7 +84,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            foreach (Vozac item in vozaci.list.Values)
+            foreach (Vozac item in Vozaci.list.Values)
             {
                 if (item.KorisnickoIme.Equals(korisnik.KorisnickoIme))
                 {
@@ -100,12 +96,12 @@ namespace WebAPI.Controllers
             if (!nadjen)
                 {
                     bool prviPut = true;
-                    dispeceri.list[idKorisnika] = izmenjen;
+                    Dispeceri.list[idKorisnika] = izmenjen;
 
                     string path = HostingEnvironment.MapPath("~/App_Data/Dispeceri.txt");
                     StringBuilder sb = new StringBuilder();
 
-                    foreach (Dispecer item in dispeceri.list.Values)
+                    foreach (Dispecer item in Dispeceri.list.Values)
                     {
                         if (prviPut)
                         {
@@ -121,9 +117,6 @@ namespace WebAPI.Controllers
                             sb.Length = 0;
                         }
                     }
-
-                    dispeceri = new Dispeceri("~/App_Data/Dispeceri.txt");
-                    HttpContext.Current.Application["dispeceri"] = dispeceri;
 
                     return true;
                 }

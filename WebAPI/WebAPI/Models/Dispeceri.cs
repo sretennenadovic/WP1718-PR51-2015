@@ -9,7 +9,7 @@ namespace WebAPI.Models
 {
     public class Dispeceri
     {
-        public Dictionary<int, Dispecer> list { get; set; }
+        public static Dictionary<int, Dispecer> list { get; set; }
 
         public Dispeceri()
         {
