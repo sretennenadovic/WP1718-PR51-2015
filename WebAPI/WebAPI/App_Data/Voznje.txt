@@ -8,9 +8,9 @@
 8;26.6.2018. 21.40.55;45.24602715716953;19.850896689084266;Vladimira Perića Valtera 2; Novi Sad;;Putnicki;;45.23883549689046;19.848235937741492;Fruškogorska; Novi Sad;;dispecer5;vozac5;590;;;;;;Uspesna
 9;26.6.2018. 21.41.12;45.25399770546567;19.850424620297645;Bulevar Mihajla Pupina 19; Novi Sad;;Kombi;;;;;;;dispecer5;vozac6;0;Nema nikog na adresi!;26.6.2018. 21.41.41;vozac6;9;0;Neuspesna
 10;26.6.2018. 21.44.19;45.236636052678854;19.83808553914821;Bulevar despota Stefana 7; Novi Sad;;Putnicki;sreten;45.243353401783274;19.840499944235262;Bulevar cara Lazara 25; Novi Sad 21000;;dispecer2;vozac2;200;;;;;;Uspesna
-11;26.6.2018. 21.44.38;45.246099587085745;19.85409817592722;Dr Ilije Đuričića; Novi Sad;;Kombi;ljubo;;;;;;;;0;;;;;;Kreirana
-12;26.6.2018. 21.45.18;45.244536514554824;19.84404126170716;Bulevar cara Lazara; Novi Sad 21000;;Svejedno;capo;;;;;;;;0;;;;;;Kreirana
-13;26.6.2018. 21.47.32;45.24584526718228;19.854371981460872;Dr Zorana Đinđića; Novi Sad;;Putnicki;draga;;;;;;;;0;;;;;;Kreirana
+11;26.6.2018. 21.44.38;45.246099587085745;19.85409817592722;Dr Ilije Đuričića; Novi Sad;;Kombi;ljubo;;;;;;;;0;Dodajem komentar jer moram.;27.6.2018. 00.09.59;ljubo;11;0;Otkazana
+12;26.6.2018. 21.45.18;45.244536514554824;19.84404126170716;Bulevar cara Lazara; Novi Sad 21000;;Putnicki;capo;;;;;;;vozac2;0;Nema musterije.;27.6.2018. 00.22.42;vozac2;12;0;Neuspesna
+13;26.6.2018. 21.47.32;45.24584526718228;19.854371981460872;Dr Zorana Đinđića; Novi Sad;;Putnicki;draga;;;;;;;;0;;27.6.2018. 00.26.48;;13;0;Otkazana
 14;26.6.2018. 21.48.33;45.24196053785775;19.834163288474087;Bulevar cara Lazara 57; Novi Sad 21000;;Putnicki;goca;;;;;;;;0;;;;;;Kreirana
-15;26.6.2018. 21.50.45;45.24780982289873;19.849850646192408;Bulevar cara Lazara 1; Novi Sad 21000;;Kombi;gadzi;;;;;;;;0;;;;;;Kreirana
+15;26.6.2018. 21.50.45;45.24780982289873;19.849850646192408;Bulevar cara Lazara 1; Novi Sad 21000;;Putnicki;gadzi;;;;;;;vozac2;0;;;;;;Prihvacena
 16;26.6.2018. 21.51.07;45.26288896306588;19.84593245651365;Almaška 18; Novi Sad 21000;;Svejedno;mici;;;;;;;;0;;;;;;Kreirana

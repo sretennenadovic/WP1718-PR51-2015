@@ -1,9 +1,9 @@
 1;vozac1;vozac1;vozac1;vozac1;Muski;1122334455667;112233;vozac1@gmail.com;Vozac;;45.23699210966637;19.839180800107215;Bulevar despota Stefana 7; Novi Sad;;1;2010;NS-111-TX;1111;Putnicki;NE;NE
-2;vozac2;vozac2;vozac2;vozac2;Zenski;1122332222222;1122222;vozac2@gmail.com;Vozac;;45.23684100970111;19.83857998528788;Bulevar despota Stefana 7; Novi Sad;;2;2002;NS-222-TX;2222;Kombi;NE;NE
+2;vozac2;vozac2;vozac2;vozac2;Zenski;1122332222222;1122222;vozac2@gmail.com;Vozac;;45.23684100970111;19.83857998528788;Bulevar despota Stefana 7; Novi Sad;;2;2002;NS-222-TX;2222;Kombi;DA;NE
 3;vozac3;vozac3;vozac3;vozac3;Muski;3322114433221;321345;vozac3@gmail.com;Vozac;;45.23809747834753;19.830606790660113;Narodnog fronta 63; Novi Sad 21102;;3;2011;NS-333-TX;3333;Putnicki;NE;NE
-4;vozac4;vozac4;vozac4;vozac4;Muski;1234123412341;123456;vozac4@gmail.com;Vozac;;;;;;;0;1234;NS-123-TX;4444;Putnicki;NE;NE
+4;vozac4;vozac4;vozac4;vozac4;Muski;1234123412341;123456;vozac4@gmail.com;Vozac;;;;;;;4;1234;NS-123-TX;4444;Putnicki;NE;NE
 5;vozac5;vozac5;vozac5Ime;vozac5Prezime;Zenski;1231234512344;1233333;vozac5@hotmail.com;Vozac;;45.23873735337952;19.848198338363773;Fruškogorska; Novi Sad;;5;2018;NS-555-TX;5555;Putnicki;NE;NE
 6;vozac6;vozac6;vozac6Ime;vozac6Prezime;Muski;8887776556655;345212;vozac6@hotmail.com;Vozac;;45.24874645535364;19.852484556821082;Dr Zorana Đinđića; Novi Sad 21000;;6;2017;NS-556-TX;6666;Kombi;NE;NE
-7;vozac7;vozac7;vozac7Ime;vozac7Prezime;Zenski;1202029292034;3578964;vozac7@gmail.com;Vozac;;;;;;;0;1990;NS-777-TX;7777;Kombi;NE;NE
-8;vozac8;vozac8;vozac8Ime;vozac8Prezime;Muski;1202888892034;3588988;vozac8@gmail.com;Vozac;;;;;;;0;1988;NS-888-TX;8888;Putnicki;NE;NE
-9;vozac9;vozac9;vozac9Ime;vozac9Prezime;Muski;1202889999034;3599998;vozac9@gmail.com;Vozac;;;;;;;0;1999;NS-999-TX;9999;Putnicki;NE;NE
+7;vozac7;vozac7;vozac7Ime;vozac7Prezime;Zenski;1202029292034;3578964;vozac7@gmail.com;Vozac;;;;;;;7;1990;NS-777-TX;7777;Kombi;NE;NE
+8;vozac8;vozac8;vozac8Ime;vozac8Prezime;Muski;1202888892034;3588988;vozac8@gmail.com;Vozac;;;;;;;8;1988;NS-888-TX;8888;Putnicki;NE;NE
+9;vozac9;vozac9;vozac9Ime;vozac9Prezime;Muski;1202889999034;3599998;vozac9@gmail.com;Vozac;;;;;;;9;1999;NS-999-TX;9999;Putnicki;NE;NE
