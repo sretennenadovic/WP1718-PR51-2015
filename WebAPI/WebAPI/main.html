@@ -132,11 +132,28 @@
                         <div class="dropdown-content">
                             <a href="#" id="pretragaVozac">Vozač</a>
                             <a href="#" id="pretragaMusterija">Mušterija</a>
+                            <a href="#" id="razno">Druge</a>
                         </div>
                     </div>
                     <div style="display:inline-block;position:absolute;margin-left:20px;">
                         <button name="clanovi" id="clanovi" style="background-color:#ffd700;border:none;height:55px;width:44px;" data-balloon="Korisnici/Vozaci!" data-balloon-pos="down"><i class="material-icons" style="font-size:36px;margin-top:5px;">group</i></button>
                     </div>
+                    <div style="display:inline-block;position:absolute;margin-left:70px;">
+                        <button style="background-color:#ffd700;border:none;height:55px;width:44px" data-balloon="Filtriraj!" data-balloon-pos="down" id="filtrirajVoznjeD"><span class="glyphicon glyphicon-filter"></span></button>
+                    </div>
+                    <div class="dropdown" style="margin-left:115px;">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <button style="background-color:#ffd700;border:none;height:55px;width:44px" data-balloon="Sortiraj!" data-balloon-pos="down" id="sortiranjeD"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                            </li>
+
+                        </ul>
+                        <div class="dropdown-content">
+                            <a href="#" id="sortirajDatumD">Datum</a>
+                            <a href="#" id="sortirajOcenaD">Ocena</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -182,6 +199,25 @@
                             <i class="material-icons" style="font-size:xx-large;">place</i>
                         </button>
                     </div>
+                    <div class="searchButtonK">
+                        <button style="background-color:#ffd700;border:none;height:55px;width:auto" id="pretragaKorisnikV" data-balloon="Pretraži!" data-balloon-pos="down"><span class="glyphicon glyphicon-search"></span></button>
+                    </div>
+                    <div style="display:inline-block;position:absolute;margin-left:5px;">
+                        <button style="background-color:#ffd700;border:none;height:55px;width:44px" data-balloon="Filtriraj!" data-balloon-pos="down" id="filtrirajVoznjeV"><span class="glyphicon glyphicon-filter"></span></button>
+                    </div>
+                    <div class="dropdown" style="margin-left:55px;">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <button style="background-color:#ffd700;border:none;height:55px;width:44px" data-balloon="Sortiraj!" data-balloon-pos="down" id="sortiranjeV"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                            </li>
+
+                        </ul>
+                        <div class="dropdown-content">
+                            <a href="#" id="sortirajDatumV">Datum</a>
+                            <a href="#" id="sortirajOcenaV">Ocena</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </nav>
