@@ -14,3 +14,7 @@
 14;26.6.2018. 21.48.33;45.24196053785775;19.834163288474087;Bulevar cara Lazara 57; Novi Sad 21000;;Putnicki;goca;;;;;;;;0;;;;;;Kreirana
 15;26.6.2018. 21.50.45;45.24780982289873;19.849850646192408;Bulevar cara Lazara 1; Novi Sad 21000;;Putnicki;gadzi;;;;;;;vozac2;0;;;;;;Prihvacena
 16;26.6.2018. 21.51.07;45.26288896306588;19.84593245651365;Almaška 18; Novi Sad 21000;;Svejedno;mici;;;;;;;;0;;;;;;Kreirana
+17;27.6.2018. 17.03.10;45.23953860202319;19.83566821054376;Narodnog fronta 25a; Novi Sad 21102;;Putnicki;miko;;;;;;dispecer1;vozac1;0;Musterija bezobrazna!;27.6.2018. 17.15.42;vozac1;17;0;Neuspesna
+18;27.6.2018. 17.17.01;45.24249187491226;19.848128649380897;Jirečekova 11; Novi Sad 21102;;Putnicki;;45.243868955901014;19.842741082247358;Dr Ivana Ribara 1; Novi Sad 403134;;dispecer2;vozac1;280;;;;;;Uspesna
+19;27.6.2018. 17.20.46;45.2437911922518;19.835618826535438;Puškinova 38; Novi Sad;;Svejedno;;;;;;;dispecer2;vozac3;0;;;;;;Formirana
+20;27.6.2018. 17.24.20;45.24040409890544;19.847090963753544;Resavska 1; Novi Sad 21000;;Kombi;miko;;;;;;;;0;;;;;;Kreirana

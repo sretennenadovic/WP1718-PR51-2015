@@ -1131,97 +1131,105 @@
     })
 
     $('#map1').on('click', '#DodajVozacaDispecer', function () {
-        $('#DodajVozacaDispecer').hide();
-        let odgovarajuci = [];
-        let petNajblizih = [];
-        let rastojanja;
+
         let addr = KompletAdresa.split(',');
 
-        let s = '';
-        s += `<div id="kritican" style="position:absolute;display:inline-block;margin-left:50px;margin-top:70px;"><h4>Moguć izbor vozača:</h4>Korisničko ime vozača: <select name="slobodniV" id="slobodniV">`;
-        let usao = "ne";
+        if (addr[0] != "") {
+            $('#DodajVozacaDispecer').hide();
 
-        let tip;
-        if ($('#korisnikTipAutaDispecer1').prop('checked')) {
-            tip = 'Putnicki';
-        } else if ($('#korisnikTipAutaDispecer2').prop('checked')) {
-            tip = 'Kombi';
-        } else {
-            tip = 'Svejedno';
-        }
+            let odgovarajuci = [];
+            let petNajblizih = [];
+            let rastojanja;
+            let addr = KompletAdresa.split(',');
 
-        $.ajax({
-            type: 'GET',
-            url: '/api/Vozac',
-            // data: JSON.stringify(KomentarOtkazaneVoznja),
-            contentType: 'application/json;charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                if (data.length > 0) {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].Zauzet == "NE") {
-                            if (tip == "Svejedno") {
-                                odgovarajuci.push(data[i]);
-                               // s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
-                                usao = "da";
-                            } else if (tip == vratiVozilo(data[i].Automobil.TipAutomobila)) {
-                                odgovarajuci.push(data[i]);
-                              //  s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
-                                usao = "da";
+            let s = '';
+            s += `<div id="kritican" style="position:absolute;display:inline-block;margin-left:50px;margin-top:70px;"><h4>Moguć izbor vozača:</h4>Korisničko ime vozača: <select name="slobodniV" id="slobodniV">`;
+            let usao = "ne";
+
+            let tip;
+            if ($('#korisnikTipAutaDispecer1').prop('checked')) {
+                tip = 'Putnicki';
+            } else if ($('#korisnikTipAutaDispecer2').prop('checked')) {
+                tip = 'Kombi';
+            } else {
+                tip = 'Svejedno';
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/Vozac',
+                // data: JSON.stringify(KomentarOtkazaneVoznja),
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].Zauzet == "NE") {
+                                if (tip == "Svejedno") {
+                                    odgovarajuci.push(data[i]);
+                                    // s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
+                                    usao = "da";
+                                } else if (tip == vratiVozilo(data[i].Automobil.TipAutomobila)) {
+                                    odgovarajuci.push(data[i]);
+                                    //  s += `<option value=${data[i].KorisnickoIme}>${data[i].KorisnickoIme}</option>`;
+                                    usao = "da";
+                                }
                             }
                         }
-                    }
 
-                    if (usao == "da") {
-                        if (odgovarajuci.length > 5) {
-                            for (var i = 0; i < odgovarajuci.length; i++) {
-                                rastojanja = Math.sqrt(Math.pow(addr[0] - odgovarajuci[i].Lokacija.X, 2) + Math.pow(addr[1] - odgovarajuci[i].Lokacija.Y, 2));
+                        if (usao == "da") {
+                            if (odgovarajuci.length > 5) {
+                                for (var i = 0; i < odgovarajuci.length; i++) {
+                                    rastojanja = Math.sqrt(Math.pow(addr[0] - odgovarajuci[i].Lokacija.X, 2) + Math.pow(addr[1] - odgovarajuci[i].Lokacija.Y, 2));
 
-                                let vozac = {
-                                    Id: odgovarajuci[i].Id,
-                                    Rastojanje: rastojanja
+                                    let vozac = {
+                                        Id: odgovarajuci[i].Id,
+                                        Rastojanje: rastojanja
+                                    }
+
+                                    petNajblizih.push(vozac);
                                 }
 
-                                petNajblizih.push(vozac);
-                            }
-
-                            petNajblizih.sort(function (a, b) {
-                                return a.Rastojanje - b.Rastojanje;
-                            })
+                                petNajblizih.sort(function (a, b) {
+                                    return a.Rastojanje - b.Rastojanje;
+                                })
 
 
 
-    
-                            for (var j = 0; j < 5; j++) {
-                                for (var i = 0; i < odgovarajuci.length; i++) {
-                                    if (petNajblizih[j].Id == odgovarajuci[i].Id) {
-                                        s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
+
+                                for (var j = 0; j < 5; j++) {
+                                    for (var i = 0; i < odgovarajuci.length; i++) {
+                                        if (petNajblizih[j].Id == odgovarajuci[i].Id) {
+                                            s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
+                                        }
                                     }
                                 }
+
+                            } else {
+                                for (var i = 0; i < odgovarajuci.length; i++) {
+                                    s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
                                 }
 
-                        } else {
-                            for (var i = 0; i < odgovarajuci.length; i++) {
-                                s += `<option value=${odgovarajuci[i].KorisnickoIme}>${odgovarajuci[i].KorisnickoIme}</option>`;
                             }
-                             
-                        }
-                    
-                        s += '</select>';
-                        s += '     <input type="button" style="margin:5px;" name="DodajVoznjuDispecer" id="DodajVoznjuDispecer" value="Dodaj" /></div>';
 
-                        $('#map1').append(s);
-                        $('#map1').fadeIn(500);
+                            s += '</select>';
+                            s += '     <input type="button" style="margin:5px;" name="DodajVoznjuDispecer" id="DodajVoznjuDispecer" value="Dodaj" /></div>';
+
+                            $('#map1').append(s);
+                            $('#map1').fadeIn(500);
+                        } else {
+                            alert("Nema odgovarajućeg vozača!");
+                            $(location).attr('href', 'main.html');
+                        }
                     } else {
-                        alert("Nema odgovarajućeg vozača!");
+                        alert("Nema vozača u sistemu!");
                         $(location).attr('href', 'main.html');
                     }
-                } else {
-                    alert("Nema vozača u sistemu!");
-                    $(location).attr('href', 'main.html');
                 }
-            }
-        })
+            })
+        } else {
+            alert("Prvo odaberite lokaciju!");
+        }
     })
 
     $('#map1').on('click', '#DodajVoznjuDispecer', function () {
